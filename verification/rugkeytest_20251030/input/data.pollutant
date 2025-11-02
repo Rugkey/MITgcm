@@ -1,0 +1,29 @@
+# Pollutant Package Parameters - Using Half-Life
+
+ &POLLUTANT_PARAMS
+
+# --- Forcing Parameters ---
+  pollutant_emission_file = 'pollutant_emission.bin',
+  pollutant_forcingPeriod = 900.,
+  pollutant_forcingCycle  = 900.,
+  pollutant_fluxIsCellTotal = .TRUE.,
+
+# --- Process Switches ---
+  usePollutantDecay     = .TRUE.,
+  usePollutantSettling  = .FALSE.,
+  usePollutantBioUptake = .FALSE.,
+
+# --- Half-Life Parameters [days] ---
+# A value of 0 means the process is effectively off.
+  pollutant_decay_halflife_d     = 30.0,  
+  pollutant_settle_halflife_d    = 30.0,  
+  pollutant_biouptake_halflife_d = 30.0, 
+
+# --- Temperature/Depth Dependence for Decay ---
+  useTempDependentDecay  = .TRUE.,
+  decayTempRef           = 20.0,
+  decayQ10               = 2.0,
+  useDepthDependentDecay = .TRUE.,
+  decayDepthScale        = 50.0,
+
+ &

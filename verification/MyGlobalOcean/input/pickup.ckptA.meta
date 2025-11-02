@@ -1,0 +1,14 @@
+ simulation = { 'global_oce_latlon' };
+ nDims = [   2 ];
+ dimList = [
+   180,    1,  180,
+    80,    1,   80
+ ];
+ dataprec = [ 'float64' ];
+ nrecords = [        323 ];
+ timeStepNumber = [        500 ];
+ timeInterval = [  4.500000000000E+05 ];
+ nFlds = [   11 ];
+ fldList = {
+ 'Uvel    ' 'Vvel    ' 'Theta   ' 'Salt    ' 'GuNm1   ' 'GvNm1   ' 'GtNm1   ' 'GsNm1   ' 'EtaN    ' 'dEtaHdt ' 'EtaH    '
+ };

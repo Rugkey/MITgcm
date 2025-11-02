@@ -1,0 +1,8 @@
+# Packages (lines beginning "#" are comments)
+ &PACKAGES
+ useGMRedi=.TRUE.,
+ useDIAGNOSTICS=.TRUE.,
+ useEXF=.TRUE.,
+ useKPP=.TRUE.,
+ useCAL=.TRUE.,
+ &

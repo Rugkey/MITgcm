@@ -1,0 +1,30 @@
+# Diagnostic Package Choices
+#--------------------
+ &DIAGNOSTICS_LIST
+  fields(1:1,1)  = 'ETAN    ',
+   fileName(1) = 'output/surf',
+  frequency(1) = -86400.,
+  timePhase(1) = 0,
+
+  fields(1:4,2)  = 'UVEL    ','VVEL    ','THETA   ','SALT    ',
+   fileName(2) = 'output/state',
+  frequency(2) = -86400.,
+  timePhase(2) = 0,
+
+  fields(1:6,3)  = 'POLLUT_S','POLLUT_K','POLLUT_D','POLLUT_L','POLLUT_B','POLLUT_T',
+  fileName(3) = 'output/pollutant_tendency',
+  frequency(3) = -86400.,
+  timePhase(3) = 0,
+
+  fields(1:2,4)  = 'TRAC01  ','POLLUT_M',
+  fileName(4) = 'output/pollutant_state',
+  frequency(4) = -86400.,
+  timePhase(4) = 0,
+
+ &
+
+#--------------------
+# Parameter for Diagnostics of per level statistics:
+#--------------------
+ &DIAG_STATIS_PARMS
+ &
