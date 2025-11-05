@@ -1,29 +1,32 @@
-# Pollutant Package Parameters - Using Half-Life
+# Pollutant Package Parameters - Using Unified Degradation Model
 
  &POLLUTANT_PARAMS
 
 # --- Forcing Parameters ---
-  pollutant_emission_file = 'pollutant_emission.bin',
-  pollutant_forcingPeriod = 900.,
-  pollutant_forcingCycle  = 900.,
+  pollutant_emission_file   = 'pollutant_emission.bin',
+  pollutant_forcingPeriod   = 900.,
+  pollutant_forcingCycle    = 900.,
+# if mol/s:.TRUE. . if mol/m2/s use .FALSE.
   pollutant_fluxIsCellTotal = .TRUE.,
 
-# --- Process Switches ---
-  usePollutantDecay     = .TRUE.,
-  usePollutantSettling  = .FALSE.,
-  usePollutantBioUptake = .FALSE.,
+# --- Unified Degradation Parameters ---
+# This section replaces the old half-life based model.
+  usePollutantDegradation = .TRUE.,
 
-# --- Half-Life Parameters [days] ---
-# A value of 0 means the process is effectively off.
-  pollutant_decay_halflife_d     = 30.0,  
-  pollutant_settle_halflife_d    = 30.0,  
-  pollutant_biouptake_halflife_d = 30.0, 
+# Zeroth-order degradation rate (g/m^3/d). Applied constantly.
+  pollutant_k0_deg_d      = 0.0,
 
-# --- Temperature/Depth Dependence for Decay ---
-  useTempDependentDecay  = .TRUE.,
-  decayTempRef           = 20.0,
-  decayQ10               = 2.0,
-  useDepthDependentDecay = .TRUE.,
-  decayDepthScale        = 50.0,
+# Critical temperature (degC). First-order degradation occurs above this temp.
+  pollutant_Tc            = 0.0,
+
+# First-order degradation rate at 20 degC (d^-1).
+# A value of 0.0231 corresponds to a half-life of 30 days (ln(2)/30).
+  pollutant_k1_deg_20_d   = 0.0001,
+
+# Temperature coefficient for first-order degradation.
+  pollutant_kt_deg        = 1.07,
+
+# Fraction of pollutant subject to first-order degradation (0-1).
+  pollutant_fr_deg        = 1.0,
 
  &

@@ -7,67 +7,46 @@ C--   COMMON /POLLUTANT_PARMS/
 C     ========================
 C     This common block holds all pollutant package parameters.
 
-C--   User-input half-life parameters [days]
-C     pollutant_decay_halflife_d     :: half-life for decay
-C     pollutant_settle_halflife_d    :: half-life for phase change (settling)
-C     pollutant_biouptake_halflife_d :: half-life for bio-uptake
-
 C--   Logical flags for processes
-C     usePollutantDecay     :: flag to turn on/off decay process
-C     usePollutantSettling  :: flag to turn on/off settling process (phase change)
-C     usePollutantBioUptake :: flag to turn on/off bio-uptake process
+C     usePollutantDegradation :: flag to turn on/off degradation process
 C     pollutant_fluxIsCellTotal :: if .TRUE., input emission is mol/s per grid-cell
 
-C--   Parameters for temperature and depth dependent decay
-C     useTempDependentDecay :: flag to enable temperature-dependent decay rate
-C     decayTempRef          :: reference temperature for decay rate [degC]
-C     decayQ10              :: Q10 temperature coefficient for decay rate
-C     useDepthDependentDecay:: flag to enable depth-dependent decay rate (light proxy)
-C     decayDepthScale       :: e-folding depth scale for decay rate reduction [m]
+C--   Parameters for temperature-dependent degradation
+C     pollutant_Tc          :: critical temperature for degradation [degC]
+C     pollutant_k1_deg_20_d :: first-order degradation rate at 20C [d^-1]
+C     pollutant_kt_deg      :: temperature coefficient for degradation
+C     pollutant_fr_deg      :: fraction subject to degradation
 
-C--   Internal rate constants [1/s] (calculated from half-lives)
-C     pollutant_decay_rate      :: base decay rate constant at reference temp
-C     pollutant_settle_rate     :: phase change rate from dissolved to particulate
-C     pollutant_biouptake_rate  :: bio-uptake rate constant
+C--   Internal rate constant [1/s] (calculated from input)
+C     pollutant_k0_deg      :: zeroth-order degradation rate [mol/m^3/s]
+C     pollutant_k1_deg_20   :: first-order degradation rate at 20C [s^-1]
 
       COMMON /POLLUTANT_PARMS/
-     &              usePollutantDecay,
-     &              usePollutantSettling,
-     &              usePollutantBioUptake,
+     &              usePollutantDegradation,
      &              pollutant_fluxIsCellTotal,
-     &              useTempDependentDecay,
-     &              useDepthDependentDecay,
-     &              pollutant_decay_rate,
-     &              pollutant_settle_rate,
-     &              pollutant_biouptake_rate,
      &              pollutant_forcingPeriod,
      &              pollutant_forcingCycle,
-     &              decayTempRef,
-     &              decayQ10,
-     &              decayDepthScale,
      &              pollutant_emission_file,
-     &              pollutant_decay_halflife_d,
-     &              pollutant_settle_halflife_d,
-     &              pollutant_biouptake_halflife_d
+     &              pollutant_Tc,
+     &              pollutant_k1_deg_20_d,
+     &              pollutant_kt_deg,
+     &              pollutant_fr_deg,
+     &              pollutant_k0_deg_d,
+     &              pollutant_k0_deg,
+     &              pollutant_k1_deg_20
 
-      LOGICAL usePollutantDecay
-      LOGICAL usePollutantSettling
-      LOGICAL usePollutantBioUptake
+      LOGICAL usePollutantDegradation
       LOGICAL pollutant_fluxIsCellTotal
-      LOGICAL useTempDependentDecay
-      LOGICAL useDepthDependentDecay
 
-      _RL pollutant_decay_rate
-      _RL pollutant_settle_rate
-      _RL pollutant_biouptake_rate
       _RL pollutant_forcingPeriod
       _RL pollutant_forcingCycle
-      _RL decayTempRef
-      _RL decayQ10
-      _RL decayDepthScale
-      _RL pollutant_decay_halflife_d
-      _RL pollutant_settle_halflife_d
-      _RL pollutant_biouptake_halflife_d
+      _RL pollutant_Tc
+      _RL pollutant_k1_deg_20_d
+      _RL pollutant_kt_deg
+      _RL pollutant_fr_deg
+      _RL pollutant_k0_deg_d
+      _RL pollutant_k0_deg
+      _RL pollutant_k1_deg_20
 
       CHARACTER*(MAX_LEN_FNAM) pollutant_emission_file
 
@@ -86,20 +65,14 @@ C     pollutant_mass    :: pollutant mass per grid cell (mol)
 C For time-averages output using TIMEAVE pkg:
 C  sourceAve     :: pollutant source term [mol/m3/s]
 C  sinkAve       :: pollutant sink term [mol/m3/s]
-C  decayAve      :: pollutant decay term [mol/m3/s]
-C  settlingAve   :: pollutant settling term [mol/m3/s]
-C  bioUptakeAve  :: pollutant bio-uptake term [mol/m3/s]
 C  POLLUTANT_timeAve :: period over which POLLUTANT averages are calculated [s]
 
       COMMON /POLLUTANT_TAVE/
-     &     sourceAve, sinkAve, decayAve, settlingAve, bioUptakeAve,
+     &     sourceAve, sinkAve,
      &     POLLUTANT_timeAve
 
       _RL sourceAve    (1-OLx:sNx+OLx,1-OLy:sNy+OLy,Nr,nSx,nSy)
       _RL sinkAve      (1-OLx:sNx+OLx,1-OLy:sNy+OLy,Nr,nSx,nSy)
-      _RL decayAve     (1-OLx:sNx+OLx,1-OLy:sNy+OLy,Nr,nSx,nSy)
-      _RL settlingAve  (1-OLx:sNx+OLx,1-OLy:sNy+OLy,Nr,nSx,nSy)
-      _RL bioUptakeAve (1-OLx:sNx+OLx,1-OLy:sNy+OLy,Nr,nSx,nSy)
       _RL POLLUTANT_timeAve(nSx,nSy)
 #endif /* ALLOW_TIMEAVE */
 

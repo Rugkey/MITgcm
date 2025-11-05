@@ -1,7 +1,0 @@
-&PTRACERS_PARM01
- PTRACERS_numInUse = 1,
- PTRACERS_Iter0 = 0,
- PTRACERS_names(1) = 'EDC',
- PTRACERS_long_names(1) = 'Endocrine Disrupting Chemical',
- PTRACERS_units(1) = 'mol/m2',
-/

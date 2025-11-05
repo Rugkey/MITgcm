@@ -1,4 +1,4 @@
- Total Nb of available Diagnostics: ndiagt=   278
+ Total Nb of available Diagnostics: ndiagt=   275
 ------------------------------------------------------------------------------------
   Num  |<-Name->|Levs|  mate |<- code ->|<--  Units   -->|<- Tile (max=80c)         
 ------------------------------------------------------------------------------------
@@ -280,12 +280,9 @@
    270 |Add2EmP |  1 |       |SM      U1|kg/m^2/s        |additional EmP from salt relaxation
    271 |POLLUT_S| 40 |       |SMRP    MR|mol/m3/sec      |Pollutant Source Term (mol/m3/s)
    272 |POLLUT_K| 40 |       |SMRP    MR|mol/m3/sec      |Pollutant Sink Term (mol/m3/s)
-   273 |POLLUT_D| 40 |       |SMRP    MR|mol/m3/sec      |Pollutant Decay Term (mol/m3/s)
-   274 |POLLUT_L| 40 |       |SMRP    MR|mol/m3/sec      |Pollutant Settling Term (mol/m3/s)
-   275 |POLLUT_B| 40 |       |SMRP    MR|mol/m3/sec      |Pollutant Bio-uptake Term (mol/m3/s)
-   276 |POLLUT_T| 40 |       |SMRP    MR|mol/m3/sec      |Pollutant Total Tendency (mol/m3/s)
-   277 |POLLUT_F| 40 |       |SM      MR|mol/m2/sec      |Pollutant Surface Flux (mol/m2/s)
-   278 |POLLUT_M| 40 |       |SMRP    MR|mol             |Pollutant Mass per Grid Cell (mol)
+   273 |POLLUT_T| 40 |       |SMRP    MR|mol/m3/sec      |Pollutant Total Tendency (mol/m3/s)
+   274 |POLLUT_F| 40 |       |SM      MR|mol/m2/sec      |Pollutant Surface Flux (mol/m2/s)
+   275 |POLLUT_M| 40 |       |SMRP    MR|mol             |Pollutant Mass per Grid Cell (mol)
 ------------------------------------------------------------------------------------
   Num  |<-Name->|Levs|  mate |<- code ->|<--  Units   -->|<- Tile (max=80c)         
 ------------------------------------------------------------------------------------

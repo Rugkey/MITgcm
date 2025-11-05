@@ -1,5 +1,0 @@
- &GCHEM_PARM01
-  useGCHEM=.TRUE.,
-  usePOLLUTANT=.TRUE.,
-  nsubtime=1,
- &

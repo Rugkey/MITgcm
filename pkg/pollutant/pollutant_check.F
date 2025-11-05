@@ -54,32 +54,35 @@ C---+----1----+----2----+----3----+----4----+----5----+----6----+----7-|--+----|
       WRITE(msgBuf,'(A)') '// ==================================='
       CALL PRINT_MESSAGE( msgBuf, standardMessageUnit,
      &                    SQUEEZE_RIGHT, myThid )
-      
-      WRITE(msgBuf,'(A,L5)') '// usePollutantDecay: ', usePollutantDecay
+
+      WRITE(msgBuf,'(A,L5)') '// usePollutantDegradation: ',
+     &                        usePollutantDegradation
       CALL PRINT_MESSAGE( msgBuf, standardMessageUnit,
      &                    SQUEEZE_RIGHT, myThid )
-      WRITE(msgBuf,'(A,L5)') '// usePollutantSettling: ',
-     &                        usePollutantSettling
-      CALL PRINT_MESSAGE( msgBuf, standardMessageUnit,
-     &                    SQUEEZE_RIGHT, myThid )
-      WRITE(msgBuf,'(A,L5)') '// usePollutantBioUptake: ',
-     &                        usePollutantBioUptake
-      CALL PRINT_MESSAGE( msgBuf, standardMessageUnit,
-     &                    SQUEEZE_RIGHT, myThid )
-      
-      WRITE(msgBuf,'(A,1PE10.3)') '// pollutant_decay_rate: ',
-     &                             pollutant_decay_rate
-      CALL PRINT_MESSAGE( msgBuf, standardMessageUnit,
-     &                    SQUEEZE_RIGHT, myThid )
-      WRITE(msgBuf,'(A,1PE10.3)') '// pollutant_settle_rate: ',
-     &                             pollutant_settle_rate
-      CALL PRINT_MESSAGE( msgBuf, standardMessageUnit,
-     &                    SQUEEZE_RIGHT, myThid )
-      WRITE(msgBuf,'(A,1PE10.3)') '// pollutant_biouptake_rate: ',
-     &                             pollutant_biouptake_rate
-      CALL PRINT_MESSAGE( msgBuf, standardMessageUnit,
-     &                    SQUEEZE_RIGHT, myThid )
-      
+
+      IF (usePollutantDegradation) THEN
+        WRITE(msgBuf,'(A,1PE10.3)') '// pollutant_k0_deg (s-1): ',
+     &                               pollutant_k0_deg
+        CALL PRINT_MESSAGE( msgBuf, standardMessageUnit,
+     &                      SQUEEZE_RIGHT, myThid )
+        WRITE(msgBuf,'(A,F8.3)') '// pollutant_Tc (degC): ',
+     &                           pollutant_Tc
+        CALL PRINT_MESSAGE( msgBuf, standardMessageUnit,
+     &                      SQUEEZE_RIGHT, myThid )
+        WRITE(msgBuf,'(A,1PE10.3)') '// pollutant_k1_deg_20 (s-1): ',
+     &                               pollutant_k1_deg_20
+        CALL PRINT_MESSAGE( msgBuf, standardMessageUnit,
+     &                      SQUEEZE_RIGHT, myThid )
+        WRITE(msgBuf,'(A,F8.3)') '// pollutant_kt_deg: ',
+     &                           pollutant_kt_deg
+        CALL PRINT_MESSAGE( msgBuf, standardMessageUnit,
+     &                      SQUEEZE_RIGHT, myThid )
+        WRITE(msgBuf,'(A,F8.3)') '// pollutant_fr_deg: ',
+     &                           pollutant_fr_deg
+        CALL PRINT_MESSAGE( msgBuf, standardMessageUnit,
+     &                      SQUEEZE_RIGHT, myThid )
+      ENDIF
+
       WRITE(msgBuf,'(A)') '// ==================================='
       CALL PRINT_MESSAGE( msgBuf, standardMessageUnit,
      &                    SQUEEZE_RIGHT, myThid )

@@ -1,6 +1,0 @@
-# Packages
- &PACKAGES
- useOPPS=.TRUE.,
- useDiagnostics=.TRUE.,
- useMNC=.TRUE.,
- &

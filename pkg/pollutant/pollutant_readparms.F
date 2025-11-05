@@ -39,22 +39,16 @@ C     === Local variables ===
 
 C--   Namelist for pollutant package parameters
       NAMELIST /POLLUTANT_PARAMS/
-     &          usePollutantDecay,
-     &          usePollutantSettling,
-     &          usePollutantBioUptake,
+     &          usePollutantDegradation,
      &          pollutant_fluxIsCellTotal,
-     &          useTempDependentDecay,
-     &          useDepthDependentDecay,
-     &          pollutant_decay_halflife_d,
-     &          pollutant_settle_halflife_d,
-     &          pollutant_biouptake_halflife_d,
      &          pollutant_forcingPeriod,
      &          pollutant_forcingCycle,
-
-     &          decayTempRef,
-     &          decayQ10,
-     &          decayDepthScale,
-     &          pollutant_emission_file
+     &          pollutant_emission_file,
+     &          pollutant_Tc,
+     &          pollutant_k1_deg_20_d,
+     &          pollutant_kt_deg,
+     &          pollutant_fr_deg,
+     &          pollutant_k0_deg_d
 
 C---+----1----+----2----+----3----+----4----+----5----+----6----+----7-|--+----|
 
@@ -62,22 +56,17 @@ C---+----1----+----2----+----3----+----4----+----5----+----6----+----7-|--+----|
        errCount = 0
 
 C--   Set default values
-       usePollutantDecay       = .FALSE.
-       usePollutantSettling    = .FALSE.
-       usePollutantBioUptake   = .FALSE.
+       usePollutantDegradation = .FALSE.
        pollutant_fluxIsCellTotal = .FALSE.
-       useTempDependentDecay   = .FALSE.
-       useDepthDependentDecay  = .FALSE.
-
-       pollutant_decay_halflife_d     = 0. _d 0
-       pollutant_settle_halflife_d    = 0. _d 0
-       pollutant_biouptake_halflife_d = 0. _d 0
 
        pollutant_forcingPeriod = externForcingPeriod
        pollutant_forcingCycle  = externForcingCycle
-       decayTempRef            = 20. _d 0
-       decayQ10                = 2.0 _d 0
-       decayDepthScale         = 50. _d 0
+
+       pollutant_Tc            = 0. _d 0
+       pollutant_k1_deg_20_d   = 0. _d 0
+       pollutant_kt_deg        = 1.047 _d 0
+       pollutant_fr_deg        = 1.0 _d 0
+       pollutant_k0_deg_d      = 0. _d 0
 
        pollutant_emission_file = 'pollutant_emission.bin'
 
@@ -103,53 +92,43 @@ C--   Close the open data file
       CLOSE(iUnit,STATUS='DELETE')
 #endif /* SINGLE_DISK_IO */
 
-C--   Convert half-lives (days) to rate constants (1/s)
-C     k = ln(2) / T_half
-      LOG_2 = 0.69314718056 _d 0
+C--   Convert degradation rate from d^-1 to s^-1
       SECONDS_PER_DAY = 86400. _d 0
 
-      IF ( pollutant_decay_halflife_d .GT. 0. _d 0 ) THEN
-        pollutant_decay_rate = LOG_2 /
-     &     ( pollutant_decay_halflife_d * SECONDS_PER_DAY )
+      IF ( pollutant_k1_deg_20_d .GT. 0. _d 0 ) THEN
+        pollutant_k1_deg_20 = pollutant_k1_deg_20_d / SECONDS_PER_DAY
       ELSE
-        pollutant_decay_rate = 0. _d 0
+        pollutant_k1_deg_20 = 0. _d 0
       ENDIF
 
-      IF ( pollutant_settle_halflife_d .GT. 0. _d 0 ) THEN
-        pollutant_settle_rate = LOG_2 /
-     &     ( pollutant_settle_halflife_d * SECONDS_PER_DAY )
+      IF ( pollutant_k0_deg_d .GT. 0. _d 0 ) THEN
+        pollutant_k0_deg = pollutant_k0_deg_d / SECONDS_PER_DAY
       ELSE
-        pollutant_settle_rate = 0. _d 0
-      ENDIF
-
-      IF ( pollutant_biouptake_halflife_d .GT. 0. _d 0 ) THEN
-        pollutant_biouptake_rate = LOG_2 /
-     &     ( pollutant_biouptake_halflife_d * SECONDS_PER_DAY )
-      ELSE
-        pollutant_biouptake_rate = 0. _d 0
+        pollutant_k0_deg = 0. _d 0
       ENDIF
 
 C---+----1----+----2----+----3----+----4----+----5----+----6----+----7-|--+----|
 C--   Parameter validation
 C---+----1----+----2----+----3----+----4----+----5----+----6----+----7-|--+----|
 
-      IF ( pollutant_decay_halflife_d .LT. 0. _d 0 ) THEN
+      IF ( pollutant_k1_deg_20_d .LT. 0. _d 0 ) THEN
         WRITE(msgBuf,'(2A)') 'POLLUTANT_READPARMS: ',
-     &    'pollutant_decay_halflife_d must be >= 0'
+     &    'pollutant_k1_deg_20_d must be >= 0'
         CALL PRINT_ERROR( msgBuf, myThid )
         errCount = errCount + 1
       ENDIF
 
-      IF ( pollutant_settle_halflife_d .LT. 0. _d 0 ) THEN
+      IF ( pollutant_k0_deg_d .LT. 0. _d 0 ) THEN
         WRITE(msgBuf,'(2A)') 'POLLUTANT_READPARMS: ',
-     &    'pollutant_settle_halflife_d must be >= 0'
+     &    'pollutant_k0_deg_d must be >= 0'
         CALL PRINT_ERROR( msgBuf, myThid )
         errCount = errCount + 1
       ENDIF
 
-      IF ( pollutant_biouptake_halflife_d .LT. 0. _d 0 ) THEN
+      IF ( pollutant_fr_deg .LT. 0. _d 0 .OR.
+     &     pollutant_fr_deg .GT. 1. _d 0 ) THEN
         WRITE(msgBuf,'(2A)') 'POLLUTANT_READPARMS: ',
-     &    'pollutant_biouptake_halflife_d must be >= 0'
+     &    'pollutant_fr_deg must be between 0 and 1'
         CALL PRINT_ERROR( msgBuf, myThid )
         errCount = errCount + 1
       ENDIF
@@ -177,31 +156,25 @@ C---+----1----+----2----+----3----+----4----+----5----+----6----+----7-|--+----|
       WRITE(msgBuf,'(A)') '// ==================================='
       CALL PRINT_MESSAGE(msgBuf,iUnit,SQUEEZE_RIGHT,myThid)
 
-      CALL WRITE_0D_L( usePollutantDecay, INDEX_NONE,
-     &  'usePollutantDecay =',
-     &  '  /* .TRUE. to enable pollutant decay */')
-      IF (usePollutantDecay) THEN
-        CALL WRITE_0D_RL( pollutant_decay_halflife_d, INDEX_NONE,
-     &    'pollutant_decay_halflife_d =',
-     &    ' /* Half-life for decay [days] */')
-      ENDIF
-
-      CALL WRITE_0D_L( usePollutantSettling, INDEX_NONE,
-     &  'usePollutantSettling =',
-     &  '  /* .TRUE. to enable phase change */')
-      IF (usePollutantSettling) THEN
-        CALL WRITE_0D_RL( pollutant_settle_halflife_d, INDEX_NONE,
-     &    'pollutant_settle_halflife_d =',
-     &    ' /* Half-life for phase change [days] */')
-      ENDIF
-
-      CALL WRITE_0D_L( usePollutantBioUptake, INDEX_NONE,
-     &  'usePollutantBioUptake =',
-     &  '  /* .TRUE. to enable pollutant bio-uptake */')
-      IF (usePollutantBioUptake) THEN
-        CALL WRITE_0D_RL( pollutant_biouptake_halflife_d, INDEX_NONE,
-     &    'pollutant_biouptake_halflife_d =',
-     &    ' /* Half-life for bio-uptake [days] */')
+      CALL WRITE_0D_L( usePollutantDegradation, INDEX_NONE,
+     &  'usePollutantDegradation =',
+     &  '  /* .TRUE. to enable pollutant degradation */')
+      IF (usePollutantDegradation) THEN
+        CALL WRITE_0D_RL( pollutant_Tc, INDEX_NONE,
+     &    'pollutant_Tc =',
+     &    ' /* Critical temperature for degradation [degC] */')
+        CALL WRITE_0D_RL( pollutant_k1_deg_20_d, INDEX_NONE,
+     &    'pollutant_k1_deg_20_d =',
+     &    ' /* 1st-order degradation rate at 20C [d^-1] */')
+        CALL WRITE_0D_RL( pollutant_kt_deg, INDEX_NONE,
+     &    'pollutant_kt_deg =',
+     &    ' /* Temperature coefficient for degradation */')
+        CALL WRITE_0D_RL( pollutant_fr_deg, INDEX_NONE,
+     &    'pollutant_fr_deg =',
+     &    ' /* Fraction subject to degradation */')
+        CALL WRITE_0D_RL( pollutant_k0_deg_d, INDEX_NONE,
+     &    'pollutant_k0_deg_d =',
+     &    ' /* 0th-order degradation rate [g m-3 d-1] */')
       ENDIF
 
       _END_MASTER(myThid)

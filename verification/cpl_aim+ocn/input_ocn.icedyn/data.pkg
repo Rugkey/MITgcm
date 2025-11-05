@@ -1,9 +1,0 @@
-# Packages
- &PACKAGES
- useGMRedi=.TRUE.,
- useThSIce=.TRUE.,
- useSEAICE=.TRUE.,
-#useSALT_PLUME =.TRUE.,
- useDiagnostics=.TRUE.,
-#useMNC=.TRUE.,
- &

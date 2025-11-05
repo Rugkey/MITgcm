@@ -1,49 +1,53 @@
-# MITgcm pkg/pollutant 使用说明（同步当前实现）
+# MITgcm Pollutant Package (pkg/pollutant)
 
-本说明覆盖 pkg/pollutant 的真实代码结构、编译与运行配置、诊断输出以及常见问题排查，已与当前仓库中的源码实现保持一致（calc 纯物理、diags 在采样窗口内统一计算+填充、diagnostics 包统一写出）。
+## 1. Overview
 
-----------------------------------------
-## 1. 模块定位与调用关系
+The `pkg/pollutant` is a flexible package for simulating the source, transport, and sink of a generic pollutant within the MITgcm framework. It is built upon the `ptracers` (passive tracers) and `gchem` (generic chemistry) packages.
 
-- 依赖框架：ptracers + gchem + diagnostics
-  - ptracers：负责污染物的平流/扩散和追踪器容器。
-  - gchem：提供“生地化学过程”统一挂载点（注册与计算时序）。
-  - diagnostics：提供通用诊断开关、采样与输出。
+This package allows users to:
+- Define a pollutant as a passive tracer.
+- Introduce pollutant sources via surface emission fluxes from a file.
+- Simulate a unified degradation (sink) process that is dependent on water temperature, following a first-order kinetics model with an optional zeroth-order term.
 
-- 当前实现的核心时序（重要）：
-  1) pollutant_calc_tendency.F：只做物理计算（源/汇/沉降），不做诊断填充。
-  2) pollutant_diags.F：在“采样窗口”打开期间（由 DO_STATEVARS_DIAGS 调用）统一计算诊断数组，并调用 DIAGNOSTICS_FILL 批量填充（不在此写出）。
-  3) diagnostics 包在其既定时序写出（DIAGNOSTICS_WRITE）。
+## 2. Dependencies and Compilation
 
-- 为什么这样设计：
-  - diagnostics 填充必须发生在 DIAGNOSTICS_SWITCH_ONOFF 之后、DIAGNOSTICS_WRITE 之前，否则会出现：
-    - has not been filled (ndiag=0)
-    - 或 expectStatus/pkStatus 错误（wrong place）。
-  - 将填充分离到 pollutant_diags.F，并从 DO_STATEVARS_DIAGS 调用，保证总在采样窗口内，稳定无错。
+### 2.1. Required Packages
 
-----------------------------------------
-## 2. 编译与启用
+To use `pkg/pollutant`, you must enable the following packages in your `packages.conf` file (e.g., located in `code/` or `build/`):
 
-- packages.conf（实验 code/ 下）：
-  - 必须包含：
-    - ptracers
-    - gchem
-    - pollutant
+```
+ptracers
+gchem
+pollutant
+```
 
-- GCHEM 选项（实验 code/GCHEM_OPTIONS.h）：
-  - 定义：
-    - #define GCHEM_ADD2TR_TENDENCY
-  - 作用：使 gchem_calc_tendency 路径生效，污染物源汇趋势进入 gchem 统一趋势缓冲并加回 ptracers（由 gchem_add_tendency 完成）。
+### 2.2. Required C-Preprocessor Options
 
-- 全量编译：
-  - make clean; make depend; make
+The `gchem` package requires a specific C-preprocessor flag to ensure that the pollutant's source/sink tendencies are correctly applied to the tracer. You must add the following line to your `GCHEM_OPTIONS.h` file (e.g., located in `code/`):
 
-----------------------------------------
-## 3. 运行时配置
+```c
+#define GCHEM_ADD2TR_TENDENCY
+```
 
-### 3.1 data.ptracers（追踪器槽位与初值）
+### 2.3. Building the Model
 
-示例：
+After configuring `packages.conf` and `GCHEM_OPTIONS.h`, compile the model from your build directory (e.g., `build/`) as usual:
+
+```bash
+make clean
+make depend
+make
+```
+
+## 3. Runtime Configuration
+
+To run a simulation with `pkg/pollutant`, you need to configure three main input files: `data.ptracers`, `data.pollutant`, and `data.diagnostics`.
+
+### 3.1. `data.ptracers` - Defining the Pollutant Tracer
+
+This file tells the model to activate a passive tracer for the pollutant.
+
+**Example:**
 ```
 &PTRACERS_PARM01
  PTRACERS_numInUse       = 1,
@@ -53,13 +57,15 @@
  PTRACERS_enforcePositive(1) = .TRUE.,
 /
 ```
-注意：
-- pollutant 注册的槽位起始号为 POLLUTANT_pTr_i1（运行时 STDOUT 会打印起始槽位与数量）。
-- 建议将 pollutant 放在首个槽位，避免与其它手动 TRAC01 冲突；或确保 numInUse 与顺序一致。
+- `PTRACERS_numInUse`: Set to the number of tracers you are using.
+- `PTRACERS_names(1)`: A descriptive name for the tracer.
+- `PTRACERS_initialFile(1)`: Path to a binary file containing the initial 3D concentration field of the pollutant.
 
-### 3.2 data.pollutant（物理过程与强迫）
+### 3.2. `data.pollutant` - Configuring Sources and Sinks
 
-示例：
+This is the main configuration file for the pollutant package.
+
+**Example:**
 ```
 &POLLUTANT_PARAMS
   pollutant_emission_file   = 'pollutant_emission.bin',
@@ -67,119 +73,68 @@
   pollutant_forcingCycle    = 900.,
   pollutant_fluxIsCellTotal = .TRUE.,
 
-  usePollutantDecay     = .TRUE.,
-  usePollutantSettling  = .FALSE.,
-  usePollutantBioUptake = .FALSE.,
-
-  pollutant_decay_halflife_d     = 30.0,
-  pollutant_settle_halflife_d    = 30.0,
-  pollutant_biouptake_halflife_d = 30.0,
-
-  useTempDependentDecay  = .TRUE.,
-  decayTempRef           = 20.0,
-  decayQ10               = 2.0,
-  useDepthDependentDecay = .TRUE.,
-  decayDepthScale        = 50.0,
+  usePollutantDegradation = .TRUE.,
+  pollutant_k0_deg_d      = 0.0,
+  pollutant_Tc            = 0.0,
+  pollutant_k1_deg_20_d   = 0.0231,
+  pollutant_kt_deg        = 1.047,
+  pollutant_fr_deg        = 1.0,
 /
 ```
-要点：
-- pollutant_fluxIsCellTotal 含义：
-  - =.TRUE.：emission 文件为“每格总通量 mol/s”；代码会除以湿面积转为面通量（mol/m2/s），再体积归一为源项（mol/m3/s）。
-  - =.FALSE.：emission 为面通量（mol/m2/s），不再除面积。
-- 半衰期[d] 自动转速率[1/s]，温/深依赖可选。
-- 首步 STDOUT 打印总排放速率以核对数量级：
-  - `POLLUTANT: Initial Global Emission Rate = ... mol/s`
 
-### 3.3 data.diagnostics（诊断流）
+**Parameter Descriptions:**
 
-示例：
+**Source Term:**
+- `pollutant_emission_file`: Path to the binary file containing the 2D surface emission flux data.
+- `pollutant_forcingPeriod`: The time in seconds at which the forcing data is updated (e.g., `86400.` for daily).
+- `pollutant_forcingCycle`: The period in seconds over which the forcing data file repeats (e.g., `31536000.` for a yearly cycle).
+- `pollutant_fluxIsCellTotal`: Defines the units of the emission file.
+  - `.TRUE.`: The file contains total flux per grid cell (units: `mol/s`). The model will convert it to a flux density (`mol/m^2/s`).
+  - `.FALSE.`: The file already contains flux density (`mol/m^2/s`).
+
+**Sink (Degradation) Term:**
+- `usePollutantDegradation`: (`.TRUE.`/`.FALSE.`) Master switch to enable or disable the degradation process.
+- `pollutant_k0_deg_d`: The zeroth-order degradation rate (units: `g/m^3/d`). This rate is applied constantly, independent of concentration or temperature. Defaults to `0.0`.
+- `pollutant_Tc`: The critical temperature (units: `degC`). The first-order degradation only occurs when the water temperature is *above* this value.
+- `pollutant_k1_deg_20_d`: The first-order degradation rate at a reference temperature of 20°C (units: `d^-1`).
+- `pollutant_kt_deg`: The dimensionless temperature coefficient used in the degradation formula `k_t^(T-20)`.
+- `pollutant_fr_deg`: The fraction (from 0 to 1) of the pollutant concentration that is subject to first-order degradation.
+
+### 3.3. `data.diagnostics` - Setting Up Output
+
+This file controls which variables are written to output files.
+
+**Example:**
 ```
 &DIAGNOSTICS_LIST
-  fields(1:6,3) = 'POLLUT_S','POLLUT_K','POLLUT_D','POLLUT_L','POLLUT_B','POLLUT_T',
-  fileName(3)   = 'output/pollutant_tendency',
-  frequency(3)  = -86400.,
-  timePhase(3)  = 0,
+  fields(1:3,1) = 'POLLUT_S','POLLUT_K','POLLUT_T',
+  fileName(1)   = 'output/pollutant_tendency',
+  frequency(1)  = -86400.,
 
-  fields(1:2,4) = 'TRAC01  ','POLLUT_M',
-  fileName(4)   = 'output/pollutant_state',
-  frequency(4)  = -86400.,
-  timePhase(4)  = 0,
+  fields(1:2,2) = 'TRAC01  ','POLLUT_M',
+  fileName(2)   = 'output/pollutant_state',
+  frequency(2)  = -86400.,
 /
 ```
-- 负频率：时间平均（例如 -86400.= 日平均）。
-- 正频率：快照（例如 +900.= 每 900 s 快照）。
-- 若需快速验证链路，建议将 frequency 暂改为 +900. 看是否立刻出现非零值；确认后再改回 -86400.。
+- A negative `frequency` (e.g., `-86400.`) requests a time-average (e.g., daily average).
+- A positive `frequency` (e.g., `900.`) requests a snapshot at that interval.
 
-----------------------------------------
-## 4. 诊断变量与单位
+## 4. Diagnostic Variables
 
-在 pollutant_diagnostics_init.F 中注册的诊断：
-- POLLUT_S：源项（mol/m3/s）
-- POLLUT_K：总汇项（mol/m3/s）= Decay+Settling+BioUptake
-- POLLUT_D：降解（mol/m3/s）
-- POLLUT_L：相转化/沉降（mol/m3/s）
-- POLLUT_B：生物摄取（mol/m3/s）
-- POLLUT_T：净趋势（mol/m3/s）= 源 - 总汇
-- POLLUT_M：单元质量（mol）= C × 体积
-- POLLUT_F：表面通量（mol/m2/s，2D）
+The following variables can be requested in `data.diagnostics`:
 
-维度：除 POLLUT_F 为 2D 外，其余均为 3D（Nr 层）。
+- `POLLUT_S`: Source term (`mol/m^3/s`)
+- `POLLUT_K`: Total sink term (`mol/m^3/s`)
+- `POLLUT_T`: Net tendency (Source - Sink) (`mol/m^3/s`)
+- `POLLUT_M`: Pollutant mass per grid cell (`mol`)
+- `POLLUT_F`: 2D surface flux (`mol/m^2/s`)
 
-----------------------------------------
-## 5. 常见问题与排查
+## 5. Quick Start Example
 
-1) has not been filled (ndiag=0)
-- 原因：诊断填充不在采样窗口内。当前实现将填充放在 DO_STATEVARS_DIAGS 调用的 pollutant_diags.F 中（采样窗口内），并由 diagnostics 统一写出，可避免该问题。
-- 若仍遇到：
-  - 确认 do_statevars_diags.F 已调用 POLLUTANT_DIAGS（seqFlag=0 处）。
-  - 确认未在 gchem_output（IO 阶段）调用 POLLUTANT_DIAGS。
-  - 可将 frequency 暂改为 +900. 快照验证。
-
-2) DIAGNOSTICS_FILL wrong place / segfault
-- 原因：在 IO 阶段（或在 DIAGNOSTICS_SWITCH_ONOFF 之前）调用 DIAGNOSTICS_FILL。
-- 解决：确保只在 DO_STATEVARS_DIAGS 阶段调用 POLLUTANT_DIAGS；pollutant_calc_tendency.F 不做填充。
-
-3) 数值一直很小/接近 0
-- 检查：
-  - pollutant_fluxIsCellTotal 与 emission 单位是否匹配。
-  - 表层 k=1 是否湿格（hFacC>0）、排放区域是否落在海洋网格。
-  - 用正频率快照（+900.）快速验证是否出现非零。
-
-4) 追踪器槽位不匹配
-- 查看 STDOUT 中 POLLUTANT_TR_REGISTER 打印的起始槽位与数量，确保 data.ptracers 的配置一致且未与其它 TRACxx 冲突。
-
-----------------------------------------
-## 6. 运行流程小结（当前实现）
-
-- 编译：ptracers+gchem+pollutant，并在 GCHEM_OPTIONS.h 定义 GCHEM_ADD2TR_TENDENCY。
-- 计算阶段：
-  - gchem_calc_tendency → POLLUTANT_CALC_TENDENCY：只算物理源汇趋势。
-- 采样阶段：
-  - do_statevars_diags.F（seqFlag=0）→ POLLUTANT_DIAGS：构建诊断数组并 DIAGNOSTICS_FILL，保证采样窗口内计数生效。
-- 写出阶段：
-  - diagnostics 包统一 DIAGNOSTICS_WRITE。
-
-----------------------------------------
-## 7. 附：最小工作示例（MWE）
-
-- packages.conf：
-```
-ptracers
-gchem
-pollutant
-```
-- code/GCHEM_OPTIONS.h：
-```
-#define GCHEM_ADD2TR_TENDENCY
-```
-- data.ptracers / data.pollutant / data.diagnostics 如前文示例。
-- 全量编译并运行：
-```
-make clean; make depend; make
-```
-- 验证：
-  - STDOUT 有 “POLLUTANT: Initial Global Emission Rate=… mol/s”。
-  - 输出含非零 POLLUT_S（表层）、POLLUT_M（随时间增加）。
-
-----------------------------------------
-文档更新于：2025-11
+1.  **`packages.conf`**: Add `ptracers`, `gchem`, `pollutant`.
+2.  **`code/GCHEM_OPTIONS.h`**: Add `#define GCHEM_ADD2TR_TENDENCY`.
+3.  **Compile**: `make clean && make depend && make`.
+4.  **`data.ptracers`**: Configure `PTRACERS_PARM01` to use at least one tracer.
+5.  **`data.pollutant`**: Create the file with the `&POLLUTANT_PARAMS` namelist as shown in the example above.
+6.  **`data.diagnostics`**: Configure your desired output files.
+7.  **Run the model**.

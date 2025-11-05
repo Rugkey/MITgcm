@@ -52,27 +52,6 @@ CEOP
       CALL DIAGNOSTICS_ADDTOLIST( diagNum,
      I       diagName, diagCode, diagUnits, diagTitle, 0, myThid )
 
-      diagName  = 'POLLUT_D'
-      diagTitle = 'Pollutant Decay Term (mol/m3/s)'
-      diagUnits = 'mol/m3/sec      '
-      diagCode  = 'SMRP    MR      '
-      CALL DIAGNOSTICS_ADDTOLIST( diagNum,
-     I       diagName, diagCode, diagUnits, diagTitle, 0, myThid )
-
-      diagName  = 'POLLUT_L'
-      diagTitle = 'Pollutant Settling Term (mol/m3/s)'
-      diagUnits = 'mol/m3/sec      '
-      diagCode  = 'SMRP    MR      '
-      CALL DIAGNOSTICS_ADDTOLIST( diagNum,
-     I       diagName, diagCode, diagUnits, diagTitle, 0, myThid )
-
-      diagName  = 'POLLUT_B'
-      diagTitle = 'Pollutant Bio-uptake Term (mol/m3/s)'
-      diagUnits = 'mol/m3/sec      '
-      diagCode  = 'SMRP    MR      '
-      CALL DIAGNOSTICS_ADDTOLIST( diagNum,
-     I       diagName, diagCode, diagUnits, diagTitle, 0, myThid )
-
       diagName  = 'POLLUT_T'
       diagTitle = 'Pollutant Total Tendency (mol/m3/s)'
       diagUnits = 'mol/m3/sec      '

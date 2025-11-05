@@ -44,9 +44,8 @@ C     !INPUT/OUTPUT PARAMETERS:
 C     !LOCAL VARIABLES:
       INTEGER i, j, k
       _RL sourceTerm, sinkTerm
-      _RL decayTerm, settleTerm, bioupTerm
-      _RL local_decay_rate, temp_factor, depth_factor
-      _RL pTr_Pollutant_safe, mass
+      _RL degradationTerm, temp_factor
+      _RL pTr_Pollutant_safe
       _RL denom
 CEOP
 
@@ -70,33 +69,18 @@ C--       1. Source term (emission flux at surface)
            ENDIF
           ENDIF
 
-C--       2. Sink terms (decay, settling/phase-change, bio-uptake)
-          decayTerm = 0. _d 0
-          IF ( usePollutantDecay ) THEN
-            local_decay_rate = pollutant_decay_rate
-            IF ( useTempDependentDecay ) THEN
-              temp_factor = decayQ10 ** ((theta_arg(i,j,k)
-     &                                   - decayTempRef) / 10.0 _d 0)
-              local_decay_rate = local_decay_rate * temp_factor
+C--       2. Sink term (degradation)
+          sinkTerm = 0. _d 0
+          IF ( usePollutantDegradation ) THEN
+            degradationTerm = 0. _d 0
+            IF ( theta_arg(i,j,k) .GT. pollutant_Tc ) THEN
+              temp_factor = pollutant_kt_deg ** 
+     &                       (theta_arg(i,j,k) - 20.0 _d 0)
+              degradationTerm = ( pollutant_k1_deg_20 * temp_factor
+     &                        * pollutant_fr_deg * pTr_Pollutant_safe )
             ENDIF
-            IF ( useDepthDependentDecay ) THEN
-              depth_factor = EXP( rC(k) / decayDepthScale )
-              local_decay_rate = local_decay_rate * depth_factor
-            ENDIF
-            decayTerm = local_decay_rate * pTr_Pollutant_safe
+            sinkTerm = pollutant_k0_deg + degradationTerm
           ENDIF
-
-          settleTerm = 0. _d 0
-          IF ( usePollutantSettling ) THEN
-            settleTerm = pollutant_settle_rate * pTr_Pollutant_safe
-          ENDIF
-
-          bioupTerm = 0. _d 0
-          IF ( usePollutantBioUptake ) THEN
-            bioupTerm = pollutant_biouptake_rate * pTr_Pollutant_safe
-          ENDIF
-
-          sinkTerm = decayTerm + settleTerm + bioupTerm
 
 C--       3. Apply tendencies
           gPollutant(i,j,k) = gPollutant(i,j,k)
