@@ -1,1 +1,0 @@
-../../../pkg/gmredi/gmredi_calc_diff.F

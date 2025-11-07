@@ -1,1 +1,0 @@
-../../../pkg/gmredi/gmredi_readparms.F
