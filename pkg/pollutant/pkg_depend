@@ -1,0 +1,16 @@
+#
+# Package dependencies
+#
+# Used by the build-system to determine the package-ordering for the
+# inclusion of header files with package-specific CPP-definitions.
+#
+# Format of this file:
+#
+# <pkg-name> : <pkg-dependency-list>
+#
+# where
+# <pkg-name>            ::= name of the package
+# <pkg-dependency-list> ::= list of packages <pkg-name> depends on
+#
+
+pollutant : exf

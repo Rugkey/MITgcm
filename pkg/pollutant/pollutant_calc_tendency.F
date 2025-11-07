@@ -26,6 +26,7 @@ C     == Global variables ==
 #include "GRID.h"
 #include "POLLUTANT.h"
 #include "POLLUTANT_SIZE.h"
+#include "POLLUTANT_FIELDS.h"
 #include "PTRACERS_SIZE.h"
 #include "PTRACERS_PARAMS.h"
 #include "PTRACERS_FIELDS.h"
@@ -44,7 +45,9 @@ C     !INPUT/OUTPUT PARAMETERS:
 C     !LOCAL VARIABLES:
       INTEGER i, j, k
       _RL sourceTerm, sinkTerm
-      _RL degradationTerm, temp_factor
+      _RL k_total, k_dark_T, k_bio_T, k_photo_z
+      _RL temp_factor_dark, temp_factor_bio
+      _RL light_factor
       _RL pTr_Pollutant_safe
       _RL denom
 CEOP
@@ -72,14 +75,37 @@ C--       1. Source term (emission flux at surface)
 C--       2. Sink term (degradation)
           sinkTerm = 0. _d 0
           IF ( usePollutantDegradation ) THEN
-            degradationTerm = 0. _d 0
+            k_total = 0. _d 0
+
+C           Only calculate degradation if temperature is above critical temp
             IF ( theta_arg(i,j,k) .GT. pollutant_Tc ) THEN
-              temp_factor = pollutant_kt_deg ** 
-     &                       (theta_arg(i,j,k) - 20.0 _d 0)
-              degradationTerm = ( pollutant_k1_deg_20 * temp_factor
-     &                        * pollutant_fr_deg * pTr_Pollutant_safe )
+
+C             a) Temperature-dependent dark and biological degradation (Q10)
+              temp_factor_dark = pollutant_Q10_dark **
+     &                         ( (theta_arg(i,j,k) - 20.0 _d 0) / 10.0 _d 0 )
+              k_dark_T = pollutant_k_dark_20 * temp_factor_dark
+
+              temp_factor_bio = pollutant_Q10_bio **
+     &                        ( (theta_arg(i,j,k) - 20.0 _d 0) / 10.0 _d 0 )
+              k_bio_T = pollutant_k_bio_20 * temp_factor_bio
+
+C             b) Depth-dependent direct photolysis (Beer-Lambert law)
+              k_photo_z = 0. _d 0
+#ifdef ALLOW_EXF
+              IF ( pollutant_swdown(i,j,bi,bj) .GT. 0. _d 0 ) THEN
+                light_factor = EXP(-pollutant_light_atten * ABS(rC(k)))
+                k_photo_z = pollutant_k_photo * light_factor
+              ENDIF
+#endif
+
+C             c) Sum all rates to get total degradation rate
+              k_total = k_dark_T + k_bio_T + pollutant_k_OH + k_photo_z
+
             ENDIF
-            sinkTerm = pollutant_k0_deg + degradationTerm
+
+C           Calculate total sink term
+            sinkTerm = k_total * pTr_Pollutant_safe
+
           ENDIF
 
 C--       3. Apply tendencies

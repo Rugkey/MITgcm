@@ -4,32 +4,18 @@
 #include "CPP_OPTIONS.h"
 
 #ifdef ALLOW_POLLUTANT
+C     Package-specific Options & Macros go here
 
-CBOP
-C    !ROUTINE: POLLUTANT_OPTIONS.h
-C    !INTERFACE:
+C     the following is required to couple to gchem
+#define ALLOW_GCHEM
 
-C    !DESCRIPTION:
-C options for ocean pollutant package
-CEOP
+C     the following is required to couple to ptracers
+#define ALLOW_PTRACERS
 
-C o Allow pollutant decay process
-#define POLLUTANT_DECAY
-
-C o Allow pollutant settling process  
-#define POLLUTANT_SETTLING
-
-C o Allow pollutant bio-uptake process
-#define POLLUTANT_BIOUPTAKE
-
-C o Allow pollutant advection
-#define POLLUTANT_ADVECTION
-
-C o Allow pollutant diffusion
-#define POLLUTANT_DIFFUSION
-
-C o Allow pollutant diagnostics
-#define POLLUTANT_DIAGNOSTICS
+C     the following is required to couple to exf for photolysis
+#ifdef ALLOW_EXF
+# include "EXF_OPTIONS.h"
+#endif
 
 #endif /* ALLOW_POLLUTANT */
 #endif /* POLLUTANT_OPTIONS_H */

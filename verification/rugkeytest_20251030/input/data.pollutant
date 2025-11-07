@@ -7,26 +7,20 @@
   pollutant_forcingPeriod   = 900.,
   pollutant_forcingCycle    = 900.,
 # if mol/s:.TRUE. . if mol/m2/s use .FALSE.
-  pollutant_fluxIsCellTotal = .TRUE.,
+  pollutant_fluxIsCellTotal = .FALSE.,
 
-# --- Unified Degradation Parameters ---
-# This section replaces the old half-life based model.
   usePollutantDegradation = .TRUE.,
+  pollutant_Tc            = 4.0,
 
-# Zeroth-order degradation rate (g/m^3/d). Applied constantly.
-  pollutant_k0_deg_d      = 0.0,
+  pollutant_k_dark_20_d   = 0.01,
+  pollutant_Q10_dark      = 2.0,
 
-# Critical temperature (degC). First-order degradation occurs above this temp.
-  pollutant_Tc            = 0.0,
+  pollutant_k_bio_20_d    = 0.005,
+  pollutant_Q10_bio       = 2.2,
 
-# First-order degradation rate at 20 degC (d^-1).
-# A value of 0.0231 corresponds to a half-life of 30 days (ln(2)/30).
-  pollutant_k1_deg_20_d   = 0.0001,
+  pollutant_k_OH_d        = 0.001,
 
-# Temperature coefficient for first-order degradation.
-  pollutant_kt_deg        = 1.07,
-
-# Fraction of pollutant subject to first-order degradation (0-1).
-  pollutant_fr_deg        = 1.0,
+  pollutant_k_photo_d     = 0.1,
+  pollutant_light_atten   = 0.15,
 
  &

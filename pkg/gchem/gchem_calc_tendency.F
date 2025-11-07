@@ -57,6 +57,7 @@ C     Initialize gchemTendency
       ENDDO
 
       IF ( useGCHEM ) THEN
+
 C     Loop over tiles
       DO bj=myByLo(myThid),myByHi(myThid)
        DO bi=myBxLo(myThid),myBxHi(myThid)

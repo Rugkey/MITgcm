@@ -1,37 +1,61 @@
-# MITgcm Pollutant Package (pkg/pollutant)
+# MITgcm 污染物模块 (`pkg/pollutant`)
 
-## 1. Overview
+## 1. 概述
 
-The `pkg/pollutant` is a flexible package for simulating the source, transport, and sink of a generic pollutant within the MITgcm framework. It is built upon the `ptracers` (passive tracers) and `gchem` (generic chemistry) packages.
+`pkg/pollutant` 是一个灵活的软件包，用于在 MITgcm 框架内模拟通用污染物的源、传输和汇过程。它构建于 `ptracers` (被动示踪剂) 和 `gchem` (通用化学) 模块之上。
 
-This package allows users to:
-- Define a pollutant as a passive tracer.
-- Introduce pollutant sources via surface emission fluxes from a file.
-- Simulate a unified degradation (sink) process that is dependent on water temperature, following a first-order kinetics model with an optional zeroth-order term.
+该模块允许用户：
+- 将污染物定义为一个被动示踪剂。
+- 通过文件引入表层排放通量作为污染物的源。
+- 模拟一个综合性的化学和生物降解（汇）过程，该过程基于伪一级动力学，并考虑了温度和光照的影响。
 
-## 2. Dependencies and Compilation
+---
 
-### 2.1. Required Packages
+## 2. 如何构建 `pollutant` 模块
 
-To use `pkg/pollutant`, you must enable the following packages in your `packages.conf` file (e.g., located in `code/` or `build/`):
+本节将指导您如何配置和编译一个包含 `pollutant` 模块的 MITgcm 实验。
 
+### 2.1. 依赖关系
+
+`pollutant` 模块依赖于以下几个核心的 MITgcm 模块。您必须确保它们都被激活。
+
+- **`gchem`**: 通用化学框架，用于管理示踪剂的源汇项。
+- **`ptracers`**: 被动示踪剂框架，用于定义和传输污染物。
+- **`exf`**: 外部强迫模块，用于提供光解作用所需的向下短波辐射数据。
+- **`cal`**: 日历模块，`exf` 包需要它来解析日期格式的强迫场时间信息。
+
+### 2.2. 配置文件
+
+在一个新的或已有的实验目录中 (例如 `verification/my_experiment/code/`)，您需要修改 `packages.conf` 文件，确保以上所有依赖的模块以及 `pollutant` 模块本身都被列出：
+
+**`code/packages.conf` 示例:**
 ```
-ptracers
 gchem
+ptracers
+exf
+cal
 pollutant
 ```
 
-### 2.2. Required C-Preprocessor Options
+### 2.3. 编译选项
 
-The `gchem` package requires a specific C-preprocessor flag to ensure that the pollutant's source/sink tendencies are correctly applied to the tracer. You must add the following line to your `GCHEM_OPTIONS.h` file (e.g., located in `code/`):
+`pollutant` 模块通过 `gchem` 与模型核心进行交互。为了确保 `gchem` 能正确地将 `pollutant` 计算出的源汇项应用到示踪剂上，您必须在 `code/GCHEM_OPTIONS.h` 文件中添加一个宏定义。如果该文件不存在，请创建它。
 
+**`code/GCHEM_OPTIONS.h`:**
 ```c
+#ifndef GCHEM_OPTIONS_H
+#define GCHEM_OPTIONS_H
+#include "PACKAGES_CONFIG.h"
+
+// 允许 gchem 将计算出的趋势项应用到 ptracers
 #define GCHEM_ADD2TR_TENDENCY
+
+#endif /* GCHEM_OPTIONS_H */
 ```
 
-### 2.3. Building the Model
+### 2.4. 编译模型
 
-After configuring `packages.conf` and `GCHEM_OPTIONS.h`, compile the model from your build directory (e.g., `build/`) as usual:
+完成以上配置后，进入您的实验构建目录 (例如 `verification/my_experiment/build/`) 并运行标准编译命令。强烈建议在修改 `packages.conf` 后执行 `make clean` 和 `make depend`。
 
 ```bash
 make clean
@@ -39,102 +63,146 @@ make depend
 make
 ```
 
-## 3. Runtime Configuration
+如果编译成功，您将在 `input/` 或 `run/` 目录中得到一个可执行文件 `mitgcmuv`，该文件已包含了完整的 `pollutant` 功能。
 
-To run a simulation with `pkg/pollutant`, you need to configure three main input files: `data.ptracers`, `data.pollutant`, and `data.diagnostics`.
+---
 
-### 3.1. `data.ptracers` - Defining the Pollutant Tracer
+## 3. 用户使用手册
 
-This file tells the model to activate a passive tracer for the pollutant.
+本节将详细介绍如何在一个已成功编译的实验中，配置和使用 `pollutant` 模块。
 
-**Example:**
+### 3.1. 降解 (汇) 模型公式
+
+污染物的降解遵循伪一级动力学模型，其浓度 `C` (mol/m³) 的变化率由以下公式给出：
+
+$$ \frac{dC}{dt} = -k_{tot} \cdot C $$
+
+其中 `k_tot` 是总降解速率常数 (s⁻¹)。该总速率由几个独立的过程组成：
+
+$$ k_{tot} = k_{dark}(T) + k_{bio}(T) + k_{OH} + k_{photo}(z) $$
+
+- **暗化学与生物降解 (`k_dark`, `k_bio`)**: 速率随温度 `T` 变化，通过 Q10 公式进行修正。
+- **间接光解 (`k_OH`)**: 假定为一个常数速率。
+- **直接光解 (`k_photo`)**: 速率随深度 `z` 呈指数衰减，依赖于海表的向下短波辐射。
+
+### 3.2. 核心配置文件
+
+您需要在实验的 `input/` 目录下配置以下几个文件：
+
+#### `data.pkg`
+
+确保 `gchem` 和 `pollutant` 模块在运行时被激活。
+
 ```
-&PTRACERS_PARM01
- PTRACERS_numInUse       = 1,
- PTRACERS_names(1)       = 'Pollutant',
- PTRACERS_advScheme(1)   = 77,
- PTRACERS_initialFile(1) = 'pollutant_initial.bin',
- PTRACERS_enforcePositive(1) = .TRUE.,
-/
+ &PACKAGES
+  useGCHEM     = .TRUE.,
+  usePOLLUTANT = .TRUE.,
+  useDiagnostics = .TRUE.,
+  useEXF       = .TRUE.,
+ & 
 ```
-- `PTRACERS_numInUse`: Set to the number of tracers you are using.
-- `PTRACERS_names(1)`: A descriptive name for the tracer.
-- `PTRACERS_initialFile(1)`: Path to a binary file containing the initial 3D concentration field of the pollutant.
 
-### 3.2. `data.pollutant` - Configuring Sources and Sinks
+#### `data.ptracers`
 
-This is the main configuration file for the pollutant package.
+定义一个被动示踪剂来代表污染物。
 
-**Example:**
 ```
-&POLLUTANT_PARAMS
+ &PTRACERS_PARM01
+  PTRACERS_numInUse=1,
+  PTRACERS_names(1)='Pollutant',
+  PTRACERS_initialFile(1)='pollutant_initial.bin',
+ & 
+```
+- `PTRACERS_numInUse`: 示踪剂数量。
+- `PTRACERS_names(1)`: 示踪剂的名称。
+- `PTRACERS_initialFile(1)`: 初始浓度场的二进制文件路径。如果设为空字符串 `' '`，则从零开始。
+
+#### `data.pollutant`
+
+这是 `pollutant` 模块的主要配置文件，用于设置源和汇的参数。
+
+```
+ &POLLUTANT_PARAMS
+# --- 源项参数 ---
   pollutant_emission_file   = 'pollutant_emission.bin',
-  pollutant_forcingPeriod   = 900.,
-  pollutant_forcingCycle    = 900.,
-  pollutant_fluxIsCellTotal = .TRUE.,
+  pollutant_forcingPeriod   = 86400.,
+  pollutant_forcingCycle    = 31536000.,
+  pollutant_fluxIsCellTotal = .FALSE.,
 
+# --- 汇 (降解) 项参数 ---
   usePollutantDegradation = .TRUE.,
-  pollutant_k0_deg_d      = 0.0,
-  pollutant_Tc            = 0.0,
-  pollutant_k1_deg_20_d   = 0.0231,
-  pollutant_kt_deg        = 1.047,
-  pollutant_fr_deg        = 1.0,
-/
+  pollutant_Tc            = 4.0,
+
+  pollutant_k_dark_20_d   = 0.01,
+  pollutant_Q10_dark      = 2.0,
+
+  pollutant_k_bio_20_d    = 0.005,
+  pollutant_Q10_bio       = 2.2,
+
+  pollutant_k_OH_d        = 0.001,
+
+  pollutant_k_photo_d     = 0.1,
+  pollutant_light_atten   = 0.15,
+ & 
 ```
 
-**Parameter Descriptions:**
+**参数说明:**
+- `pollutant_emission_file`: 包含2D表层排放通量数据的二进制文件路径。
+- `pollutant_forcingPeriod`: 强迫场数据的时间间隔 (秒)。
+- `pollutant_forcingCycle`: 强迫场数据的循环周期 (秒)。
+- `pollutant_fluxIsCellTotal`: 定义排放通量的单位。`.TRUE.` 表示 `mol/s` (每个网格的总量)，`.FALSE.` 表示 `mol/m^2/s` (通量密度)。
+- `usePollutantDegradation`: 是否启用降解过程的总开关。
+- `pollutant_Tc`: 临界温度 (`degC`)。只有当水温高于此值时，降解才会发生。
+- `pollutant_k_dark_20_d`: 20°C下的暗化学降解速率 (单位: `d^-1`)。
+- `pollutant_Q10_dark`: 暗化学降解的Q10温度系数。
+- `pollutant_k_bio_20_d`: 20°C下的生物降解速率 (单位: `d^-1`)。
+- `pollutant_Q10_bio`: 生物降解的Q10温度系数。
+- `pollutant_k_OH_d`: 间接光解速率 (单位: `d^-1`)。
+- `pollutant_k_photo_d`: 海表直接光解速率 (单位: `d^-1`)。
+- `pollutant_light_atten`: 水的光衰减系数 (单位: `m^-1`)。
 
-**Source Term:**
-- `pollutant_emission_file`: Path to the binary file containing the 2D surface emission flux data.
-- `pollutant_forcingPeriod`: The time in seconds at which the forcing data is updated (e.g., `86400.` for daily).
-- `pollutant_forcingCycle`: The period in seconds over which the forcing data file repeats (e.g., `31536000.` for a yearly cycle).
-- `pollutant_fluxIsCellTotal`: Defines the units of the emission file.
-  - `.TRUE.`: The file contains total flux per grid cell (units: `mol/s`). The model will convert it to a flux density (`mol/m^2/s`).
-  - `.FALSE.`: The file already contains flux density (`mol/m^2/s`).
+#### `data.exf`
 
-**Sink (Degradation) Term:**
-- `usePollutantDegradation`: (`.TRUE.`/`.FALSE.`) Master switch to enable or disable the degradation process.
-- `pollutant_k0_deg_d`: The zeroth-order degradation rate (units: `g/m^3/d`). This rate is applied constantly, independent of concentration or temperature. Defaults to `0.0`.
-- `pollutant_Tc`: The critical temperature (units: `degC`). The first-order degradation only occurs when the water temperature is *above* this value.
-- `pollutant_k1_deg_20_d`: The first-order degradation rate at a reference temperature of 20°C (units: `d^-1`).
-- `pollutant_kt_deg`: The dimensionless temperature coefficient used in the degradation formula `k_t^(T-20)`.
-- `pollutant_fr_deg`: The fraction (from 0 to 1) of the pollutant concentration that is subject to first-order degradation.
+为了驱动光解作用，您必须在 `data.exf` 中提供向下的短波辐射数据。
 
-### 3.3. `data.diagnostics` - Setting Up Output
-
-This file controls which variables are written to output files.
-
-**Example:**
 ```
-&DIAGNOSTICS_LIST
+ &EXF_NML_02
+  swdownstartdate1 = 19790101,
+  swdownperiod     = 2629800,
+  swdownfile       = 'NCEP/dswInterp.bin',
+ & 
+```
+- `swdownfile`: 向下短波辐射数据的二进制文件路径。
+- `swdownstartdate1`, `swdownperiod`: 数据的时间信息。
+
+### 3.3. 输入数据文件
+
+您需要准备以下二进制格式的输入文件：
+
+- **初始浓度文件**: (例如 `pollutant_initial.bin`) 一个三维数组，定义了污染物在模拟开始时的浓度分布 (单位: `mol/m^3`)。
+- **排放源文件**: (例如 `pollutant_emission.bin`) 一个二维或三维（如果随时间变化）数组，定义了污染物在海表的排放通量。
+- **向下短波辐射文件**: (例如 `NCEP/dswInterp.bin`) 由 `exf` 模块使用的二维或三维辐射数据。
+
+### 3.4. 诊断输出
+
+您可以在 `data.diagnostics` 文件中请求输出 `pollutant` 模块计算的诊断变量，以供后续分析。
+
+```
+ &DIAGNOSTICS_LIST
   fields(1:3,1) = 'POLLUT_S','POLLUT_K','POLLUT_T',
-  fileName(1)   = 'output/pollutant_tendency',
-  frequency(1)  = -86400.,
+  fileName(1)   = 'diags/pollutant_tendencies',
+  frequency(1)  = 86400.,
 
-  fields(1:2,2) = 'TRAC01  ','POLLUT_M',
-  fileName(2)   = 'output/pollutant_state',
-  frequency(2)  = -86400.,
-/
+  fields(1:1,2) = 'TRAC01',
+  fileName(2)   = 'diags/pollutant_state',
+  frequency(2)  = 86400.,
+ / 
 ```
-- A negative `frequency` (e.g., `-86400.`) requests a time-average (e.g., daily average).
-- A positive `frequency` (e.g., `900.`) requests a snapshot at that interval.
 
-## 4. Diagnostic Variables
-
-The following variables can be requested in `data.diagnostics`:
-
-- `POLLUT_S`: Source term (`mol/m^3/s`)
-- `POLLUT_K`: Total sink term (`mol/m^3/s`)
-- `POLLUT_T`: Net tendency (Source - Sink) (`mol/m^3/s`)
-- `POLLUT_M`: Pollutant mass per grid cell (`mol`)
-- `POLLUT_F`: 2D surface flux (`mol/m^2/s`)
-
-## 5. Quick Start Example
-
-1.  **`packages.conf`**: Add `ptracers`, `gchem`, `pollutant`.
-2.  **`code/GCHEM_OPTIONS.h`**: Add `#define GCHEM_ADD2TR_TENDENCY`.
-3.  **Compile**: `make clean && make depend && make`.
-4.  **`data.ptracers`**: Configure `PTRACERS_PARM01` to use at least one tracer.
-5.  **`data.pollutant`**: Create the file with the `&POLLUTANT_PARAMS` namelist as shown in the example above.
-6.  **`data.diagnostics`**: Configure your desired output files.
-7.  **Run the model**.
+**可用的诊断变量:**
+- `POLLUT_S`: 源项 (`mol/m^3/s`)
+- `POLLUT_K`: 总汇项 (`mol/m^3/s`)
+- `POLLUT_T`: 净趋势 (源 - 汇) (`mol/m^3/s`)
+- `POLLUT_M`: 每个网格单元的污染物质量 (`mol`)
+- `POLLUT_F`: 2D表层通量 (`mol/m^2/s`)
+- `TRAC01`: 污染物浓度 (第一个示踪剂)。

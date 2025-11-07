@@ -1,0 +1,3219 @@
+(PID.TID 0011.0001) 
+(PID.TID 0011.0001) // ======================================================
+(PID.TID 0011.0001) //                      MITgcm UV
+(PID.TID 0011.0001) //                      =========
+(PID.TID 0011.0001) // ======================================================
+(PID.TID 0011.0001) // execution environment starting up...
+(PID.TID 0011.0001) 
+(PID.TID 0011.0001) // MITgcmUV version:  checkpoint68n
+(PID.TID 0011.0001) // Build user:        rugkey
+(PID.TID 0011.0001) // Build host:        rugkey
+(PID.TID 0011.0001) // Build date:        Wed Nov  5 21:52:22 CST 2025
+(PID.TID 0011.0001) 
+(PID.TID 0011.0001) // =======================================================
+(PID.TID 0011.0001) // Execution Environment parameter file "eedata"
+(PID.TID 0011.0001) // =======================================================
+(PID.TID 0011.0001) ># Example "eedata" file
+(PID.TID 0011.0001) ># Lines beginning "#" are comments
+(PID.TID 0011.0001) ># nTx - No. threads per process in X
+(PID.TID 0011.0001) ># nTy - No. threads per process in Y
+(PID.TID 0011.0001) > &EEPARMS
+(PID.TID 0011.0001) > nTx=1,
+(PID.TID 0011.0001) > nTy=1,
+(PID.TID 0011.0001) > /
+(PID.TID 0011.0001) ># Note: Some systems use & as the
+(PID.TID 0011.0001) ># namelist terminator. Other systems
+(PID.TID 0011.0001) ># use a / character (as shown here).
+(PID.TID 0011.0001) 
+(PID.TID 0011.0001) // =======================================================
+(PID.TID 0011.0001) // Computational Grid Specification ( see files "SIZE.h" )
+(PID.TID 0011.0001) //                                  ( and "eedata"       )
+(PID.TID 0011.0001) // =======================================================
+(PID.TID 0011.0001)      nPx =    4 ; /* No. processes in X */
+(PID.TID 0011.0001)      nPy =    4 ; /* No. processes in Y */
+(PID.TID 0011.0001)      nSx =    1 ; /* No. tiles in X per process */
+(PID.TID 0011.0001)      nSy =    1 ; /* No. tiles in Y per process */
+(PID.TID 0011.0001)      sNx =   45 ; /* Tile size in X */
+(PID.TID 0011.0001)      sNy =   20 ; /* Tile size in Y */
+(PID.TID 0011.0001)      OLx =    2 ; /* Tile overlap distance in X */
+(PID.TID 0011.0001)      OLy =    2 ; /* Tile overlap distance in Y */
+(PID.TID 0011.0001)      nTx =    1 ; /* No. threads in X per process */
+(PID.TID 0011.0001)      nTy =    1 ; /* No. threads in Y per process */
+(PID.TID 0011.0001)       Nr =   40 ; /* No. levels in the vertical   */
+(PID.TID 0011.0001)       Nx =  180 ; /* Total domain size in X ( = nPx*nSx*sNx ) */
+(PID.TID 0011.0001)       Ny =   80 ; /* Total domain size in Y ( = nPy*nSy*sNy ) */
+(PID.TID 0011.0001)   nTiles =    1 ; /* Total no. tiles per process ( = nSx*nSy ) */
+(PID.TID 0011.0001)   nProcs =   16 ; /* Total no. processes ( = nPx*nPy ) */
+(PID.TID 0011.0001) nThreads =    1 ; /* Total no. threads per process ( = nTx*nTy ) */
+(PID.TID 0011.0001) usingMPI =    T ; /* Flag used to control whether MPI is in use */
+(PID.TID 0011.0001)                   /*  note: To execute a program with MPI calls */
+(PID.TID 0011.0001)                   /*  it must be launched appropriately e.g     */
+(PID.TID 0011.0001)                   /*  "mpirun -np 64 ......"                    */
+(PID.TID 0011.0001) useCoupler=   F ; /* Flag used to control communications with   */
+(PID.TID 0011.0001)                   /*  other model components, through a coupler */
+(PID.TID 0011.0001) useNest2W_parent =    F ;/* Control 2-W Nesting comm */
+(PID.TID 0011.0001) useNest2W_child  =    F ;/* Control 2-W Nesting comm */
+(PID.TID 0011.0001) debugMode =    F ; /* print debug msg. (sequence of S/R calls)  */
+(PID.TID 0011.0001) printMapIncludesZeros=    F ; /* print zeros in Std.Output maps */
+(PID.TID 0011.0001) maxLengthPrt1D=   65 /* maxLength of 1D array printed to StdOut */
+(PID.TID 0011.0001) 
+(PID.TID 0011.0001) ======= Starting MPI parallel Run =========
+(PID.TID 0011.0001)  My Processor Name (len:  6 ) = rugkey
+(PID.TID 0011.0001)  Located at (  2,  3) on processor grid (0:  3,0:  3)
+(PID.TID 0011.0001)  Origin at  (    91,    61) on global grid (1:   180,1:    80)
+(PID.TID 0011.0001)  North neighbor = processor 0008
+(PID.TID 0011.0001)  South neighbor = processor 0010
+(PID.TID 0011.0001)   East neighbor = processor 0015
+(PID.TID 0011.0001)   West neighbor = processor 0007
+(PID.TID 0011.0001) // ======================================================
+(PID.TID 0011.0001) // Mapping of tiles to threads
+(PID.TID 0011.0001) // ======================================================
+(PID.TID 0011.0001) // -o- Thread   1, tiles (   1:   1,   1:   1)
+(PID.TID 0011.0001) 
+(PID.TID 0011.0001) // ======================================================
+(PID.TID 0011.0001) // Tile <-> Tile connectvity table
+(PID.TID 0011.0001) // ======================================================
+(PID.TID 0011.0001) // Tile number: 000015 (process no. = 000011)
+(PID.TID 0011.0001) //        WEST: Tile = 000014, Process = 000007, Comm = messages
+(PID.TID 0011.0001) //                bi = 000001, bj = 000001
+(PID.TID 0011.0001) //        EAST: Tile = 000016, Process = 000015, Comm = messages
+(PID.TID 0011.0001) //                bi = 000001, bj = 000001
+(PID.TID 0011.0001) //       SOUTH: Tile = 000011, Process = 000010, Comm = messages
+(PID.TID 0011.0001) //                bi = 000001, bj = 000001
+(PID.TID 0011.0001) //       NORTH: Tile = 000003, Process = 000008, Comm = messages
+(PID.TID 0011.0001) //                bi = 000001, bj = 000001
+(PID.TID 0011.0001) 
+(PID.TID 0011.0001)  INI_PARMS: opening model parameter file "data"
+(PID.TID 0011.0001)  OPEN_COPY_DATA_FILE: opening file data
+(PID.TID 0011.0001) // =======================================================
+(PID.TID 0011.0001) // Parameter file "data"
+(PID.TID 0011.0001) // =======================================================
+(PID.TID 0011.0001) ># ====================
+(PID.TID 0011.0001) ># | Model parameters |
+(PID.TID 0011.0001) ># ====================
+(PID.TID 0011.0001) >#
+(PID.TID 0011.0001) ># Continuous equation parameters
+(PID.TID 0011.0001) > &PARM01
+(PID.TID 0011.0001) > tRef = 40*20.,
+(PID.TID 0011.0001) > sRef = 40*35.,
+(PID.TID 0011.0001) > viscAr=1.E-3,
+(PID.TID 0011.0001) > viscAh=2.E5,
+(PID.TID 0011.0001) > diffKhT=0.,
+(PID.TID 0011.0001) > diffKrT=2.E-5,
+(PID.TID 0011.0001) > diffKhS=0.,
+(PID.TID 0011.0001) > diffKrS=2.E-5,
+(PID.TID 0011.0001) > rhoConst=1035.,
+(PID.TID 0011.0001) > rhoConstFresh=1000.,
+(PID.TID 0011.0001) > eosType = 'JMD95Z',
+(PID.TID 0011.0001) > ivdc_kappa=0.,
+(PID.TID 0011.0001) > implicitDiffusion=.TRUE.,
+(PID.TID 0011.0001) > allowFreezing=.TRUE.,
+(PID.TID 0011.0001) > exactConserv=.TRUE.,
+(PID.TID 0011.0001) > implicitViscosity=.TRUE.,
+(PID.TID 0011.0001) > useRealFreshWaterFlux=.TRUE.,
+(PID.TID 0011.0001) > useCDscheme=.TRUE.,
+(PID.TID 0011.0001) ># turn on looped cells
+(PID.TID 0011.0001) > hFacMin=.05,
+(PID.TID 0011.0001) > hFacMindr=50.,
+(PID.TID 0011.0001) ># set precision of data files
+(PID.TID 0011.0001) > readBinaryPrec=32,
+(PID.TID 0011.0001) > writeBinaryPrec=32,
+(PID.TID 0011.0001) > useSingleCpuIo=.TRUE.,
+(PID.TID 0011.0001) > /
+(PID.TID 0011.0001) >
+(PID.TID 0011.0001) ># Elliptic solver parameters
+(PID.TID 0011.0001) > &PARM02
+(PID.TID 0011.0001) > cg2dMaxIters=500,
+(PID.TID 0011.0001) > cg2dTargetResidual=1.E-13,
+(PID.TID 0011.0001) > /
+(PID.TID 0011.0001) >
+(PID.TID 0011.0001) ># Time stepping parameters
+(PID.TID 0011.0001) > &PARM03
+(PID.TID 0011.0001) > nIter0=       0,
+(PID.TID 0011.0001) > nTimeSteps = 288,
+(PID.TID 0011.0001) ># nTimeSteps = 2880,
+(PID.TID 0011.0001) ># nTimeSteps = 1401600,
+(PID.TID 0011.0001) ># 100 years of integration will yield a reasonable flow field
+(PID.TID 0011.0001) ># startTime =          0.,
+(PID.TID 0011.0001) ># endTime   = 3110400000.,
+(PID.TID 0011.0001) > deltaTmom = 900.,
+(PID.TID 0011.0001) > tauCD =     321428.,
+(PID.TID 0011.0001) > deltaTtracer= 900.,
+(PID.TID 0011.0001) > deltaTClock = 900.,
+(PID.TID 0011.0001) > deltaTfreesurf= 900.,
+(PID.TID 0011.0001) > abEps = 0.1,
+(PID.TID 0011.0001) > pChkptFreq= 1728000.,
+(PID.TID 0011.0001) > dumpFreq=   0.,
+(PID.TID 0011.0001) > taveFreq=   0.,
+(PID.TID 0011.0001) > dumpInitAndLast=.TRUE.,
+(PID.TID 0011.0001) > monitorFreq=9000.,
+(PID.TID 0011.0001) ># 2 months restoring timescale for temperature
+(PID.TID 0011.0001) ># tauThetaClimRelax=  5184000.,
+(PID.TID 0011.0001) ># 6 months restoring timescale for salinity
+(PID.TID 0011.0001) ># tauSaltClimRelax = 15552000.,
+(PID.TID 0011.0001) ># periodicExternalForcing=.TRUE.,
+(PID.TID 0011.0001) ># externForcingPeriod=2592000.,
+(PID.TID 0011.0001) ># externForcingCycle=31104000.,
+(PID.TID 0011.0001) > /
+(PID.TID 0011.0001) >
+(PID.TID 0011.0001) ># Gridding parameters
+(PID.TID 0011.0001) > &PARM04
+(PID.TID 0011.0001) > usingSphericalPolarGrid=.TRUE.,
+(PID.TID 0011.0001) > delRc=   5.01,  10.06,  10.21,  10.48,  10.85,  11.37,  12.04,  12.9 ,
+(PID.TID 0011.0001) >         14.  ,  15.4 ,  17.17,  19.47,  22.44,  26.39,  31.69,  38.98,
+(PID.TID 0011.0001) >         49.19,  63.74,  84.52, 113.4 , 150.04, 189.02, 220.78, 239.42,
+(PID.TID 0011.0001) >        247.13, 249.41, 249.9 , 249.99, 250.  , 250.  , 250.  , 250.  ,
+(PID.TID 0011.0001) >        250.  , 250.  , 250.  , 250.  , 250.  , 250.  , 250.  , 250.  , 250.  ,
+(PID.TID 0011.0001) > ygOrigin=-80.,
+(PID.TID 0011.0001) > dySpacing=2.,
+(PID.TID 0011.0001) > dxSpacing=2.,
+(PID.TID 0011.0001) > /
+(PID.TID 0011.0001) >
+(PID.TID 0011.0001) ># Input datasets
+(PID.TID 0011.0001) > &PARM05
+(PID.TID 0011.0001) > bathyFile=      'ETOPO/topo.bin',
+(PID.TID 0011.0001) > hydrogThetaFile='./SODA/tIC.bin',
+(PID.TID 0011.0001) > hydrogSaltFile= './SODA/sIC.bin',
+(PID.TID 0011.0001) > uVelInitFile='./SODA/uIC.bin',
+(PID.TID 0011.0001) > vVelInitFile='./SODA/vIC.bin',
+(PID.TID 0011.0001) ># zonalWindFile=  'trenberth_taux.bin',
+(PID.TID 0011.0001) ># meridWindFile=  'trenberth_tauy.bin',
+(PID.TID 0011.0001) ># thetaClimFile=  'lev_sst.bin',
+(PID.TID 0011.0001) ># saltClimFile=   'lev_sss.bin',
+(PID.TID 0011.0001) ># surfQnetFile=   'ncep_qnet.bin',
+(PID.TID 0011.0001) > the_run_name=   'global_oce_latlon',
+(PID.TID 0011.0001) ># fresh water flux is turned on, comment next line to it turn off
+(PID.TID 0011.0001) ># (maybe better with surface salinity restoring)
+(PID.TID 0011.0001) ># EmPmRFile=      'ncep_emp.bin',
+(PID.TID 0011.0001) > /
+(PID.TID 0011.0001) 
+(PID.TID 0011.0001)  INI_PARMS ; starts to read PARM01
+(PID.TID 0011.0001)  INI_PARMS ; read PARM01 : OK
+(PID.TID 0011.0001) S/R INI_PARMS: No request for barotropic solver
+(PID.TID 0011.0001) S/R INI_PARMS: => Use implicitFreeSurface as default
+(PID.TID 0011.0001)  INI_PARMS ; starts to read PARM02
+(PID.TID 0011.0001)  INI_PARMS ; read PARM02 : OK
+(PID.TID 0011.0001)  INI_PARMS ; starts to read PARM03
+(PID.TID 0011.0001)  INI_PARMS ; read PARM03 : OK
+(PID.TID 0011.0001)  INI_PARMS ; starts to read PARM04
+(PID.TID 0011.0001)  INI_PARMS ; read PARM04 : OK
+(PID.TID 0011.0001)  INI_PARMS ; starts to read PARM05
+(PID.TID 0011.0001)  INI_PARMS ; read PARM05 : OK
+(PID.TID 0011.0001)  INI_PARMS: finished reading file "data"
+(PID.TID 0011.0001)  PACKAGES_BOOT: opening data.pkg
+(PID.TID 0011.0001)  OPEN_COPY_DATA_FILE: opening file data.pkg
+(PID.TID 0011.0001) // =======================================================
+(PID.TID 0011.0001) // Parameter file "data.pkg"
+(PID.TID 0011.0001) // =======================================================
+(PID.TID 0011.0001) ># Packages (lines beginning "#" are comments)
+(PID.TID 0011.0001) > &PACKAGES
+(PID.TID 0011.0001) > useGMRedi=.TRUE.,
+(PID.TID 0011.0001) > useDIAGNOSTICS=.TRUE.,
+(PID.TID 0011.0001) > useEXF=.TRUE.,
+(PID.TID 0011.0001) > useKPP=.TRUE.,
+(PID.TID 0011.0001) > useCAL=.TRUE.,
+(PID.TID 0011.0001) > usePTRACERS=.TRUE.,
+(PID.TID 0011.0001) > useGCHEM=.TRUE.,
+(PID.TID 0011.0001) > /
+(PID.TID 0011.0001) 
+(PID.TID 0011.0001)  PACKAGES_BOOT: finished reading data.pkg
+(PID.TID 0011.0001)  PACKAGES_BOOT: On/Off package Summary
+ --------  pkgs with a standard "usePKG" On/Off switch in "data.pkg":  --------
+ pkg/kpp                  compiled   and   used ( useKPP                   = T )
+ pkg/gmredi               compiled   and   used ( useGMRedi                = T )
+ pkg/cal                  compiled   and   used ( useCAL                   = T )
+ pkg/exf                  compiled   and   used ( useEXF                   = T )
+ pkg/ptracers             compiled   and   used ( usePTRACERS              = T )
+ pkg/gchem                compiled   and   used ( useGCHEM                 = T )
+ pkg/diagnostics          compiled   and   used ( useDiagnostics           = T )
+ -------- pkgs without standard "usePKG" On/Off switch in "data.pkg":  --------
+ pkg/generic_advdiff      compiled   and   used ( useGAD                   = T )
+ pkg/mom_common           compiled   and   used ( momStepping              = T )
+ pkg/mom_vecinv           compiled but not used ( +vectorInvariantMomentum = F )
+ pkg/mom_fluxform         compiled   and   used ( & not vectorInvariantMom = T )
+ pkg/cd_code              compiled   and   used ( useCDscheme              = T )
+ pkg/monitor              compiled   and   used ( monitorFreq > 0.         = T )
+ pkg/debug                compiled but not used ( debugMode                = F )
+ pkg/rw                   compiled   and   used
+ pkg/mdsio                compiled   and   used
+(PID.TID 0011.0001)  PACKAGES_BOOT: End of package Summary
+(PID.TID 0011.0001) 
+(PID.TID 0011.0001) CAL_READPARMS: opening data.cal
+(PID.TID 0011.0001)  OPEN_COPY_DATA_FILE: opening file data.cal
+(PID.TID 0011.0001) // =======================================================
+(PID.TID 0011.0001) // Parameter file "data.cal"
+(PID.TID 0011.0001) // =======================================================
+(PID.TID 0011.0001) >#
+(PID.TID 0011.0001) ># *******************
+(PID.TID 0011.0001) ># Calendar Parameters
+(PID.TID 0011.0001) ># *******************
+(PID.TID 0011.0001) > &CAL_NML
+(PID.TID 0011.0001) > TheCalendar='gregorian',
+(PID.TID 0011.0001) ># TheCalendar='model',
+(PID.TID 0011.0001) > startDate_1=19790101,
+(PID.TID 0011.0001) > startDate_2=000000,
+(PID.TID 0011.0001) > /
+(PID.TID 0011.0001) 
+(PID.TID 0011.0001) CAL_READPARMS: finished reading data.cal
+(PID.TID 0011.0001) EXF_READPARMS: opening data.exf
+(PID.TID 0011.0001)  OPEN_COPY_DATA_FILE: opening file data.exf
+(PID.TID 0011.0001) // =======================================================
+(PID.TID 0011.0001) // Parameter file "data.exf"
+(PID.TID 0011.0001) // =======================================================
+(PID.TID 0011.0001) ># *********************
+(PID.TID 0011.0001) ># External Forcing Data
+(PID.TID 0011.0001) ># *********************
+(PID.TID 0011.0001) > &EXF_NML_01
+(PID.TID 0011.0001) > exf_iprec         = 32,
+(PID.TID 0011.0001) > exf_debugLev      = 3,
+(PID.TID 0011.0001) > useExfCheckRange  = .TRUE.,
+(PID.TID 0011.0001) > useExfYearlyFields= .FALSE.,
+(PID.TID 0011.0001) > useAtmWind        = .TRUE.,
+(PID.TID 0011.0001) > /
+(PID.TID 0011.0001) >
+(PID.TID 0011.0001) ># *********************
+(PID.TID 0011.0001) > &EXF_NML_02
+(PID.TID 0011.0001) > uwindstartdate1   = 19790101,
+(PID.TID 0011.0001) > uwindstartdate2   = 000000,
+(PID.TID 0011.0001) > uwindperiod       = 2629800,
+(PID.TID 0011.0001) > uwindfile         = 'NCEP/u10Interp.bin',
+(PID.TID 0011.0001) >#
+(PID.TID 0011.0001) > vwindstartdate1   = 19790101,
+(PID.TID 0011.0001) > vwindstartdate2   = 000000,
+(PID.TID 0011.0001) > vwindperiod       = 2629800,
+(PID.TID 0011.0001) > vwindfile         = 'NCEP/v10Interp.bin',
+(PID.TID 0011.0001) >#
+(PID.TID 0011.0001) > atempstartdate1 = 19790101,
+(PID.TID 0011.0001) > atempstartdate2 = 000000,
+(PID.TID 0011.0001) > atempperiod     = 2629800,
+(PID.TID 0011.0001) > atempfile       = 'NCEP/T2mInterp.bin',
+(PID.TID 0011.0001) >#
+(PID.TID 0011.0001) > aqhstartdate1 = 19790101,
+(PID.TID 0011.0001) > aqhstartdate2 = 000000,
+(PID.TID 0011.0001) > aqhperiod     = 2629800,
+(PID.TID 0011.0001) > aqhfile       = 'NCEP/sh2Interp.bin',
+(PID.TID 0011.0001) >#
+(PID.TID 0011.0001) > precipstartdate1 = 19790101,
+(PID.TID 0011.0001) > precipstartdate2 = 000000,
+(PID.TID 0011.0001) > precipperiod     = 2629800,
+(PID.TID 0011.0001) > precipfile       = 'NCEP/prtInterp.bin',
+(PID.TID 0011.0001) >#
+(PID.TID 0011.0001) > swdownstartdate1 = 19790101,
+(PID.TID 0011.0001) > swdownstartdate2 = 000000,
+(PID.TID 0011.0001) > swdownperiod     = 2629800,
+(PID.TID 0011.0001) > swdownfile       = 'NCEP/dswInterp.bin',
+(PID.TID 0011.0001) >#
+(PID.TID 0011.0001) > lwdownstartdate1 = 19790101,
+(PID.TID 0011.0001) > lwdownstartdate2 = 000000,
+(PID.TID 0011.0001) > lwdownperiod     = 2629800,
+(PID.TID 0011.0001) > lwdownfile       = 'NCEP/dlwInterp.bin',
+(PID.TID 0011.0001) >#
+(PID.TID 0011.0001) ># climsststartdate1 = 19911216,
+(PID.TID 0011.0001) ># climsststartdate2 = 000000,
+(PID.TID 0011.0001) ># climsstperiod     = -1.,
+(PID.TID 0011.0001) ># 2 months restoring timescale for temperature
+(PID.TID 0011.0001) ># climsstTauRelax   = 5184000.,
+(PID.TID 0011.0001) >#
+(PID.TID 0011.0001) >#climsssstartdate1 = 19920101,
+(PID.TID 0011.0001) >#climsssstartdate2 = 000000,
+(PID.TID 0011.0001) ># climsssperiod     = -12.,
+(PID.TID 0011.0001) ># 6 months restoring timescale for salinity
+(PID.TID 0011.0001) ># climsssTauRelax   = 15552000.,
+(PID.TID 0011.0001) >#
+(PID.TID 0011.0001) ># hfluxfile    = 'ncep_qnet.bin',
+(PID.TID 0011.0001) >#sfluxfile    = 'ncep_emp.bin',
+(PID.TID 0011.0001) ># ustressfile  = 'trenberth_taux.bin',
+(PID.TID 0011.0001) ># vstressfile  = 'trenberth_tauy.bin',
+(PID.TID 0011.0001) ># climsstfile  = 'lev_sst_startdec.tmp',
+(PID.TID 0011.0001) ># climsssfile  = 'lev_sss.bin',
+(PID.TID 0011.0001) >#
+(PID.TID 0011.0001) > /
+(PID.TID 0011.0001) >
+(PID.TID 0011.0001) ># *********************
+(PID.TID 0011.0001) > &EXF_NML_03
+(PID.TID 0011.0001) > /
+(PID.TID 0011.0001) >
+(PID.TID 0011.0001) ># *********************
+(PID.TID 0011.0001) > &EXF_NML_04
+(PID.TID 0011.0001) ># hflux_lon0    = 2.,
+(PID.TID 0011.0001) ># hflux_lon_inc = 4.,
+(PID.TID 0011.0001) ># hflux_lat0    = -78.,
+(PID.TID 0011.0001) ># hflux_lat_inc = 39*4.,
+(PID.TID 0011.0001) ># hflux_nlon    = 90,
+(PID.TID 0011.0001) ># hflux_nlat    = 40,
+(PID.TID 0011.0001) >#
+(PID.TID 0011.0001) ># sflux_lon0    = 2.,
+(PID.TID 0011.0001) ># sflux_lon_inc = 4.,
+(PID.TID 0011.0001) ># sflux_lat0    = -78.,
+(PID.TID 0011.0001) ># sflux_lat_inc = 39*4.,
+(PID.TID 0011.0001) ># sflux_nlon    = 90,
+(PID.TID 0011.0001) ># sflux_nlat    = 40,
+(PID.TID 0011.0001) >#
+(PID.TID 0011.0001) ># ustress_lon0    = 0.,
+(PID.TID 0011.0001) ># ustress_lon_inc = 4.,
+(PID.TID 0011.0001) ># ustress_lat0    = -78.,
+(PID.TID 0011.0001) ># ustress_lat_inc = 39*4.,
+(PID.TID 0011.0001) ># ustress_nlon    = 90,
+(PID.TID 0011.0001) ># ustress_nlat    = 40,
+(PID.TID 0011.0001) >#
+(PID.TID 0011.0001) ># vstress_lon0    = 2.,
+(PID.TID 0011.0001) ># vstress_lon_inc = 4.,
+(PID.TID 0011.0001) ># vstress_lat0    = -80.,
+(PID.TID 0011.0001) ># vstress_lat_inc = 39*4.,
+(PID.TID 0011.0001) ># vstress_nlon    = 90,
+(PID.TID 0011.0001) ># vstress_nlat    = 40,
+(PID.TID 0011.0001) >#
+(PID.TID 0011.0001) ># climsst_lon0    = 2.,
+(PID.TID 0011.0001) ># climsst_lon_inc = 4.,
+(PID.TID 0011.0001) ># climsst_lat0    = -78.,
+(PID.TID 0011.0001) ># climsst_lat_inc = 39*4.,
+(PID.TID 0011.0001) ># climsst_nlon    = 90,
+(PID.TID 0011.0001) ># climsst_nlat    = 40,
+(PID.TID 0011.0001) >#
+(PID.TID 0011.0001) ># climsss_lon0    = 2.,
+(PID.TID 0011.0001) ># climsss_lon_inc = 4.,
+(PID.TID 0011.0001) ># climsss_lat0    = -78.,
+(PID.TID 0011.0001) ># climsss_lat_inc = 39*4.,
+(PID.TID 0011.0001) ># climsss_nlon    = 90,
+(PID.TID 0011.0001) ># climsss_nlat    = 40,
+(PID.TID 0011.0001) >#
+(PID.TID 0011.0001) > /
+(PID.TID 0011.0001) 
+(PID.TID 0011.0001) EXF_READPARMS: reading EXF_NML_01
+(PID.TID 0011.0001) EXF_READPARMS: reading EXF_NML_02
+(PID.TID 0011.0001) EXF_READPARMS: reading EXF_NML_03
+(PID.TID 0011.0001) EXF_READPARMS: finished reading data.exf
+(PID.TID 0011.0001)  KPP_READPARMS: opening data.kpp
+(PID.TID 0011.0001)  OPEN_COPY_DATA_FILE: opening file data.kpp
+(PID.TID 0011.0001) // =======================================================
+(PID.TID 0011.0001) // Parameter file "data.kpp"
+(PID.TID 0011.0001) // =======================================================
+(PID.TID 0011.0001) ># KPP parameters
+(PID.TID 0011.0001) > &KPP_PARM01
+(PID.TID 0011.0001) > KPPmixingMaps   = .FALSE.,
+(PID.TID 0011.0001) > KPPwriteState   = .FALSE.,
+(PID.TID 0011.0001) > /
+(PID.TID 0011.0001) 
+(PID.TID 0011.0001)  KPP_READPARMS ; starts to read KPP_PARM01
+(PID.TID 0011.0001)  KPP_READPARMS ; read KPP_PARM01 : OK
+(PID.TID 0011.0001)  KPP_READPARMS: finished reading data.kpp
+(PID.TID 0011.0001)  GM_READPARMS: opening data.gmredi
+(PID.TID 0011.0001)  OPEN_COPY_DATA_FILE: opening file data.gmredi
+(PID.TID 0011.0001) // =======================================================
+(PID.TID 0011.0001) // Parameter file "data.gmredi"
+(PID.TID 0011.0001) // =======================================================
+(PID.TID 0011.0001) ># GM+Redi package parameters:
+(PID.TID 0011.0001) >
+(PID.TID 0011.0001) >#-from MOM :
+(PID.TID 0011.0001) ># GM_background_K: 	G & Mc.W  diffusion coefficient
+(PID.TID 0011.0001) ># GM_maxSlope    :	max slope of isopycnals
+(PID.TID 0011.0001) ># GM_Scrit       :	transition for scaling diffusion coefficient
+(PID.TID 0011.0001) ># GM_Sd          :	half width scaling for diffusion coefficient
+(PID.TID 0011.0001) ># GM_taper_scheme:	slope clipping or one of the tapering schemes
+(PID.TID 0011.0001) ># GM_Kmin_horiz  :	horizontal diffusion minimum value
+(PID.TID 0011.0001) >
+(PID.TID 0011.0001) >#-Option parameters (needs to "define" options in GMREDI_OPTIONS.h")
+(PID.TID 0011.0001) ># GM_isopycK     :	isopycnal diffusion coefficient (default=GM_background_K)
+(PID.TID 0011.0001) ># GM_AdvForm     :	turn on GM Advective form       (default=Skew flux form)
+(PID.TID 0011.0001) >
+(PID.TID 0011.0001) > &GM_PARM01
+(PID.TID 0011.0001) >  GM_background_K    = 1.e+3,
+(PID.TID 0011.0001) >  GM_taper_scheme    = 'gkw91',
+(PID.TID 0011.0001) >  GM_maxSlope        = 1.e-2,
+(PID.TID 0011.0001) >  GM_Kmin_horiz      = 50.,
+(PID.TID 0011.0001) >  GM_Scrit           = 4.e-3,
+(PID.TID 0011.0001) >  GM_Sd              = 1.e-3,
+(PID.TID 0011.0001) ># GM_Visbeck_alpha   = 0.,
+(PID.TID 0011.0001) ># GM_Visbeck_length  = 2.e+5,
+(PID.TID 0011.0001) ># GM_Visbeck_depth   = 1.e+3,
+(PID.TID 0011.0001) ># GM_Visbeck_maxval_K= 2.5e+3,
+(PID.TID 0011.0001) > /
+(PID.TID 0011.0001) >
+(PID.TID 0011.0001) >
+(PID.TID 0011.0001) 
+(PID.TID 0011.0001)  GM_READPARMS: finished reading data.gmredi
+(PID.TID 0011.0001)  PTRACERS_READPARMS: opening data.ptracers
+(PID.TID 0011.0001)  OPEN_COPY_DATA_FILE: opening file data.ptracers
+(PID.TID 0011.0001) // =======================================================
+(PID.TID 0011.0001) // Parameter file "data.ptracers"
+(PID.TID 0011.0001) // =======================================================
+(PID.TID 0011.0001) ># Passive Tracers parameters
+(PID.TID 0011.0001) > &PTRACERS_PARM01
+(PID.TID 0011.0001) >  PTRACERS_numInUse=1,
+(PID.TID 0011.0001) >  PTRACERS_Iter0=0,
+(PID.TID 0011.0001) >  PTRACERS_names(1)='Pollutant',
+(PID.TID 0011.0001) >  PTRACERS_long_names(1)='Ocean Pollutant [mol/m^3]',
+(PID.TID 0011.0001) >  PTRACERS_units(1)='mol/m^3',
+(PID.TID 0011.0001) >  PTRACERS_advScheme(1)=77,
+(PID.TID 0011.0001) >  PTRACERS_diffKh(1)=1.E3,
+(PID.TID 0011.0001) >  PTRACERS_diffKr(1)=3.E-5,
+(PID.TID 0011.0001) >  PTRACERS_useGMRedi(1)=.TRUE.,
+(PID.TID 0011.0001) >  PTRACERS_initialFile(1)=' ',
+(PID.TID 0011.0001) > /
+(PID.TID 0011.0001) 
+(PID.TID 0011.0001)  PTRACERS_READPARMS: finished reading data.ptracers
+(PID.TID 0011.0001)  GCHEM_READPARMS: opening data.gchem
+(PID.TID 0011.0001)  OPEN_COPY_DATA_FILE: opening file data.gchem
+(PID.TID 0011.0001) // =======================================================
+(PID.TID 0011.0001) // Parameter file "data.gchem"
+(PID.TID 0011.0001) // =======================================================
+(PID.TID 0011.0001) > &GCHEM_PARM01
+(PID.TID 0011.0001) >  usePOLLUTANT=.TRUE.,
+(PID.TID 0011.0001) > /
+(PID.TID 0011.0001) >
+(PID.TID 0011.0001) 
+(PID.TID 0011.0001)  GCHEM_READPARMS: finished reading data.gchem
+(PID.TID 0011.0001)  POLLUTANT_READPARMS: opening data.pollutant
+(PID.TID 0011.0001)  OPEN_COPY_DATA_FILE: opening file data.pollutant
+(PID.TID 0011.0001) // =======================================================
+(PID.TID 0011.0001) // Parameter file "data.pollutant"
+(PID.TID 0011.0001) // =======================================================
+(PID.TID 0011.0001) ># Pollutant Package Parameters - Using Unified Degradation Model
+(PID.TID 0011.0001) >
+(PID.TID 0011.0001) > &POLLUTANT_PARAMS
+(PID.TID 0011.0001) >
+(PID.TID 0011.0001) ># --- Forcing Parameters ---
+(PID.TID 0011.0001) >  pollutant_emission_file   = 'pollutant_emission.bin',
+(PID.TID 0011.0001) >  pollutant_forcingPeriod   = 900.,
+(PID.TID 0011.0001) >  pollutant_forcingCycle    = 900.,
+(PID.TID 0011.0001) ># if mol/s:.TRUE. . if mol/m2/s use .FALSE.
+(PID.TID 0011.0001) >  pollutant_fluxIsCellTotal = .FALSE.,
+(PID.TID 0011.0001) >
+(PID.TID 0011.0001) >  usePollutantDegradation = .TRUE.,
+(PID.TID 0011.0001) >  pollutant_Tc            = 4.0,
+(PID.TID 0011.0001) >
+(PID.TID 0011.0001) >  pollutant_k_dark_20_d   = 0.01,
+(PID.TID 0011.0001) >  pollutant_Q10_dark      = 2.0,
+(PID.TID 0011.0001) >
+(PID.TID 0011.0001) >  pollutant_k_bio_20_d    = 0.005,
+(PID.TID 0011.0001) >  pollutant_Q10_bio       = 2.2,
+(PID.TID 0011.0001) >
+(PID.TID 0011.0001) >  pollutant_k_OH_d        = 0.001,
+(PID.TID 0011.0001) >
+(PID.TID 0011.0001) >  pollutant_k_photo_d     = 0.1,
+(PID.TID 0011.0001) >  pollutant_light_atten   = 0.15,
+(PID.TID 0011.0001) >
+(PID.TID 0011.0001) > /
+(PID.TID 0011.0001) 
+(PID.TID 0011.0001)  POLLUTANT_READPARMS: finished reading data.pollutant
+(PID.TID 0011.0001) 
+(PID.TID 0011.0001) // ===================================
+(PID.TID 0011.0001) // POLLUTANT package parameters :
+(PID.TID 0011.0001) // ===================================
+(PID.TID 0011.0001) usePollutantDegradation =  /* .TRUE. to enable pollutant degradation */
+(PID.TID 0011.0001)                   T
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) pollutant_Tc = /* Critical temperature for degradation [degC] */
+(PID.TID 0011.0001)                 4.000000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) pollutant_k_dark_20_d = /* Dark degradation rate at 20C [d^-1] */
+(PID.TID 0011.0001)                 1.000000000000000E-02
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) pollutant_Q10_dark = /* Q10 temp coefficient for dark degradation */
+(PID.TID 0011.0001)                 2.000000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) pollutant_k_bio_20_d = /* Biological degradation rate at 20C [d^-1] */
+(PID.TID 0011.0001)                 5.000000000000000E-03
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) pollutant_Q10_bio = /* Q10 temp coefficient for biological degradation */
+(PID.TID 0011.0001)                 2.200000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) pollutant_k_OH_d = /* Indirect photolysis (OH) rate [d^-1] */
+(PID.TID 0011.0001)                 1.000000000000000E-03
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) pollutant_k_photo_d = /* Surface direct photolysis rate [d^-1] */
+(PID.TID 0011.0001)                 1.000000000000000E-01
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) pollutant_light_atten = /* Light attenuation coefficient [m^-1] */
+(PID.TID 0011.0001)                 1.500000000000000E-01
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) GCHEM_TR_REGISTER:  Start registering GCHEM tracers
+(PID.TID 0011.0001)   POLLUTANT_TR_REGISTER:  number of POLLUTANT tracers=    1
+(PID.TID 0011.0001)   POLLUTANT_TR_REGISTER:   starting at pTrc num=    1
+(PID.TID 0011.0001)   POLLUTANT_TR_REGISTER:  Numb. Trac & SepForc Trac:    1    0
+(PID.TID 0011.0001) GCHEM_TR_REGISTER:  Numb. Trac & SepForc Trac:    1    0
+(PID.TID 0011.0001) 
+(PID.TID 0011.0001)  DIAGNOSTICS_READPARMS: opening data.diagnostics
+(PID.TID 0011.0001)  OPEN_COPY_DATA_FILE: opening file data.diagnostics
+(PID.TID 0011.0001) // =======================================================
+(PID.TID 0011.0001) // Parameter file "data.diagnostics"
+(PID.TID 0011.0001) // =======================================================
+(PID.TID 0011.0001) ># Diagnostic Package Choices
+(PID.TID 0011.0001) >#--------------------
+(PID.TID 0011.0001) > &DIAGNOSTICS_LIST
+(PID.TID 0011.0001) >  fields(1:1,1)  = 'ETAN    ',
+(PID.TID 0011.0001) >   fileName(1) = 'output/surf',
+(PID.TID 0011.0001) >  frequency(1) = -86400.,
+(PID.TID 0011.0001) >  timePhase(1) = 0,
+(PID.TID 0011.0001) >
+(PID.TID 0011.0001) >  fields(1:4,2)  = 'UVEL    ','VVEL    ','THETA   ','SALT    ',
+(PID.TID 0011.0001) >   fileName(2) = 'output/state',
+(PID.TID 0011.0001) >  frequency(2) = -86400.,
+(PID.TID 0011.0001) >  timePhase(2) = 0,
+(PID.TID 0011.0001) >
+(PID.TID 0011.0001) >  fields(1:3,3)  = 'POLLUT_S','POLLUT_K','POLLUT_T',
+(PID.TID 0011.0001) >  fileName(3) = 'output/pollutant_tendency',
+(PID.TID 0011.0001) >  frequency(3) = -86400.,
+(PID.TID 0011.0001) >  timePhase(3) = 0,
+(PID.TID 0011.0001) >
+(PID.TID 0011.0001) >  fields(1:2,4)  = 'TRAC01  ','POLLUT_M',
+(PID.TID 0011.0001) >  fileName(4) = 'output/pollutant_state',
+(PID.TID 0011.0001) >  frequency(4) = -86400.,
+(PID.TID 0011.0001) >  timePhase(4) = 0,
+(PID.TID 0011.0001) >
+(PID.TID 0011.0001) > /
+(PID.TID 0011.0001) >
+(PID.TID 0011.0001) >#--------------------
+(PID.TID 0011.0001) ># Parameter for Diagnostics of per level statistics:
+(PID.TID 0011.0001) >#--------------------
+(PID.TID 0011.0001) > &DIAG_STATIS_PARMS
+(PID.TID 0011.0001) > /
+(PID.TID 0011.0001) 
+(PID.TID 0011.0001) S/R DIAGNOSTICS_READPARMS, read namelist "diagnostics_list": start
+(PID.TID 0011.0001) S/R DIAGNOSTICS_READPARMS, read namelist "diagnostics_list": OK
+(PID.TID 0011.0001) S/R DIAGNOSTICS_READPARMS, read namelist "DIAG_STATIS_PARMS": start
+(PID.TID 0011.0001) S/R DIAGNOSTICS_READPARMS, read namelist "DIAG_STATIS_PARMS": OK
+(PID.TID 0011.0001)  DIAGNOSTICS_READPARMS: global parameter summary:
+(PID.TID 0011.0001)  dumpAtLast = /* always write time-ave diags at the end */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001)  diag_mnc =   /* write NetCDF output files */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001)  useMissingValue = /* put MissingValue where mask = 0 */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001)  diagCG_maxIters = /* max number of iters in diag_cg2d */
+(PID.TID 0011.0001)                     500
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001)  diagCG_resTarget = /* residual target for diag_cg2d */
+(PID.TID 0011.0001)                 1.000000000000000E-13
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001)  diagCG_pcOffDFac = /* preconditioner off-diagonal factor */
+(PID.TID 0011.0001)                 9.611687812379854E-01
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) -----------------------------------------------------
+(PID.TID 0011.0001)  DIAGNOSTICS_READPARMS: active diagnostics summary:
+(PID.TID 0011.0001) -----------------------------------------------------
+(PID.TID 0011.0001) Creating Output Stream: output/surf
+(PID.TID 0011.0001) Output Frequency:     -86400.000000 ; Phase:           0.000000
+(PID.TID 0011.0001)  Averaging Freq.:          0.000000 , Phase:           0.000000 , Cycle:   1
+(PID.TID 0011.0001)  missing value: -9.990000000000E+02
+(PID.TID 0011.0001)  Levels:    will be set later
+(PID.TID 0011.0001)  Fields:    ETAN
+(PID.TID 0011.0001) Creating Output Stream: output/state
+(PID.TID 0011.0001) Output Frequency:     -86400.000000 ; Phase:           0.000000
+(PID.TID 0011.0001)  Averaging Freq.:          0.000000 , Phase:           0.000000 , Cycle:   1
+(PID.TID 0011.0001)  missing value: -9.990000000000E+02
+(PID.TID 0011.0001)  Levels:    will be set later
+(PID.TID 0011.0001)  Fields:    UVEL     VVEL     THETA    SALT
+(PID.TID 0011.0001) Creating Output Stream: output/pollutant_tendency
+(PID.TID 0011.0001) Output Frequency:     -86400.000000 ; Phase:           0.000000
+(PID.TID 0011.0001)  Averaging Freq.:          0.000000 , Phase:           0.000000 , Cycle:   1
+(PID.TID 0011.0001)  missing value: -9.990000000000E+02
+(PID.TID 0011.0001)  Levels:    will be set later
+(PID.TID 0011.0001)  Fields:    POLLUT_S POLLUT_K POLLUT_T
+(PID.TID 0011.0001) Creating Output Stream: output/pollutant_state
+(PID.TID 0011.0001) Output Frequency:     -86400.000000 ; Phase:           0.000000
+(PID.TID 0011.0001)  Averaging Freq.:          0.000000 , Phase:           0.000000 , Cycle:   1
+(PID.TID 0011.0001)  missing value: -9.990000000000E+02
+(PID.TID 0011.0001)  Levels:    will be set later
+(PID.TID 0011.0001)  Fields:    TRAC01   POLLUT_M
+(PID.TID 0011.0001) -----------------------------------------------------
+(PID.TID 0011.0001)  DIAGNOSTICS_READPARMS: statistics diags. summary:
+(PID.TID 0011.0001) -----------------------------------------------------
+(PID.TID 0011.0001) 
+(PID.TID 0011.0001) SET_PARMS: done
+(PID.TID 0011.0001) Enter INI_VERTICAL_GRID: setInterFDr=    F ; setCenterDr=    T
+(PID.TID 0011.0001) // =======================================================
+(PID.TID 0011.0001) // Field Model R_low (ini_masks_etc)
+(PID.TID 0011.0001) // CMIN =         -5.625000000000000E+03
+(PID.TID 0011.0001) // CMAX =         -1.004000000000000E+01
+(PID.TID 0011.0001) // CINT =          2.079614814814815E+02
+(PID.TID 0011.0001) // SYMBOLS (CMIN->CMAX): -abcdefghijklmnopqrstuvwxyz+
+(PID.TID 0011.0001) //                  0.0: .
+(PID.TID 0011.0001) // RANGE I (Lo:Hi:Step):(    89:   137:     1)
+(PID.TID 0011.0001) // RANGE J (Lo:Hi:Step):(    82:    59:    -1)
+(PID.TID 0011.0001) // RANGE K (Lo:Hi:Step):(   1:   1:   1)
+(PID.TID 0011.0001) // =======================================================
+(PID.TID 0011.0001) K =   1
+(PID.TID 0011.0001) //                I=98      I=108     I=118     I=128
+(PID.TID 0011.0001) // |--J--|901234567|901234567|901234567|901234567|901234567
+(PID.TID 0011.0001) //     82 .................................................
+(PID.TID 0011.0001) //     81 .................................................
+(PID.TID 0011.0001) //     80 .................................................
+(PID.TID 0011.0001) //     79 .................................................
+(PID.TID 0011.0001) //     78 .................................................
+(PID.TID 0011.0001) //     77 .................................................
+(PID.TID 0011.0001) //     76 .................................................
+(PID.TID 0011.0001) //     75 .................................................
+(PID.TID 0011.0001) //     74 .................................................
+(PID.TID 0011.0001) //     73 ..+....+.........................................
+(PID.TID 0011.0001) //     72 ..+++++++........................................
+(PID.TID 0011.0001) //     71 psyz+++++........................................
+(PID.TID 0011.0001) //     70 ijnvyz+++++.....+zrmotz..........................
+(PID.TID 0011.0001) //     69 hhijlvyz++++..+yqjgiijlq+........................
+(PID.TID 0011.0001) //     68 lniiijmry++zxrlfgighijlmr+.......................
+(PID.TID 0011.0001) //     67 lpojmqtsoifdceeefgghiijkmsz......................
+(PID.TID 0011.0001) //     66 fjiifdb-bddddddddefgiiiijmqw.....................
+(PID.TID 0011.0001) //     65 bbbbaababbcccccccdefgghhjlnou....................
+(PID.TID 0011.0001) //     64 ---------bbcbbbbccdeefgghjnnnw...................
+(PID.TID 0011.0001) //     63 ---------aaaabbbbbcdefgghimnmu...................
+(PID.TID 0011.0001) //     62 ------------aaabbcdeffgghijlmt...................
+(PID.TID 0011.0001) //     61 ------------babcccdeeefghijkls...................
+(PID.TID 0011.0001) //     60 ba----aa-aa-aaaaabccbbbcdeeefk...................
+(PID.TID 0011.0001) //     59 hdbaba----------aabbabbbcccdegq..................
+(PID.TID 0011.0001) // =======================================================
+(PID.TID 0011.0001) // END OF FIELD                                          =
+(PID.TID 0011.0001) // =======================================================
+(PID.TID 0011.0001) 
+(PID.TID 0011.0001) // =======================================================
+(PID.TID 0011.0001) // Field Model Ro_surf (ini_masks_etc)
+(PID.TID 0011.0001) // CMIN =          1.000000000000000E+32
+(PID.TID 0011.0001) // CMAX =         -1.000000000000000E+32
+(PID.TID 0011.0001) // CINT =          0.000000000000000E+00
+(PID.TID 0011.0001) // SYMBOLS (CMIN->CMAX): -abcdefghijklmnopqrstuvwxyz+
+(PID.TID 0011.0001) //                  0.0: .
+(PID.TID 0011.0001) // RANGE I (Lo:Hi:Step):(    89:   137:     1)
+(PID.TID 0011.0001) // RANGE J (Lo:Hi:Step):(    82:    59:    -1)
+(PID.TID 0011.0001) // RANGE K (Lo:Hi:Step):(   1:   1:   1)
+(PID.TID 0011.0001) // =======================================================
+(PID.TID 0011.0001) // =======================================================
+(PID.TID 0011.0001) // END OF FIELD                                          =
+(PID.TID 0011.0001) // =======================================================
+(PID.TID 0011.0001) 
+(PID.TID 0011.0001) // =======================================================
+(PID.TID 0011.0001) // Field hFacC at iteration          0
+(PID.TID 0011.0001) // CMIN =          1.000000000000000E+00
+(PID.TID 0011.0001) // CMAX =          1.000000000000000E+00
+(PID.TID 0011.0001) // CINT =          0.000000000000000E+00
+(PID.TID 0011.0001) // SYMBOLS (CMIN->CMAX): -abcdefghijklmnopqrstuvwxyz+
+(PID.TID 0011.0001) //                  0.0: .
+(PID.TID 0011.0001) // RANGE I (Lo:Hi:Step):(    89:   137:     1)
+(PID.TID 0011.0001) // RANGE J (Lo:Hi:Step):(    82:    59:    -1)
+(PID.TID 0011.0001) // RANGE K (Lo:Hi:Step):(   1:   1:   1)
+(PID.TID 0011.0001) // =======================================================
+(PID.TID 0011.0001) // =======================================================
+(PID.TID 0011.0001) // END OF FIELD                                          =
+(PID.TID 0011.0001) // =======================================================
+(PID.TID 0011.0001) 
+(PID.TID 0011.0001) // =======================================================
+(PID.TID 0011.0001) // Field hFacW at iteration          0
+(PID.TID 0011.0001) // CMIN =          1.000000000000000E+00
+(PID.TID 0011.0001) // CMAX =          1.000000000000000E+00
+(PID.TID 0011.0001) // CINT =          0.000000000000000E+00
+(PID.TID 0011.0001) // SYMBOLS (CMIN->CMAX): -abcdefghijklmnopqrstuvwxyz+
+(PID.TID 0011.0001) //                  0.0: .
+(PID.TID 0011.0001) // RANGE I (Lo:Hi:Step):(    89:   137:     1)
+(PID.TID 0011.0001) // RANGE J (Lo:Hi:Step):(    82:    59:    -1)
+(PID.TID 0011.0001) // RANGE K (Lo:Hi:Step):(   1:   1:   1)
+(PID.TID 0011.0001) // =======================================================
+(PID.TID 0011.0001) // =======================================================
+(PID.TID 0011.0001) // END OF FIELD                                          =
+(PID.TID 0011.0001) // =======================================================
+(PID.TID 0011.0001) 
+(PID.TID 0011.0001) // =======================================================
+(PID.TID 0011.0001) // Field hFacS at iteration          0
+(PID.TID 0011.0001) // CMIN =          1.000000000000000E+00
+(PID.TID 0011.0001) // CMAX =          1.000000000000000E+00
+(PID.TID 0011.0001) // CINT =          0.000000000000000E+00
+(PID.TID 0011.0001) // SYMBOLS (CMIN->CMAX): -abcdefghijklmnopqrstuvwxyz+
+(PID.TID 0011.0001) //                  0.0: .
+(PID.TID 0011.0001) // RANGE I (Lo:Hi:Step):(    89:   137:     1)
+(PID.TID 0011.0001) // RANGE J (Lo:Hi:Step):(    82:    59:    -1)
+(PID.TID 0011.0001) // RANGE K (Lo:Hi:Step):(   1:   1:   1)
+(PID.TID 0011.0001) // =======================================================
+(PID.TID 0011.0001) // =======================================================
+(PID.TID 0011.0001) // END OF FIELD                                          =
+(PID.TID 0011.0001) // =======================================================
+(PID.TID 0011.0001) 
+(PID.TID 0011.0001) 
+(PID.TID 0011.0001) // =======================================================
+(PID.TID 0011.0001) // Calendar configuration >>> START <<<
+(PID.TID 0011.0001) // =======================================================
+(PID.TID 0011.0001) 
+(PID.TID 0011.0001) modelstart = /* Start time of the model integration [s] */
+(PID.TID 0011.0001)                 0.000000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) modelend  = /* End time of the model integration [s] */
+(PID.TID 0011.0001)                 2.592000000000000E+05
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) modelStep = /* Time interval for a model forward step [s] */
+(PID.TID 0011.0001)                 9.000000000000000E+02
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) usingGregorianCalendar= /* Calendar Type: Gregorian Calendar */
+(PID.TID 0011.0001)                   T
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) usingJulianCalendar = /* Calendar Type: Julian Calendar */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) usingNoLeapYearCal  = /* Calendar Type: without Leap Year */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) usingModelCalendar  = /* Calendar Type: Model Calendar */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) modelStartDate YYYYMMDD = /* Model start date YYYY-MM-DD */
+(PID.TID 0011.0001)                19790101
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001)   modelStartDate HHMMSS = /* Model start date HH-MM-SS  */
+(PID.TID 0011.0001)                       0
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) modelEndDate   YYYYMMDD = /* Model end date YYYY-MM-DD */
+(PID.TID 0011.0001)                19790104
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001)   modelEndDate   HHMMSS = /* Model end date HH-MM-SS  */
+(PID.TID 0011.0001)                       0
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) intyears = /* Number of calendar years affected by the integration */
+(PID.TID 0011.0001)                       1
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) intmonths= /* Number of calendar months affected by the integration */
+(PID.TID 0011.0001)                       1
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) intdays = /* Number of calendar days affected by the integration */
+(PID.TID 0011.0001)                       3
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) modelIter0 = /* Base timestep number  */
+(PID.TID 0011.0001)                       0
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) modelIterEnd = /* Final timestep number  */
+(PID.TID 0011.0001)                     288
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) modelIntSteps= /* Number of model timesteps  */
+(PID.TID 0011.0001)                     288
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) 
+(PID.TID 0011.0001) // =======================================================
+(PID.TID 0011.0001) // Calendar configuration  >>> END <<<
+(PID.TID 0011.0001) // =======================================================
+(PID.TID 0011.0001) 
+(PID.TID 0011.0001) GAD_INIT_FIXED: GAD_OlMinSize=  1  0  1
+(PID.TID 0011.0001) 
+(PID.TID 0011.0001) // ===================================
+(PID.TID 0011.0001) // GAD parameters :
+(PID.TID 0011.0001) // ===================================
+(PID.TID 0011.0001) tempAdvScheme =   /* Temp. Horiz.Advection scheme selector */
+(PID.TID 0011.0001)                       2
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) tempVertAdvScheme =   /* Temp. Vert. Advection scheme selector */
+(PID.TID 0011.0001)                       2
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) tempMultiDimAdvec =   /* use Muti-Dim Advec method for Temp */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) tempSOM_Advection = /* use 2nd Order Moment Advection for Temp */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) AdamsBashforthGt = /* apply Adams-Bashforth extrapolation on Gt */
+(PID.TID 0011.0001)                   T
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) AdamsBashforth_T = /* apply Adams-Bashforth extrapolation on Temp */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) saltAdvScheme =   /* Salt. Horiz.advection scheme selector */
+(PID.TID 0011.0001)                       2
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) saltVertAdvScheme =   /* Salt. Vert. Advection scheme selector */
+(PID.TID 0011.0001)                       2
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) saltMultiDimAdvec =   /* use Muti-Dim Advec method for Salt */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) saltSOM_Advection = /* use 2nd Order Moment Advection for Salt */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) AdamsBashforthGs = /* apply Adams-Bashforth extrapolation on Gs */
+(PID.TID 0011.0001)                   T
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) AdamsBashforth_S = /* apply Adams-Bashforth extrapolation on Salt */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) // ===================================
+(PID.TID 0011.0001) 
+(PID.TID 0011.0001) // =======================================================
+(PID.TID 0011.0001) // External forcing (EXF) configuration >>> START <<<
+(PID.TID 0011.0001) // =======================================================
+(PID.TID 0011.0001) 
+(PID.TID 0011.0001)  EXF general parameters:
+(PID.TID 0011.0001) 
+(PID.TID 0011.0001) exf_iprec = /* exf file precision */
+(PID.TID 0011.0001)                      32
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) useExfYearlyFields = /* add extension _YEAR to input file names */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) twoDigitYear = /* use 2-digit year extension */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) useExfCheckRange = /* check for fields range */
+(PID.TID 0011.0001)                   T
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) diags_opOceWeighted = /* weight flux diags by open-ocean fraction */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) exf_debugLev = /* select EXF-debug printing level */
+(PID.TID 0011.0001)                       3
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) exf_monFreq  = /* EXF monitor frequency [ s ] */
+(PID.TID 0011.0001)                 9.000000000000000E+03
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) exf_adjMonSelect = /* select group of exf AD-variables to monitor */
+(PID.TID 0011.0001)                       1
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) repeatPeriod = /* period for cycling forcing dataset [ s ] */
+(PID.TID 0011.0001)                 0.000000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) climTempFreeze= /* Minimum climatological temperature [deg.C] */
+(PID.TID 0011.0001)                -1.900000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) windStressMax = /* Maximum absolute windstress [ Pa ] */
+(PID.TID 0011.0001)                 2.000000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) stressIsOnCgrid = /* set u,v_stress on Arakawa C-grid */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) rotateStressOnAgrid = /* rotate u,v_stress on Arakawa A-grid */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) cen2kel = /* conversion of deg. Centigrade to Kelvin [K] */
+(PID.TID 0011.0001)                 2.731500000000000E+02
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) gravity_mks= /* gravitational acceleration [m/s^2] */
+(PID.TID 0011.0001)                 9.810000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) atmrho =  /* mean atmospheric density [kg/m^3] */
+(PID.TID 0011.0001)                 1.200000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) atmcp =  /* mean atmospheric specific heat [J/kg/K] */
+(PID.TID 0011.0001)                 1.005000000000000E+03
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) flamb =  /* latent heat of evaporation [J/kg] */
+(PID.TID 0011.0001)                 2.500000000000000E+06
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) flami =  /* latent heat of pure-ice melting [J/kg] */
+(PID.TID 0011.0001)                 3.340000000000000E+05
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) cvapor_fac = /* const. for Saturation calculation [?] */
+(PID.TID 0011.0001)                 6.403800000000000E+05
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) cvapor_exp = /* const. for Saturation calculation [?] */
+(PID.TID 0011.0001)                 5.107400000000000E+03
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) cvapor_fac_ice= /* const. for Saturation calculation [?] */
+(PID.TID 0011.0001)                 1.163780000000000E+07
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) cvapor_exp_ice= /* const. for Saturation calculation [?] */
+(PID.TID 0011.0001)                 5.897800000000000E+03
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) humid_fac = /* humidity coef. in virtual temp. [(kg/kg)^-1] */
+(PID.TID 0011.0001)                 6.060000000000000E-01
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) gamma_blk = /* adiabatic lapse rate [?] */
+(PID.TID 0011.0001)                 1.000000000000000E-02
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) saltsat = /* reduction of Qsat over salty water [-] */
+(PID.TID 0011.0001)                 9.800000000000000E-01
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) noNegativeEvap = /* prevent negative Evaporation */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) sstExtrapol = /* extrapolation coeff from lev. 1 & 2 to surf [-] */
+(PID.TID 0011.0001)                 0.000000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) cDrag_1 = /* coef used in drag calculation [m/s] */
+(PID.TID 0011.0001)                 2.700000000000000E-03
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) cDrag_2 = /* coef used in drag calculation [-] */
+(PID.TID 0011.0001)                 1.420000000000000E-04
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) cDrag_3 = /* coef used in drag calculation [s/m] */
+(PID.TID 0011.0001)                 7.640000000000000E-05
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) cDrag_8 = /* coef used in drag calculation [(s/m)^6] */
+(PID.TID 0011.0001)                 1.234567000000000E+05
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) cDragMax = /* maximum drag (Large and Yeager, 2009) [-] */
+(PID.TID 0011.0001)                 1.234567000000000E+05
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) umax = /* at maximum wind (Large and Yeager, 2009) [m/s] */
+(PID.TID 0011.0001)                 1.234567000000000E+05
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) cStanton_1 = /* coef used in Stanton number calculation [-] */
+(PID.TID 0011.0001)                 3.270000000000000E-02
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) cStanton_2 = /* coef used in Stanton number calculation [-] */
+(PID.TID 0011.0001)                 1.800000000000000E-02
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) cDalton = /* Dalton number [-] */
+(PID.TID 0011.0001)                 3.460000000000000E-02
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) exf_scal_BulkCdn= /* Drag coefficient scaling factor [-] */
+(PID.TID 0011.0001)                 1.000000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) zolmin = /* minimum stability parameter [?] */
+(PID.TID 0011.0001)                -1.000000000000000E+02
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) psim_fac = /* coef used in turbulent fluxes calculation [-] */
+(PID.TID 0011.0001)                 5.000000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) zref =  /* reference height [ m ] */
+(PID.TID 0011.0001)                 1.000000000000000E+01
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) hu =  /* height of mean wind [ m ] */
+(PID.TID 0011.0001)                 1.000000000000000E+01
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) ht =  /* height of mean temperature [ m ] */
+(PID.TID 0011.0001)                 2.000000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) hq =  /* height of mean spec.humidity [ m ] */
+(PID.TID 0011.0001)                 2.000000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) uMin = /* minimum wind speed [m/s] */
+(PID.TID 0011.0001)                 5.000000000000000E-01
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) useStabilityFct_overIce= /* transfert Coeffs over sea-ice depend on stability */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) exf_iceCd = /* drag coefficient over sea-ice (fixed) [-] */
+(PID.TID 0011.0001)                 1.630000000000000E-03
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) exf_iceCe = /* transfert coeff. over sea-ice, for Evap (fixed) [-] */
+(PID.TID 0011.0001)                 1.630000000000000E-03
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) exf_iceCh = /* transfert coeff. over sea-ice, Sens.Heat.(fixed)[-] */
+(PID.TID 0011.0001)                 1.630000000000000E-03
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) exf_albedo =  /* Sea-water albedo [-] */
+(PID.TID 0011.0001)                 1.000000000000000E-01
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) useExfZenAlbedo = /* Sea-water albedo varies with zenith angle */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) select_ZenAlbedo = /* Sea-water albedo computation method */
+(PID.TID 0011.0001)                       0
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) useExfZenIncoming = /* compute incoming solar radiation */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) ocean_emissivity = /* longwave ocean-surface emissivity [-] */
+(PID.TID 0011.0001)                 9.700176366843034E-01
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) ice_emissivity = /* longwave seaice emissivity [-] */
+(PID.TID 0011.0001)                 9.500000000000000E-01
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) snow_emissivity = /* longwave snow  emissivity [-] */
+(PID.TID 0011.0001)                 9.500000000000000E-01
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) 
+(PID.TID 0011.0001)  EXF main CPP flags:
+(PID.TID 0011.0001) 
+(PID.TID 0011.0001) // USE_EXF_INTERPOLATION:          NOT defined
+(PID.TID 0011.0001) // ALLOW_ATM_TEMP:                     defined
+(PID.TID 0011.0001) // ALLOW_ATM_WIND (useAtmWind):        defined
+(PID.TID 0011.0001) // ALLOW_DOWNWARD_RADIATION:           defined
+(PID.TID 0011.0001) // ALLOW_BULKFORMULAE:                 defined
+(PID.TID 0011.0001) 
+(PID.TID 0011.0001)    Zonal wind forcing starts at                          0.
+(PID.TID 0011.0001)    Zonal wind forcing period is                    2629800.
+(PID.TID 0011.0001)    Zonal wind forcing repeat-cycle is                    0.
+(PID.TID 0011.0001)    Zonal wind forcing is read from file:
+(PID.TID 0011.0001)    >> NCEP/u10Interp.bin <<
+(PID.TID 0011.0001) 
+(PID.TID 0011.0001)    Meridional wind forcing starts at                     0.
+(PID.TID 0011.0001)    Meridional wind forcing period is               2629800.
+(PID.TID 0011.0001)    Meridional wind forcing repeat-cycle is               0.
+(PID.TID 0011.0001)    Meridional wind forcing is read from file:
+(PID.TID 0011.0001)    >> NCEP/v10Interp.bin <<
+(PID.TID 0011.0001) 
+(PID.TID 0011.0001)    Atmospheric temperature starts at                     0.
+(PID.TID 0011.0001)    Atmospheric temperature period is               2629800.
+(PID.TID 0011.0001)    Atmospheric temperature repeat-cycle is               0.
+(PID.TID 0011.0001)    Atmospheric temperature is read from file:
+(PID.TID 0011.0001)    >> NCEP/T2mInterp.bin <<
+(PID.TID 0011.0001) 
+(PID.TID 0011.0001)    Atmospheric specific humidity starts at               0.
+(PID.TID 0011.0001)    Atmospheric specific humidity period is         2629800.
+(PID.TID 0011.0001)    Atmospheric specific humidity rep-cycle is            0.
+(PID.TID 0011.0001)    Atmospheric specific humidity is read from file:
+(PID.TID 0011.0001)    >> NCEP/sh2Interp.bin <<
+(PID.TID 0011.0001) 
+(PID.TID 0011.0001) // ALLOW_READ_TURBFLUXES:          NOT defined
+(PID.TID 0011.0001) // EXF_READ_EVAP:                  NOT defined
+(PID.TID 0011.0001) 
+(PID.TID 0011.0001)    Precipitation data starts at                          0.
+(PID.TID 0011.0001)    Precipitation data period is                    2629800.
+(PID.TID 0011.0001)    Precipitation data repeat-cycle is                    0.
+(PID.TID 0011.0001)    Precipitation data is read from file:
+(PID.TID 0011.0001)    >> NCEP/prtInterp.bin <<
+(PID.TID 0011.0001) 
+(PID.TID 0011.0001) // ALLOW_RUNOFF:                       defined
+(PID.TID 0011.0001) // ALLOW_RUNOFTEMP:                NOT defined
+(PID.TID 0011.0001) // ALLOW_SALTFLX:                  NOT defined
+(PID.TID 0011.0001) 
+(PID.TID 0011.0001)    Downward shortwave flux starts at                     0.
+(PID.TID 0011.0001)    Downward shortwave flux period is               2629800.
+(PID.TID 0011.0001)    Downward shortwave flux repeat-cycle is               0.
+(PID.TID 0011.0001)    Downward shortwave flux is read from file:
+(PID.TID 0011.0001)    >> NCEP/dswInterp.bin <<
+(PID.TID 0011.0001) 
+(PID.TID 0011.0001)    Downward longwave flux starts at                      0.
+(PID.TID 0011.0001)    Downward longwave flux period is                2629800.
+(PID.TID 0011.0001)    Downward longwave flux repeat-cycle is                0.
+(PID.TID 0011.0001)    Downward longwave flux is read from file:
+(PID.TID 0011.0001)    >> NCEP/dlwInterp.bin <<
+(PID.TID 0011.0001) 
+(PID.TID 0011.0001) // =======================================================
+(PID.TID 0011.0001) // External forcing (EXF) climatology configuration :
+(PID.TID 0011.0001) // =======================================================
+(PID.TID 0011.0001) 
+(PID.TID 0011.0001) // ALLOW_CLIMSST_RELAXATION:           defined
+(PID.TID 0011.0001)    climsst relaxation is NOT used
+(PID.TID 0011.0001) 
+(PID.TID 0011.0001) // ALLOW_CLIMSSS_RELAXATION:           defined
+(PID.TID 0011.0001)    climsss relaxation is NOT used
+(PID.TID 0011.0001) 
+(PID.TID 0011.0001) // =======================================================
+(PID.TID 0011.0001) // External forcing (EXF) configuration  >>> END <<<
+(PID.TID 0011.0001) // =======================================================
+(PID.TID 0011.0001) 
+(PID.TID 0011.0001) PTRACERS_INIT_FIXED: updated GAD_OlMinSize=  2  0  1
+(PID.TID 0011.0001) POLLUTANT_INIT_FIXED: initializing POLLUTANT
+(PID.TID 0011.0001) POLLUTANT_DIAGNOSTICS_INIT:
+(PID.TID 0011.0001) ------------------------------------------------------------
+(PID.TID 0011.0001) DIAGNOSTICS_SET_LEVELS: done
+(PID.TID 0011.0001)  Total Nb of available Diagnostics: ndiagt=   275
+(PID.TID 0011.0001) SETDIAG: Allocate  1 x  1 Levels for Diagnostic #    23 ETAN
+(PID.TID 0011.0001) SETDIAG: Allocate 40 x  1 Levels for Diagnostic #    30 UVEL
+(PID.TID 0011.0001) SETDIAG: Allocate 40 x  1 Levels for Diagnostic #    31 VVEL
+(PID.TID 0011.0001) SETDIAG: Allocate 40 x  1 Levels for Diagnostic #    26 THETA
+(PID.TID 0011.0001) SETDIAG: Allocate 40 x  1 Levels for Diagnostic #    27 SALT
+(PID.TID 0011.0001) SETDIAG: Allocate 40 x  1 Levels for Diagnostic #   271 POLLUT_S
+(PID.TID 0011.0001) SETDIAG: Allocate 40 x  1 Levels for Diagnostic #   272 POLLUT_K
+(PID.TID 0011.0001) SETDIAG: Allocate 40 x  1 Levels for Diagnostic #   273 POLLUT_T
+(PID.TID 0011.0001) SETDIAG: Allocate 40 x  1 Levels for Diagnostic #   255 TRAC01
+(PID.TID 0011.0001) SETDIAG: Allocate 40 x  1 Levels for Diagnostic #   275 POLLUT_M
+(PID.TID 0011.0001)   space allocated for all diagnostics:     361 levels
+(PID.TID 0011.0001)   set mate pointer for diag #    30  UVEL     , Parms: UUR     MR , mate:    31
+(PID.TID 0011.0001)   set mate pointer for diag #    31  VVEL     , Parms: VVR     MR , mate:    30
+(PID.TID 0011.0001) DIAGNOSTICS_SET_POINTERS: Set levels for Outp.Stream: output/surf
+(PID.TID 0011.0001)  Levels:       1.
+(PID.TID 0011.0001) DIAGNOSTICS_SET_POINTERS: Set levels for Outp.Stream: output/state
+(PID.TID 0011.0001)  Levels:       1.   2.   3.   4.   5.   6.   7.   8.   9.  10.  11.  12.  13.  14.  15.  16.  17.  18.  19.  20.
+(PID.TID 0011.0001)  Levels:      21.  22.  23.  24.  25.  26.  27.  28.  29.  30.  31.  32.  33.  34.  35.  36.  37.  38.  39.  40.
+(PID.TID 0011.0001) DIAGNOSTICS_SET_POINTERS: Set levels for Outp.Stream: output/pollutant_tendency
+(PID.TID 0011.0001)  Levels:       1.   2.   3.   4.   5.   6.   7.   8.   9.  10.  11.  12.  13.  14.  15.  16.  17.  18.  19.  20.
+(PID.TID 0011.0001)  Levels:      21.  22.  23.  24.  25.  26.  27.  28.  29.  30.  31.  32.  33.  34.  35.  36.  37.  38.  39.  40.
+(PID.TID 0011.0001) DIAGNOSTICS_SET_POINTERS: Set levels for Outp.Stream: output/pollutant_state
+(PID.TID 0011.0001)  Levels:       1.   2.   3.   4.   5.   6.   7.   8.   9.  10.  11.  12.  13.  14.  15.  16.  17.  18.  19.  20.
+(PID.TID 0011.0001)  Levels:      21.  22.  23.  24.  25.  26.  27.  28.  29.  30.  31.  32.  33.  34.  35.  36.  37.  38.  39.  40.
+(PID.TID 0011.0001) DIAGNOSTICS_SET_POINTERS: done
+(PID.TID 0011.0001) ------------------------------------------------------------
+(PID.TID 0011.0001) DIAGSTATS_SET_REGIONS: define no region
+(PID.TID 0011.0001) ------------------------------------------------------------
+(PID.TID 0011.0001)   space allocated for all stats-diags:       0 levels
+(PID.TID 0011.0001) DIAGSTATS_SET_POINTERS: done
+(PID.TID 0011.0001) ------------------------------------------------------------
+(PID.TID 0011.0001) INI_CG2D: CG2D normalisation factor =  7.0600018166183843E-05
+(PID.TID 0011.0001) 
+(PID.TID 0011.0001) // =======================================================
+(PID.TID 0011.0001) // Model configuration
+(PID.TID 0011.0001) // =======================================================
+(PID.TID 0011.0001) //
+(PID.TID 0011.0001) // "Physical" paramters ( PARM01 in namelist )
+(PID.TID 0011.0001) //
+(PID.TID 0011.0001) buoyancyRelation = /* Type of relation to get Buoyancy */
+(PID.TID 0011.0001)               'OCEANIC'
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) fluidIsAir   =  /* fluid major constituent is Air */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) fluidIsWater =  /* fluid major constituent is Water */
+(PID.TID 0011.0001)                   T
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) usingPCoords =  /* use p (or p*) vertical coordinate */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) usingZCoords =  /* use z (or z*) vertical coordinate */
+(PID.TID 0011.0001)                   T
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) tRef =   /* Reference temperature profile ( oC or K ) */
+(PID.TID 0011.0001)    40 @  2.000000000000000E+01              /* K =  1: 40 */
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) sRef =   /* Reference salinity profile ( g/kg ) */
+(PID.TID 0011.0001)    40 @  3.500000000000000E+01              /* K =  1: 40 */
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) rhoRef =   /* Density vertical profile from (Ref,sRef)( kg/m^3 ) */
+(PID.TID 0011.0001)                 1.024784978087880E+03,      /* K =  1 */
+(PID.TID 0011.0001)                 1.024829092128434E+03,      /* K =  2 */
+(PID.TID 0011.0001)                 1.024873853587658E+03,      /* K =  3 */
+(PID.TID 0011.0001)                 1.024919787913309E+03,      /* K =  4 */
+(PID.TID 0011.0001)                 1.024967332405406E+03,      /* K =  5 */
+(PID.TID 0011.0001)                 1.025017142911895E+03,      /* K =  6 */
+(PID.TID 0011.0001)                 1.025069874533037E+03,      /* K =  7 */
+(PID.TID 0011.0001)                 1.025126356645826E+03,      /* K =  8 */
+(PID.TID 0011.0001)                 1.025187636280286E+03,      /* K =  9 */
+(PID.TID 0011.0001)                 1.025255021307938E+03,      /* K = 10 */
+(PID.TID 0011.0001)                 1.025330123374942E+03,      /* K = 11 */
+(PID.TID 0011.0001)                 1.025415250184016E+03,      /* K = 12 */
+(PID.TID 0011.0001)                 1.025513315638703E+03,      /* K = 13 */
+(PID.TID 0011.0001)                 1.025628578984153E+03,      /* K = 14 */
+(PID.TID 0011.0001)                 1.025766899648855E+03,      /* K = 15 */
+(PID.TID 0011.0001)                 1.025936903034056E+03,      /* K = 16 */
+(PID.TID 0011.0001)                 1.026151220322667E+03,      /* K = 17 */
+(PID.TID 0011.0001)                 1.026428574775437E+03,      /* K = 18 */
+(PID.TID 0011.0001)                 1.026795731463822E+03,      /* K = 19 */
+(PID.TID 0011.0001)                 1.027287238696294E+03,      /* K = 20 */
+(PID.TID 0011.0001)                 1.027935615755393E+03,      /* K = 21 */
+(PID.TID 0011.0001)                 1.028749312653320E+03,      /* K = 22 */
+(PID.TID 0011.0001)                 1.029695343692426E+03,      /* K = 23 */
+(PID.TID 0011.0001)                 1.030715941993681E+03,      /* K = 24 */
+(PID.TID 0011.0001)                 1.031763662916017E+03,      /* K = 25 */
+(PID.TID 0011.0001)                 1.032815182162763E+03,      /* K = 26 */
+(PID.TID 0011.0001)                 1.033862903270207E+03,      /* K = 27 */
+(PID.TID 0011.0001)                 1.034905176715220E+03,      /* K = 28 */
+(PID.TID 0011.0001)                 1.035941712915787E+03,      /* K = 29 */
+(PID.TID 0011.0001)                 1.036972517011399E+03,      /* K = 30 */
+(PID.TID 0011.0001)                 1.037997635443421E+03,      /* K = 31 */
+(PID.TID 0011.0001)                 1.039017114153097E+03,      /* K = 32 */
+(PID.TID 0011.0001)                 1.040030998588263E+03,      /* K = 33 */
+(PID.TID 0011.0001)                 1.041039333709954E+03,      /* K = 34 */
+(PID.TID 0011.0001)                 1.042042163998903E+03,      /* K = 35 */
+(PID.TID 0011.0001)                 1.043039533461940E+03,      /* K = 36 */
+(PID.TID 0011.0001)                 1.044031485638284E+03,      /* K = 37 */
+(PID.TID 0011.0001)                 1.045018063605739E+03,      /* K = 38 */
+(PID.TID 0011.0001)                 1.045999309986789E+03,      /* K = 39 */
+(PID.TID 0011.0001)                 1.046975266954600E+03       /* K = 40 */
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) dBdrRef = /* Vertical grad. of reference buoyancy [(m/s/r)^2] */
+(PID.TID 0011.0001)    40 @  0.000000000000000E+00              /* K =  1: 40 */
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) useStrainTensionVisc= /* Use StrainTension Form of Viscous Operator */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) useVariableVisc = /* Use variable horizontal viscosity */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) useHarmonicVisc = /* Use harmonic horizontal viscosity */
+(PID.TID 0011.0001)                   T
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) useBiharmonicVisc= /* Use biharmonic horiz.  viscosity */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) useSmag3D = /* Use isotropic 3-D Smagorinsky viscosity */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) viscAh  =   /* Lateral harmonic viscosity ( m^2/s ) */
+(PID.TID 0011.0001)                 2.000000000000000E+05
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) viscA4  =   /* Lateral biharmonic viscosity ( m^4/s ) */
+(PID.TID 0011.0001)                 0.000000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) no_slip_sides =  /* Viscous BCs: No-slip sides */
+(PID.TID 0011.0001)                   T
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) sideDragFactor = /* side-drag scaling factor (non-dim) */
+(PID.TID 0011.0001)                 2.000000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) viscArNr = /* vertical profile of vertical viscosity ( m^2/s )*/
+(PID.TID 0011.0001)    40 @  1.000000000000000E-03              /* K =  1: 40 */
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) no_slip_bottom =  /* Viscous BCs: No-slip bottom */
+(PID.TID 0011.0001)                   T
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) bottomVisc_pCell = /* Partial-cell in bottom Visc. BC */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) bottomDragLinear = /* linear bottom-drag coefficient ( m/s ) */
+(PID.TID 0011.0001)                 0.000000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) bottomDragQuadratic = /* quadratic bottom-drag coefficient (-) */
+(PID.TID 0011.0001)                 0.000000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) selectBotDragQuadr = /* select quadratic bottom drag options */
+(PID.TID 0011.0001)                      -1
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) diffKhT =   /* Laplacian diffusion of heat laterally ( m^2/s ) */
+(PID.TID 0011.0001)                 0.000000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) diffK4T =   /* Biharmonic diffusion of heat laterally ( m^4/s ) */
+(PID.TID 0011.0001)                 0.000000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) diffKhS =   /* Laplacian diffusion of salt laterally ( m^2/s ) */
+(PID.TID 0011.0001)                 0.000000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) diffK4S =   /* Biharmonic diffusion of salt laterally ( m^4/s ) */
+(PID.TID 0011.0001)                 0.000000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) diffKrNrT = /* vertical profile of vertical diffusion of Temp ( m^2/s )*/
+(PID.TID 0011.0001)    40 @  2.000000000000000E-05              /* K =  1: 40 */
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) diffKrNrS = /* vertical profile of vertical diffusion of Salt ( m^2/s )*/
+(PID.TID 0011.0001)    40 @  2.000000000000000E-05              /* K =  1: 40 */
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) diffKrBL79surf = /* Surface diffusion for Bryan and Lewis 79 ( m^2/s ) */
+(PID.TID 0011.0001)                 0.000000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) diffKrBL79deep = /* Deep diffusion for Bryan and Lewis 1979 ( m^2/s ) */
+(PID.TID 0011.0001)                 0.000000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) diffKrBL79scl = /* Depth scale for Bryan and Lewis 1979 ( m ) */
+(PID.TID 0011.0001)                 2.000000000000000E+02
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) diffKrBL79Ho = /* Turning depth for Bryan and Lewis 1979 ( m ) */
+(PID.TID 0011.0001)                -2.000000000000000E+03
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) ivdc_kappa = /* Implicit Vertical Diffusivity for Convection ( m^2/s) */
+(PID.TID 0011.0001)                 0.000000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) hMixCriteria=  /* Criteria for mixed-layer diagnostic */
+(PID.TID 0011.0001)                -8.000000000000000E-01
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) dRhoSmall =  /* Parameter for mixed-layer diagnostic */
+(PID.TID 0011.0001)                 1.000000000000000E-06
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) hMixSmooth=  /* Smoothing parameter for mixed-layer diagnostic */
+(PID.TID 0011.0001)                 0.000000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) eosType =  /* Type of Equation of State */
+(PID.TID 0011.0001)               'JMD95Z'
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) eosRefP0 = /* Reference atmospheric pressure for EOS ( Pa ) */
+(PID.TID 0011.0001)                 1.013250000000000E+05
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) selectP_inEOS_Zc = /* select pressure to use in EOS (0,1,2,3) */
+(PID.TID 0011.0001)                       0
+(PID.TID 0011.0001)     0= -g*rhoConst*z ; 1= pRef (from tRef,sRef); 2= Hyd P ; 3= Hyd+NH P
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) surf_pRef = /* Surface reference pressure ( Pa ) */
+(PID.TID 0011.0001)                 1.013250000000000E+05
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) HeatCapacity_Cp =  /* Specific heat capacity ( J/kg/K ) */
+(PID.TID 0011.0001)                 3.994000000000000E+03
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) celsius2K = /* 0 degree Celsius converted to Kelvin ( K ) */
+(PID.TID 0011.0001)                 2.731500000000000E+02
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) rhoConst  = /* Reference density (Boussinesq)  ( kg/m^3 ) */
+(PID.TID 0011.0001)                 1.035000000000000E+03
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) rhoFacC = /* normalized Reference density @ cell-Center (-) */
+(PID.TID 0011.0001)    40 @  1.000000000000000E+00              /* K =  1: 40 */
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) rhoFacF = /* normalized Reference density @ W-Interface (-) */
+(PID.TID 0011.0001)    41 @  1.000000000000000E+00              /* K =  1: 41 */
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) rhoConstFresh = /* Fresh-water reference density ( kg/m^3 ) */
+(PID.TID 0011.0001)                 1.000000000000000E+03
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) gravity =   /* Gravitational acceleration ( m/s^2 ) */
+(PID.TID 0011.0001)                 9.810000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) gBaro =   /* Barotropic gravity ( m/s^2 ) */
+(PID.TID 0011.0001)                 9.810000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) gravFacC = /* gravity factor (vs surf.) @ cell-Center (-) */
+(PID.TID 0011.0001)    40 @  1.000000000000000E+00              /* K =  1: 40 */
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) gravFacF = /* gravity factor (vs surf.) @ W-Interface (-) */
+(PID.TID 0011.0001)    41 @  1.000000000000000E+00              /* K =  1: 41 */
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) rotationPeriod =   /* Rotation Period ( s ) */
+(PID.TID 0011.0001)                 8.616400000000000E+04
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) omega =   /* Angular velocity ( rad/s ) */
+(PID.TID 0011.0001)                 7.292123516990375E-05
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) f0 =   /* Reference coriolis parameter ( 1/s ) */
+(PID.TID 0011.0001)                 1.000000000000000E-04
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) beta =   /* Beta ( 1/(m.s) ) */
+(PID.TID 0011.0001)                 9.999999999999999E-12
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) fPrime =   /* Second coriolis parameter ( 1/s ) */
+(PID.TID 0011.0001)                 0.000000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) rigidLid =   /* Rigid lid on/off flag */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) implicitFreeSurface =   /* Implicit free surface on/off flag */
+(PID.TID 0011.0001)                   T
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) freeSurfFac =   /* Implicit free surface factor */
+(PID.TID 0011.0001)                 1.000000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) implicSurfPress =  /* Surface Pressure implicit factor (0-1) */
+(PID.TID 0011.0001)                 1.000000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) implicDiv2DFlow =  /* Barot. Flow Div. implicit factor (0-1) */
+(PID.TID 0011.0001)                 1.000000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) uniformLin_PhiSurf = /* use uniform Bo_surf on/off flag */
+(PID.TID 0011.0001)                   T
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) uniformFreeSurfLev = /* free-surface level-index is uniform */
+(PID.TID 0011.0001)                   T
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) sIceLoadFac =  /* scale factor for sIceLoad (0-1) */
+(PID.TID 0011.0001)                 1.000000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) hFacMin =   /* minimum partial cell factor (hFac) */
+(PID.TID 0011.0001)                 5.000000000000000E-02
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) hFacMinDr = /* minimum partial cell thickness ( m) */
+(PID.TID 0011.0001)                 5.000000000000000E+01
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) exactConserv =  /* Exact Volume Conservation on/off flag */
+(PID.TID 0011.0001)                   T
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) linFSConserveTr = /* Tracer correction for Lin Free Surface on/off flag */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) nonlinFreeSurf = /* Non-linear Free Surf. options (-1,0,1,2,3)*/
+(PID.TID 0011.0001)                       0
+(PID.TID 0011.0001)      -1,0= Off ; 1,2,3= On, 2=+rescale gU,gV, 3=+update cg2d solv.
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) hFacInf =   /* lower threshold for hFac (nonlinFreeSurf only)*/
+(PID.TID 0011.0001)                 2.000000000000000E-01
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) hFacSup =   /* upper threshold for hFac (nonlinFreeSurf only)*/
+(PID.TID 0011.0001)                 2.000000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) select_rStar = /* r* Vertical coord. options (=0 r coord.; >0 uses r*)*/
+(PID.TID 0011.0001)                       0
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) useRealFreshWaterFlux = /* Real Fresh Water Flux on/off flag*/
+(PID.TID 0011.0001)                   T
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) temp_EvPrRn = /* Temp. of Evap/Prec/R (UNSET=use local T)(oC)*/
+(PID.TID 0011.0001)                 1.234567000000000E+05
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) salt_EvPrRn = /* Salin. of Evap/Prec/R (UNSET=use local S)(g/kg)*/
+(PID.TID 0011.0001)                 0.000000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) selectAddFluid = /* option for mass source/sink of fluid (=0: off) */
+(PID.TID 0011.0001)                       0
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) temp_addMass = /* Temp. of addMass array (UNSET=use local T)(oC)*/
+(PID.TID 0011.0001)                 1.234567000000000E+05
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) salt_addMass = /* Salin. of addMass array (UNSET=use local S)(g/kg)*/
+(PID.TID 0011.0001)                 0.000000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) convertFW2Salt = /* convert F.W. Flux to Salt Flux (-1=use local S)(g/kg)*/
+(PID.TID 0011.0001)                -1.000000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) use3Dsolver = /* use 3-D pressure solver on/off flag */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) nonHydrostatic =  /* Non-Hydrostatic on/off flag */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) nh_Am2 = /* Non-Hydrostatic terms scaling factor */
+(PID.TID 0011.0001)                 1.000000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) implicitNHPress = /* Non-Hyd Pressure implicit factor (0-1)*/
+(PID.TID 0011.0001)                 1.000000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) selectNHfreeSurf = /* Non-Hyd (free-)Surface option */
+(PID.TID 0011.0001)                       0
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) quasiHydrostatic = /* Quasi-Hydrostatic on/off flag */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) calc_wVelocity = /* vertical velocity calculation on/off flag */
+(PID.TID 0011.0001)                   T
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) momStepping =  /* Momentum equation on/off flag */
+(PID.TID 0011.0001)                   T
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) vectorInvariantMomentum= /* Vector-Invariant Momentum on/off */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) momAdvection =  /* Momentum advection on/off flag */
+(PID.TID 0011.0001)                   T
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) momViscosity =  /* Momentum viscosity on/off flag */
+(PID.TID 0011.0001)                   T
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) momImplVertAdv= /* Momentum implicit vert. advection on/off*/
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) implicitViscosity = /* Implicit viscosity on/off flag */
+(PID.TID 0011.0001)                   T
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) selectImplicitDrag= /* Implicit bot Drag options (0,1,2)*/
+(PID.TID 0011.0001)                       0
+(PID.TID 0011.0001)     0= Expl. ; 1= Impl. on provis. Vel ; 2= Fully Impl (with surf.P)
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) metricTerms =  /* metric-Terms on/off flag */
+(PID.TID 0011.0001)                   T
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) useNHMTerms = /* Non-Hydrostatic Metric-Terms on/off */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) selectCoriMap = /* Coriolis Map options (0,1,2,3)*/
+(PID.TID 0011.0001)                       2
+(PID.TID 0011.0001)     0= f-Plane ; 1= Beta-Plane ; 2= Spherical ; 3= read from file
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) use3dCoriolis = /* 3-D Coriolis on/off flag */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) useCoriolis =  /* Coriolis on/off flag */
+(PID.TID 0011.0001)                   T
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) useCDscheme =  /* CD scheme on/off flag */
+(PID.TID 0011.0001)                   T
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) selectCoriScheme= /* Scheme selector for Coriolis-Term */
+(PID.TID 0011.0001)                       0
+(PID.TID 0011.0001)    = 0 : original discretization (simple averaging, no hFac)
+(PID.TID 0011.0001)    = 1 : Wet-point averaging (Jamar & Ozer 1986)
+(PID.TID 0011.0001)    = 2 : energy conserving scheme (no hFac weight)
+(PID.TID 0011.0001)    = 3 : energy conserving scheme using Wet-point averaging
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) momForcing =  /* Momentum forcing on/off flag */
+(PID.TID 0011.0001)                   T
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) momTidalForcing = /* Momentum Tidal forcing on/off flag */
+(PID.TID 0011.0001)                   T
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) momPressureForcing =  /* Momentum pressure term on/off flag */
+(PID.TID 0011.0001)                   T
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) implicitIntGravWave= /* Implicit Internal Gravity Wave flag */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) staggerTimeStep =    /* Stagger time stepping on/off flag */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) doResetHFactors = /* reset thickness factors @ each time-step */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) multiDimAdvection =  /* enable/disable Multi-Dim Advection */
+(PID.TID 0011.0001)                   T
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) useMultiDimAdvec =   /* Multi-Dim Advection is/is-not used */
+(PID.TID 0011.0001)                   T
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) implicitDiffusion = /* Implicit Diffusion on/off flag */
+(PID.TID 0011.0001)                   T
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) tempStepping =  /* Temperature equation on/off flag */
+(PID.TID 0011.0001)                   T
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) tempAdvection = /* Temperature advection on/off flag */
+(PID.TID 0011.0001)                   T
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) tempImplVertAdv = /* Temp. implicit vert. advection on/off */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) tempForcing  =  /* Temperature forcing on/off flag */
+(PID.TID 0011.0001)                   T
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) doThetaClimRelax = /* apply SST relaxation on/off flag */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) tempIsActiveTr = /* Temp. is a dynamically Active Tracer */
+(PID.TID 0011.0001)                   T
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) saltStepping =  /* Salinity equation on/off flag */
+(PID.TID 0011.0001)                   T
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) saltAdvection = /* Salinity advection on/off flag */
+(PID.TID 0011.0001)                   T
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) saltImplVertAdv = /* Sali. implicit vert. advection on/off */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) saltForcing  =  /* Salinity forcing on/off flag */
+(PID.TID 0011.0001)                   T
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) doSaltClimRelax = /* apply SSS relaxation on/off flag */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) saltIsActiveTr = /* Salt  is a dynamically Active Tracer */
+(PID.TID 0011.0001)                   T
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001)  readBinaryPrec = /* Precision used for reading binary files */
+(PID.TID 0011.0001)                      32
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) writeBinaryPrec = /* Precision used for writing binary files */
+(PID.TID 0011.0001)                      32
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001)  rwSuffixType =   /* select format of mds file suffix */
+(PID.TID 0011.0001)                       0
+(PID.TID 0011.0001)    = 0 : myIter (I10.10) ;   = 1 : 100*myTime (100th sec) ;
+(PID.TID 0011.0001)    = 2 : myTime (seconds);   = 3 : myTime/360 (10th of hr);
+(PID.TID 0011.0001)    = 4 : myTime/3600 (hours)
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001)  globalFiles = /* write "global" (=not per tile) files */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001)  useSingleCpuIO = /* only master MPI process does I/O */
+(PID.TID 0011.0001)                   T
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001)  useSingleCpuInput = /* only master process reads input */
+(PID.TID 0011.0001)                   T
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) /* debLev[*]  : level of debug & auxiliary message printing */
+(PID.TID 0011.0001) debLevZero =  0 ; /* level of disabled aux. msg printing */
+(PID.TID 0011.0001)    debLevA =  1 ; /* level of minimum  aux. msg printing */
+(PID.TID 0011.0001)    debLevB =  2 ; /* level of low aux. print (report read-file opening)*/
+(PID.TID 0011.0001)    debLevC =  3 ; /* level of moderate debug prt (most pkgs debug msg) */
+(PID.TID 0011.0001)    debLevD =  4 ; /* level of enhanced debug prt (add DEBUG_STATS prt) */
+(PID.TID 0011.0001)    debLevE =  5 ; /* level of extensive debug printing */
+(PID.TID 0011.0001) debugLevel =  /* select debug printing level */
+(PID.TID 0011.0001)                       2
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001)  plotLevel =  /* select PLOT_FIELD printing level */
+(PID.TID 0011.0001)                       2
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) //
+(PID.TID 0011.0001) // Elliptic solver(s) paramters ( PARM02 in namelist )
+(PID.TID 0011.0001) //
+(PID.TID 0011.0001) cg2dMaxIters =   /* Upper limit on 2d con. grad iterations  */
+(PID.TID 0011.0001)                     500
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) cg2dMinItersNSA =   /* Minimum number of iterations of 2d con. grad solver  */
+(PID.TID 0011.0001)                       0
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) cg2dUseMinResSol= /* use cg2d last-iter(=0) / min-resid.(=1) solution */
+(PID.TID 0011.0001)                       0
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) cg2dTargetResidual =   /* 2d con. grad target residual  */
+(PID.TID 0011.0001)                 1.000000000000000E-13
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) cg2dTargetResWunit =   /* CG2d target residual [W units] */
+(PID.TID 0011.0001)                -1.000000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) cg2dPreCondFreq =   /* Freq. for updating cg2d preconditioner */
+(PID.TID 0011.0001)                       1
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) useSRCGSolver =  /* use single reduction CG solver(s) */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) useNSACGSolver =  /* use not-self-adjoint CG solver */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) printResidualFreq = /* Freq. for printing CG residual */
+(PID.TID 0011.0001)                       0
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) //
+(PID.TID 0011.0001) // Time stepping paramters ( PARM03 in namelist )
+(PID.TID 0011.0001) //
+(PID.TID 0011.0001) deltaTMom =   /* Momentum equation timestep ( s ) */
+(PID.TID 0011.0001)                 9.000000000000000E+02
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) deltaTFreeSurf = /* FreeSurface equation timestep ( s ) */
+(PID.TID 0011.0001)                 9.000000000000000E+02
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) dTtracerLev =  /* Tracer equation timestep ( s ) */
+(PID.TID 0011.0001)    40 @  9.000000000000000E+02              /* K =  1: 40 */
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) deltaTClock  =   /* Model clock timestep ( s ) */
+(PID.TID 0011.0001)                 9.000000000000000E+02
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) cAdjFreq =   /* Convective adjustment interval ( s ) */
+(PID.TID 0011.0001)                 0.000000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) momForcingOutAB = /* =1: take Momentum Forcing out of Adams-Bash. stepping */
+(PID.TID 0011.0001)                       0
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) tracForcingOutAB = /* =1: take T,S,pTr Forcing out of Adams-Bash. stepping */
+(PID.TID 0011.0001)                       0
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) momDissip_In_AB = /* put Dissipation Tendency in Adams-Bash. stepping */
+(PID.TID 0011.0001)                   T
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) doAB_onGtGs = /* apply AB on Tendencies (rather than on T,S)*/
+(PID.TID 0011.0001)                   T
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) abEps =   /* Adams-Bashforth-2 stabilizing weight */
+(PID.TID 0011.0001)                 1.000000000000000E-01
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) applyExchUV_early = /* Apply EXCH to U,V earlier in time-step */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) tauCD =   /* CD coupling time-scale ( s ) */
+(PID.TID 0011.0001)                 3.214280000000000E+05
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) rCD =   /* Normalised CD coupling parameter */
+(PID.TID 0011.0001)                 9.971999950222133E-01
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) epsAB_CD = /* AB-2 stabilizing weight for CD-scheme*/
+(PID.TID 0011.0001)                 1.000000000000000E-01
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) pickupStrictlyMatch= /* stop if pickup do not strictly match */
+(PID.TID 0011.0001)                   T
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) nIter0   =   /* Run starting timestep number */
+(PID.TID 0011.0001)                       0
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) nTimeSteps = /* Number of timesteps */
+(PID.TID 0011.0001)                     288
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) nEndIter =   /* Run ending timestep number */
+(PID.TID 0011.0001)                     288
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) baseTime =   /* Model base time ( s ) */
+(PID.TID 0011.0001)                 0.000000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) startTime =  /* Run start time ( s ) */
+(PID.TID 0011.0001)                 0.000000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) endTime  =   /* Integration ending time ( s ) */
+(PID.TID 0011.0001)                 2.592000000000000E+05
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) pChkPtFreq = /* Permanent restart/pickup file interval ( s ) */
+(PID.TID 0011.0001)                 1.728000000000000E+06
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) chkPtFreq  = /* Rolling restart/pickup file interval ( s ) */
+(PID.TID 0011.0001)                 0.000000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) pickup_write_mdsio =   /* Model IO flag. */
+(PID.TID 0011.0001)                   T
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) pickup_read_mdsio =   /* Model IO flag. */
+(PID.TID 0011.0001)                   T
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) writePickupAtEnd =   /* Model IO flag. */
+(PID.TID 0011.0001)                   T
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) dumpFreq =   /* Model state write out interval ( s ). */
+(PID.TID 0011.0001)                 0.000000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) dumpInitAndLast= /* write out Initial & Last iter. model state */
+(PID.TID 0011.0001)                   T
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) snapshot_mdsio =   /* Model IO flag. */
+(PID.TID 0011.0001)                   T
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) monitorFreq =   /* Monitor output interval ( s ). */
+(PID.TID 0011.0001)                 9.000000000000000E+03
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) monitorSelect = /* select group of variables to monitor */
+(PID.TID 0011.0001)                       3
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) monitor_stdio =   /* Model IO flag. */
+(PID.TID 0011.0001)                   T
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) externForcingPeriod =   /* forcing period (s) */
+(PID.TID 0011.0001)                 0.000000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) externForcingCycle =   /* period of the cyle (s). */
+(PID.TID 0011.0001)                 0.000000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) tauThetaClimRelax =   /* relaxation time scale (s) */
+(PID.TID 0011.0001)                 0.000000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) tauSaltClimRelax =   /* relaxation time scale (s) */
+(PID.TID 0011.0001)                 0.000000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) latBandClimRelax =   /* max. Lat. where relaxation */
+(PID.TID 0011.0001)                 1.800000000000000E+02
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) //
+(PID.TID 0011.0001) // Gridding paramters ( PARM04 in namelist )
+(PID.TID 0011.0001) //
+(PID.TID 0011.0001) usingCartesianGrid = /* Cartesian coordinates flag ( True/False ) */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) usingCylindricalGrid = /* Cylindrical coordinates flag ( True/False ) */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) usingSphericalPolarGrid = /* Spherical coordinates flag ( True/False ) */
+(PID.TID 0011.0001)                   T
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) usingCurvilinearGrid = /* Curvilinear coordinates flag ( True/False ) */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) useMin4hFacEdges = /* set hFacW,S as minimum of adjacent hFacC factor */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) interViscAr_pCell = /* account for partial-cell in interior vert. viscosity */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) interDiffKr_pCell = /* account for partial-cell in interior vert. diffusion */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) pCellMix_select = /* option to enhance mixing near surface & bottom */
+(PID.TID 0011.0001)                       0
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) selectSigmaCoord = /* Hybrid-Sigma Vert. Coordinate option */
+(PID.TID 0011.0001)                       0
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) rSigmaBnd = /* r/sigma transition ( units of r ==  m ) */
+(PID.TID 0011.0001)                 1.234567000000000E+05
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) rkSign =   /* index orientation relative to vertical coordinate */
+(PID.TID 0011.0001)                -1.000000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) gravitySign = /* gravity orientation relative to vertical coordinate */
+(PID.TID 0011.0001)                -1.000000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) seaLev_Z =  /* reference height of sea-level [m] */
+(PID.TID 0011.0001)                 0.000000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) top_Pres =  /* reference pressure at the top [Pa] */
+(PID.TID 0011.0001)                 0.000000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) mass2rUnit = /* convert mass per unit area [kg/m2] to r-units [m] */
+(PID.TID 0011.0001)                 9.661835748792270E-04
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) rUnit2mass = /* convert r-units [m] to mass per unit area [kg/m2] */
+(PID.TID 0011.0001)                 1.035000000000000E+03
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) drC =   /* C spacing ( units of r ) */
+(PID.TID 0011.0001)                 5.010000000000000E+00,      /* K =  1 */
+(PID.TID 0011.0001)                 1.006000000000000E+01,      /* K =  2 */
+(PID.TID 0011.0001)                 1.021000000000000E+01,      /* K =  3 */
+(PID.TID 0011.0001)                 1.048000000000000E+01,      /* K =  4 */
+(PID.TID 0011.0001)                 1.085000000000000E+01,      /* K =  5 */
+(PID.TID 0011.0001)                 1.137000000000000E+01,      /* K =  6 */
+(PID.TID 0011.0001)                 1.204000000000000E+01,      /* K =  7 */
+(PID.TID 0011.0001)                 1.290000000000000E+01,      /* K =  8 */
+(PID.TID 0011.0001)                 1.400000000000000E+01,      /* K =  9 */
+(PID.TID 0011.0001)                 1.540000000000000E+01,      /* K = 10 */
+(PID.TID 0011.0001)                 1.717000000000000E+01,      /* K = 11 */
+(PID.TID 0011.0001)                 1.947000000000000E+01,      /* K = 12 */
+(PID.TID 0011.0001)                 2.244000000000000E+01,      /* K = 13 */
+(PID.TID 0011.0001)                 2.639000000000000E+01,      /* K = 14 */
+(PID.TID 0011.0001)                 3.169000000000000E+01,      /* K = 15 */
+(PID.TID 0011.0001)                 3.898000000000000E+01,      /* K = 16 */
+(PID.TID 0011.0001)                 4.919000000000000E+01,      /* K = 17 */
+(PID.TID 0011.0001)                 6.374000000000000E+01,      /* K = 18 */
+(PID.TID 0011.0001)                 8.452000000000000E+01,      /* K = 19 */
+(PID.TID 0011.0001)                 1.134000000000000E+02,      /* K = 20 */
+(PID.TID 0011.0001)                 1.500400000000000E+02,      /* K = 21 */
+(PID.TID 0011.0001)                 1.890200000000000E+02,      /* K = 22 */
+(PID.TID 0011.0001)                 2.207800000000000E+02,      /* K = 23 */
+(PID.TID 0011.0001)                 2.394200000000000E+02,      /* K = 24 */
+(PID.TID 0011.0001)                 2.471300000000000E+02,      /* K = 25 */
+(PID.TID 0011.0001)                 2.494100000000000E+02,      /* K = 26 */
+(PID.TID 0011.0001)                 2.499000000000000E+02,      /* K = 27 */
+(PID.TID 0011.0001)                 2.499900000000000E+02,      /* K = 28 */
+(PID.TID 0011.0001)    13 @  2.500000000000000E+02              /* K = 29: 41 */
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) drF =   /* W spacing ( units of r ) */
+(PID.TID 0011.0001)                 1.004000000000000E+01,      /* K =  1 */
+(PID.TID 0011.0001)                 1.013500000000000E+01,      /* K =  2 */
+(PID.TID 0011.0001)                 1.034500000000000E+01,      /* K =  3 */
+(PID.TID 0011.0001)                 1.066500000000000E+01,      /* K =  4 */
+(PID.TID 0011.0001)                 1.111000000000000E+01,      /* K =  5 */
+(PID.TID 0011.0001)                 1.170500000000000E+01,      /* K =  6 */
+(PID.TID 0011.0001)                 1.247000000000000E+01,      /* K =  7 */
+(PID.TID 0011.0001)                 1.345000000000000E+01,      /* K =  8 */
+(PID.TID 0011.0001)                 1.470000000000000E+01,      /* K =  9 */
+(PID.TID 0011.0001)                 1.628500000000000E+01,      /* K = 10 */
+(PID.TID 0011.0001)                 1.832000000000000E+01,      /* K = 11 */
+(PID.TID 0011.0001)                 2.095500000000000E+01,      /* K = 12 */
+(PID.TID 0011.0001)                 2.441500000000000E+01,      /* K = 13 */
+(PID.TID 0011.0001)                 2.904000000000000E+01,      /* K = 14 */
+(PID.TID 0011.0001)                 3.533500000000000E+01,      /* K = 15 */
+(PID.TID 0011.0001)                 4.408499999999999E+01,      /* K = 16 */
+(PID.TID 0011.0001)                 5.646500000000000E+01,      /* K = 17 */
+(PID.TID 0011.0001)                 7.413000000000000E+01,      /* K = 18 */
+(PID.TID 0011.0001)                 9.896000000000001E+01,      /* K = 19 */
+(PID.TID 0011.0001)                 1.317200000000000E+02,      /* K = 20 */
+(PID.TID 0011.0001)                 1.695300000000000E+02,      /* K = 21 */
+(PID.TID 0011.0001)                 2.049000000000000E+02,      /* K = 22 */
+(PID.TID 0011.0001)                 2.301000000000000E+02,      /* K = 23 */
+(PID.TID 0011.0001)                 2.432750000000000E+02,      /* K = 24 */
+(PID.TID 0011.0001)                 2.482700000000000E+02,      /* K = 25 */
+(PID.TID 0011.0001)                 2.496550000000000E+02,      /* K = 26 */
+(PID.TID 0011.0001)                 2.499450000000000E+02,      /* K = 27 */
+(PID.TID 0011.0001)                 2.499950000000000E+02,      /* K = 28 */
+(PID.TID 0011.0001)    11 @  2.500000000000000E+02,             /* K = 29: 39 */
+(PID.TID 0011.0001)                 3.750000000000000E+02       /* K = 40 */
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) delX = /* U spacing ( m - cartesian, degrees - spherical ) */
+(PID.TID 0011.0001)   180 @  2.000000000000000E+00              /* I =  1:180 */
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) delY = /* V spacing ( m - cartesian, degrees - spherical ) */
+(PID.TID 0011.0001)    80 @  2.000000000000000E+00              /* J =  1: 80 */
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) xgOrigin = /* X-axis origin of West  edge (cartesian: m, lat-lon: deg) */
+(PID.TID 0011.0001)                 0.000000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) ygOrigin = /* Y-axis origin of South edge (cartesian: m, lat-lon: deg) */
+(PID.TID 0011.0001)                -8.000000000000000E+01
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) rSphere =  /* Radius ( ignored - cartesian, m - spherical ) */
+(PID.TID 0011.0001)                 6.370000000000000E+06
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) deepAtmosphere = /* Deep/Shallow Atmosphere flag (True/False) */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) xC =  /* xC(:,1,:,1) : P-point X coord ( deg. or m if cartesian) */
+(PID.TID 0011.0001)                 1.810000000000000E+02,      /* I =  1 */
+(PID.TID 0011.0001)                 1.830000000000000E+02,      /* I =  2 */
+(PID.TID 0011.0001)                 1.850000000000000E+02,      /* I =  3 */
+(PID.TID 0011.0001)                 1.870000000000000E+02,      /* I =  4 */
+(PID.TID 0011.0001)                 1.890000000000000E+02,      /* I =  5 */
+(PID.TID 0011.0001)                 1.910000000000000E+02,      /* I =  6 */
+(PID.TID 0011.0001)                 1.930000000000000E+02,      /* I =  7 */
+(PID.TID 0011.0001)                 1.950000000000000E+02,      /* I =  8 */
+(PID.TID 0011.0001)                 1.970000000000000E+02,      /* I =  9 */
+(PID.TID 0011.0001)                 1.990000000000000E+02,      /* I = 10 */
+(PID.TID 0011.0001)                 2.010000000000000E+02,      /* I = 11 */
+(PID.TID 0011.0001)                 2.030000000000000E+02,      /* I = 12 */
+(PID.TID 0011.0001)                 2.050000000000000E+02,      /* I = 13 */
+(PID.TID 0011.0001)                 2.070000000000000E+02,      /* I = 14 */
+(PID.TID 0011.0001)                 2.090000000000000E+02,      /* I = 15 */
+(PID.TID 0011.0001)                 2.110000000000000E+02,      /* I = 16 */
+(PID.TID 0011.0001)                 2.130000000000000E+02,      /* I = 17 */
+(PID.TID 0011.0001)                 2.150000000000000E+02,      /* I = 18 */
+(PID.TID 0011.0001)                 2.170000000000000E+02,      /* I = 19 */
+(PID.TID 0011.0001)                 2.190000000000000E+02,      /* I = 20 */
+(PID.TID 0011.0001)                 2.210000000000000E+02,      /* I = 21 */
+(PID.TID 0011.0001)                 2.230000000000000E+02,      /* I = 22 */
+(PID.TID 0011.0001)                 2.250000000000000E+02,      /* I = 23 */
+(PID.TID 0011.0001)                 2.270000000000000E+02,      /* I = 24 */
+(PID.TID 0011.0001)                 2.290000000000000E+02,      /* I = 25 */
+(PID.TID 0011.0001)                 2.310000000000000E+02,      /* I = 26 */
+(PID.TID 0011.0001)                 2.330000000000000E+02,      /* I = 27 */
+(PID.TID 0011.0001)                 2.350000000000000E+02,      /* I = 28 */
+(PID.TID 0011.0001)                 2.370000000000000E+02,      /* I = 29 */
+(PID.TID 0011.0001)                 2.390000000000000E+02,      /* I = 30 */
+(PID.TID 0011.0001)                 2.410000000000000E+02,      /* I = 31 */
+(PID.TID 0011.0001)                 2.430000000000000E+02,      /* I = 32 */
+(PID.TID 0011.0001)                 2.450000000000000E+02,      /* I = 33 */
+(PID.TID 0011.0001)                 2.470000000000000E+02,      /* I = 34 */
+(PID.TID 0011.0001)                 2.490000000000000E+02,      /* I = 35 */
+(PID.TID 0011.0001)                 2.510000000000000E+02,      /* I = 36 */
+(PID.TID 0011.0001)                 2.530000000000000E+02,      /* I = 37 */
+(PID.TID 0011.0001)                 2.550000000000000E+02,      /* I = 38 */
+(PID.TID 0011.0001)                 2.570000000000000E+02,      /* I = 39 */
+(PID.TID 0011.0001)                 2.590000000000000E+02,      /* I = 40 */
+(PID.TID 0011.0001)                 2.610000000000000E+02,      /* I = 41 */
+(PID.TID 0011.0001)                 2.630000000000000E+02,      /* I = 42 */
+(PID.TID 0011.0001)                 2.650000000000000E+02,      /* I = 43 */
+(PID.TID 0011.0001)                 2.670000000000000E+02,      /* I = 44 */
+(PID.TID 0011.0001)                 2.690000000000000E+02       /* I = 45 */
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) yC =  /* yC(1,:,1,:) : P-point Y coord ( deg. or m if cartesian) */
+(PID.TID 0011.0001)                 4.100000000000000E+01,      /* J =  1 */
+(PID.TID 0011.0001)                 4.300000000000000E+01,      /* J =  2 */
+(PID.TID 0011.0001)                 4.500000000000000E+01,      /* J =  3 */
+(PID.TID 0011.0001)                 4.700000000000000E+01,      /* J =  4 */
+(PID.TID 0011.0001)                 4.900000000000000E+01,      /* J =  5 */
+(PID.TID 0011.0001)                 5.100000000000000E+01,      /* J =  6 */
+(PID.TID 0011.0001)                 5.300000000000000E+01,      /* J =  7 */
+(PID.TID 0011.0001)                 5.500000000000000E+01,      /* J =  8 */
+(PID.TID 0011.0001)                 5.700000000000000E+01,      /* J =  9 */
+(PID.TID 0011.0001)                 5.900000000000000E+01,      /* J = 10 */
+(PID.TID 0011.0001)                 6.100000000000000E+01,      /* J = 11 */
+(PID.TID 0011.0001)                 6.300000000000000E+01,      /* J = 12 */
+(PID.TID 0011.0001)                 6.500000000000000E+01,      /* J = 13 */
+(PID.TID 0011.0001)                 6.700000000000000E+01,      /* J = 14 */
+(PID.TID 0011.0001)                 6.900000000000000E+01,      /* J = 15 */
+(PID.TID 0011.0001)                 7.100000000000000E+01,      /* J = 16 */
+(PID.TID 0011.0001)                 7.300000000000000E+01,      /* J = 17 */
+(PID.TID 0011.0001)                 7.500000000000000E+01,      /* J = 18 */
+(PID.TID 0011.0001)                 7.700000000000000E+01,      /* J = 19 */
+(PID.TID 0011.0001)                 7.900000000000000E+01       /* J = 20 */
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) rcoord = /* P-point R coordinate (  units of r ) */
+(PID.TID 0011.0001)                -5.010000000000000E+00,      /* K =  1 */
+(PID.TID 0011.0001)                -1.507000000000000E+01,      /* K =  2 */
+(PID.TID 0011.0001)                -2.528000000000000E+01,      /* K =  3 */
+(PID.TID 0011.0001)                -3.576000000000001E+01,      /* K =  4 */
+(PID.TID 0011.0001)                -4.661000000000001E+01,      /* K =  5 */
+(PID.TID 0011.0001)                -5.798000000000000E+01,      /* K =  6 */
+(PID.TID 0011.0001)                -7.002000000000001E+01,      /* K =  7 */
+(PID.TID 0011.0001)                -8.292000000000002E+01,      /* K =  8 */
+(PID.TID 0011.0001)                -9.692000000000002E+01,      /* K =  9 */
+(PID.TID 0011.0001)                -1.123200000000000E+02,      /* K = 10 */
+(PID.TID 0011.0001)                -1.294900000000000E+02,      /* K = 11 */
+(PID.TID 0011.0001)                -1.489600000000000E+02,      /* K = 12 */
+(PID.TID 0011.0001)                -1.714000000000000E+02,      /* K = 13 */
+(PID.TID 0011.0001)                -1.977900000000000E+02,      /* K = 14 */
+(PID.TID 0011.0001)                -2.294800000000000E+02,      /* K = 15 */
+(PID.TID 0011.0001)                -2.684600000000000E+02,      /* K = 16 */
+(PID.TID 0011.0001)                -3.176500000000000E+02,      /* K = 17 */
+(PID.TID 0011.0001)                -3.813900000000000E+02,      /* K = 18 */
+(PID.TID 0011.0001)                -4.659100000000000E+02,      /* K = 19 */
+(PID.TID 0011.0001)                -5.793100000000001E+02,      /* K = 20 */
+(PID.TID 0011.0001)                -7.293500000000000E+02,      /* K = 21 */
+(PID.TID 0011.0001)                -9.183700000000000E+02,      /* K = 22 */
+(PID.TID 0011.0001)                -1.139150000000000E+03,      /* K = 23 */
+(PID.TID 0011.0001)                -1.378570000000000E+03,      /* K = 24 */
+(PID.TID 0011.0001)                -1.625700000000000E+03,      /* K = 25 */
+(PID.TID 0011.0001)                -1.875110000000000E+03,      /* K = 26 */
+(PID.TID 0011.0001)                -2.125010000000000E+03,      /* K = 27 */
+(PID.TID 0011.0001)                -2.375000000000000E+03,      /* K = 28 */
+(PID.TID 0011.0001)                -2.625000000000000E+03,      /* K = 29 */
+(PID.TID 0011.0001)                -2.875000000000000E+03,      /* K = 30 */
+(PID.TID 0011.0001)                -3.125000000000000E+03,      /* K = 31 */
+(PID.TID 0011.0001)                -3.375000000000000E+03,      /* K = 32 */
+(PID.TID 0011.0001)                -3.625000000000000E+03,      /* K = 33 */
+(PID.TID 0011.0001)                -3.875000000000000E+03,      /* K = 34 */
+(PID.TID 0011.0001)                -4.125000000000000E+03,      /* K = 35 */
+(PID.TID 0011.0001)                -4.375000000000000E+03,      /* K = 36 */
+(PID.TID 0011.0001)                -4.625000000000000E+03,      /* K = 37 */
+(PID.TID 0011.0001)                -4.875000000000000E+03,      /* K = 38 */
+(PID.TID 0011.0001)                -5.125000000000000E+03,      /* K = 39 */
+(PID.TID 0011.0001)                -5.375000000000000E+03       /* K = 40 */
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) rF =   /* W-Interf. R coordinate (  units of r ) */
+(PID.TID 0011.0001)                 0.000000000000000E+00,      /* K =  1 */
+(PID.TID 0011.0001)                -1.004000000000000E+01,      /* K =  2 */
+(PID.TID 0011.0001)                -2.017500000000000E+01,      /* K =  3 */
+(PID.TID 0011.0001)                -3.052000000000000E+01,      /* K =  4 */
+(PID.TID 0011.0001)                -4.118500000000000E+01,      /* K =  5 */
+(PID.TID 0011.0001)                -5.229500000000000E+01,      /* K =  6 */
+(PID.TID 0011.0001)                -6.400000000000000E+01,      /* K =  7 */
+(PID.TID 0011.0001)                -7.647000000000000E+01,      /* K =  8 */
+(PID.TID 0011.0001)                -8.992000000000000E+01,      /* K =  9 */
+(PID.TID 0011.0001)                -1.046200000000000E+02,      /* K = 10 */
+(PID.TID 0011.0001)                -1.209050000000000E+02,      /* K = 11 */
+(PID.TID 0011.0001)                -1.392250000000000E+02,      /* K = 12 */
+(PID.TID 0011.0001)                -1.601800000000000E+02,      /* K = 13 */
+(PID.TID 0011.0001)                -1.845950000000000E+02,      /* K = 14 */
+(PID.TID 0011.0001)                -2.136350000000000E+02,      /* K = 15 */
+(PID.TID 0011.0001)                -2.489700000000000E+02,      /* K = 16 */
+(PID.TID 0011.0001)                -2.930550000000000E+02,      /* K = 17 */
+(PID.TID 0011.0001)                -3.495200000000000E+02,      /* K = 18 */
+(PID.TID 0011.0001)                -4.236500000000000E+02,      /* K = 19 */
+(PID.TID 0011.0001)                -5.226100000000000E+02,      /* K = 20 */
+(PID.TID 0011.0001)                -6.543300000000000E+02,      /* K = 21 */
+(PID.TID 0011.0001)                -8.238600000000000E+02,      /* K = 22 */
+(PID.TID 0011.0001)                -1.028760000000000E+03,      /* K = 23 */
+(PID.TID 0011.0001)                -1.258860000000000E+03,      /* K = 24 */
+(PID.TID 0011.0001)                -1.502135000000000E+03,      /* K = 25 */
+(PID.TID 0011.0001)                -1.750405000000000E+03,      /* K = 26 */
+(PID.TID 0011.0001)                -2.000060000000000E+03,      /* K = 27 */
+(PID.TID 0011.0001)                -2.250005000000000E+03,      /* K = 28 */
+(PID.TID 0011.0001)                -2.500000000000000E+03,      /* K = 29 */
+(PID.TID 0011.0001)                -2.750000000000000E+03,      /* K = 30 */
+(PID.TID 0011.0001)                -3.000000000000000E+03,      /* K = 31 */
+(PID.TID 0011.0001)                -3.250000000000000E+03,      /* K = 32 */
+(PID.TID 0011.0001)                -3.500000000000000E+03,      /* K = 33 */
+(PID.TID 0011.0001)                -3.750000000000000E+03,      /* K = 34 */
+(PID.TID 0011.0001)                -4.000000000000000E+03,      /* K = 35 */
+(PID.TID 0011.0001)                -4.250000000000000E+03,      /* K = 36 */
+(PID.TID 0011.0001)                -4.500000000000000E+03,      /* K = 37 */
+(PID.TID 0011.0001)                -4.750000000000000E+03,      /* K = 38 */
+(PID.TID 0011.0001)                -5.000000000000000E+03,      /* K = 39 */
+(PID.TID 0011.0001)                -5.250000000000000E+03,      /* K = 40 */
+(PID.TID 0011.0001)                -5.625000000000000E+03       /* K = 41 */
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) deepFacC = /* deep-model grid factor @ cell-Center (-) */
+(PID.TID 0011.0001)    40 @  1.000000000000000E+00              /* K =  1: 40 */
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) deepFacF = /* deep-model grid factor @ W-Interface (-) */
+(PID.TID 0011.0001)    41 @  1.000000000000000E+00              /* K =  1: 41 */
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) rotateGrid = /* use rotated grid ( True/False ) */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) phiEuler = /* Euler angle, rotation about original z-coordinate [rad] */
+(PID.TID 0011.0001)                 0.000000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) thetaEuler = /* Euler angle, rotation about new x-coordinate [rad] */
+(PID.TID 0011.0001)                 0.000000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) psiEuler = /* Euler angle, rotation about new z-coordinate [rad] */
+(PID.TID 0011.0001)                 0.000000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) dxF =  /* dxF(:,1,:,1) ( units: m ) */
+(PID.TID 0011.0001)    45 @  1.678134084874913E+05              /* I =  1: 45 */
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) dxF =  /* dxF(1,:,1,:) ( units: m ) */
+(PID.TID 0011.0001)                 1.678134084874913E+05,      /* J =  1 */
+(PID.TID 0011.0001)                 1.626201133453605E+05,      /* J =  2 */
+(PID.TID 0011.0001)                 1.572286906448267E+05,      /* J =  3 */
+(PID.TID 0011.0001)                 1.516457090039652E+05,      /* J =  4 */
+(PID.TID 0011.0001)                 1.458779704259132E+05,      /* J =  5 */
+(PID.TID 0011.0001)                 1.399325020116759E+05,      /* J =  6 */
+(PID.TID 0011.0001)                 1.338165473986869E+05,      /* J =  7 */
+(PID.TID 0011.0001)                 1.275375579355516E+05,      /* J =  8 */
+(PID.TID 0011.0001)                 1.211031836037266E+05,      /* J =  9 */
+(PID.TID 0011.0001)                 1.145212636971958E+05,      /* J = 10 */
+(PID.TID 0011.0001)                 1.077998172714984E+05,      /* J = 11 */
+(PID.TID 0011.0001)                 1.009470333737445E+05,      /* J = 12 */
+(PID.TID 0011.0001)                 9.397126106552314E+04,      /* J = 13 */
+(PID.TID 0011.0001)                 8.688099925085655E+04,      /* J = 14 */
+(PID.TID 0011.0001)                 7.968488632159484E+04,      /* J = 15 */
+(PID.TID 0011.0001)                 7.239168963286599E+04,      /* J = 16 */
+(PID.TID 0011.0001)                 6.501029482140444E+04,      /* J = 17 */
+(PID.TID 0011.0001)                 5.754969497977127E+04,      /* J = 18 */
+(PID.TID 0011.0001)                 5.001897969965615E+04,      /* J = 19 */
+(PID.TID 0011.0001)                 4.242732399761023E+04       /* J = 20 */
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) dyF =  /* dyF(:,1,:,1) ( units: m ) */
+(PID.TID 0011.0001)    45 @  2.223549467040776E+05              /* I =  1: 45 */
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) dyF =  /* dyF(1,:,1,:) ( units: m ) */
+(PID.TID 0011.0001)    20 @  2.223549467040776E+05              /* J =  1: 20 */
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) dxG =  /* dxG(:,1,:,1) ( units: m ) */
+(PID.TID 0011.0001)    45 @  1.703337713226752E+05              /* I =  1: 45 */
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) dxG =  /* dxG(1,:,1,:) ( units: m ) */
+(PID.TID 0011.0001)                 1.703337713226752E+05,      /* J =  1 */
+(PID.TID 0011.0001)                 1.652419280624370E+05,      /* J =  2 */
+(PID.TID 0011.0001)                 1.599487629664226E+05,      /* J =  3 */
+(PID.TID 0011.0001)                 1.544607249409518E+05,      /* J =  4 */
+(PID.TID 0011.0001)                 1.487845003149910E+05,      /* J =  5 */
+(PID.TID 0011.0001)                 1.429270046938919E+05,      /* J =  6 */
+(PID.TID 0011.0001)                 1.368953745337905E+05,      /* J =  7 */
+(PID.TID 0011.0001)                 1.306969584469356E+05,      /* J =  8 */
+(PID.TID 0011.0001)                 1.243393082485363E+05,      /* J =  9 */
+(PID.TID 0011.0001)                 1.178301697560383E+05,      /* J = 10 */
+(PID.TID 0011.0001)                 1.111774733520388E+05,      /* J = 11 */
+(PID.TID 0011.0001)                 1.043893243223368E+05,      /* J = 12 */
+(PID.TID 0011.0001)                 9.747399298089069E+04,      /* J = 13 */
+(PID.TID 0011.0001)                 9.043990459371499E+04,      /* J = 14 */
+(PID.TID 0011.0001)                 8.329562911399118E+04,      /* J = 15 */
+(PID.TID 0011.0001)                 7.604987074090008E+04,      /* J = 16 */
+(PID.TID 0011.0001)                 6.871145731489570E+04,      /* J = 17 */
+(PID.TID 0011.0001)                 6.128932956234173E+04,      /* J = 18 */
+(PID.TID 0011.0001)                 5.379253020261353E+04,      /* J = 19 */
+(PID.TID 0011.0001)                 4.623019293093757E+04       /* J = 20 */
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) dyG =  /* dyG(:,1,:,1) ( units: m ) */
+(PID.TID 0011.0001)    45 @  2.223549467040776E+05              /* I =  1: 45 */
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) dyG =  /* dyG(1,:,1,:) ( units: m ) */
+(PID.TID 0011.0001)    20 @  2.223549467040776E+05              /* J =  1: 20 */
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) dxC =  /* dxC(:,1,:,1) ( units: m ) */
+(PID.TID 0011.0001)    45 @  1.678134084874913E+05              /* I =  1: 45 */
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) dxC =  /* dxC(1,:,1,:) ( units: m ) */
+(PID.TID 0011.0001)                 1.678134084874913E+05,      /* J =  1 */
+(PID.TID 0011.0001)                 1.626201133453605E+05,      /* J =  2 */
+(PID.TID 0011.0001)                 1.572286906448267E+05,      /* J =  3 */
+(PID.TID 0011.0001)                 1.516457090039652E+05,      /* J =  4 */
+(PID.TID 0011.0001)                 1.458779704259132E+05,      /* J =  5 */
+(PID.TID 0011.0001)                 1.399325020116759E+05,      /* J =  6 */
+(PID.TID 0011.0001)                 1.338165473986869E+05,      /* J =  7 */
+(PID.TID 0011.0001)                 1.275375579355516E+05,      /* J =  8 */
+(PID.TID 0011.0001)                 1.211031836037266E+05,      /* J =  9 */
+(PID.TID 0011.0001)                 1.145212636971958E+05,      /* J = 10 */
+(PID.TID 0011.0001)                 1.077998172714984E+05,      /* J = 11 */
+(PID.TID 0011.0001)                 1.009470333737445E+05,      /* J = 12 */
+(PID.TID 0011.0001)                 9.397126106552314E+04,      /* J = 13 */
+(PID.TID 0011.0001)                 8.688099925085655E+04,      /* J = 14 */
+(PID.TID 0011.0001)                 7.968488632159484E+04,      /* J = 15 */
+(PID.TID 0011.0001)                 7.239168963286599E+04,      /* J = 16 */
+(PID.TID 0011.0001)                 6.501029482140444E+04,      /* J = 17 */
+(PID.TID 0011.0001)                 5.754969497977127E+04,      /* J = 18 */
+(PID.TID 0011.0001)                 5.001897969965615E+04,      /* J = 19 */
+(PID.TID 0011.0001)                 4.242732399761023E+04       /* J = 20 */
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) dyC =  /* dyC(:,1,:,1) ( units: m ) */
+(PID.TID 0011.0001)    45 @  2.223549467040776E+05              /* I =  1: 45 */
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) dyC =  /* dyC(1,:,1,:) ( units: m ) */
+(PID.TID 0011.0001)    20 @  2.223549467040776E+05              /* J =  1: 20 */
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) dxV =  /* dxV(:,1,:,1) ( units: m ) */
+(PID.TID 0011.0001)    45 @  1.703337713226752E+05              /* I =  1: 45 */
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) dxV =  /* dxV(1,:,1,:) ( units: m ) */
+(PID.TID 0011.0001)                 1.703337713226752E+05,      /* J =  1 */
+(PID.TID 0011.0001)                 1.652419280624370E+05,      /* J =  2 */
+(PID.TID 0011.0001)                 1.599487629664226E+05,      /* J =  3 */
+(PID.TID 0011.0001)                 1.544607249409518E+05,      /* J =  4 */
+(PID.TID 0011.0001)                 1.487845003149910E+05,      /* J =  5 */
+(PID.TID 0011.0001)                 1.429270046938919E+05,      /* J =  6 */
+(PID.TID 0011.0001)                 1.368953745337905E+05,      /* J =  7 */
+(PID.TID 0011.0001)                 1.306969584469356E+05,      /* J =  8 */
+(PID.TID 0011.0001)                 1.243393082485363E+05,      /* J =  9 */
+(PID.TID 0011.0001)                 1.178301697560383E+05,      /* J = 10 */
+(PID.TID 0011.0001)                 1.111774733520388E+05,      /* J = 11 */
+(PID.TID 0011.0001)                 1.043893243223368E+05,      /* J = 12 */
+(PID.TID 0011.0001)                 9.747399298089069E+04,      /* J = 13 */
+(PID.TID 0011.0001)                 9.043990459371499E+04,      /* J = 14 */
+(PID.TID 0011.0001)                 8.329562911399118E+04,      /* J = 15 */
+(PID.TID 0011.0001)                 7.604987074090008E+04,      /* J = 16 */
+(PID.TID 0011.0001)                 6.871145731489570E+04,      /* J = 17 */
+(PID.TID 0011.0001)                 6.128932956234173E+04,      /* J = 18 */
+(PID.TID 0011.0001)                 5.379253020261353E+04,      /* J = 19 */
+(PID.TID 0011.0001)                 4.623019293093757E+04       /* J = 20 */
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) dyU =  /* dyU(:,1,:,1) ( units: m ) */
+(PID.TID 0011.0001)    45 @  2.223549467040776E+05              /* I =  1: 45 */
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) dyU =  /* dyU(1,:,1,:) ( units: m ) */
+(PID.TID 0011.0001)    20 @  2.223549467040776E+05              /* J =  1: 20 */
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) rA  =  /* rA (:,1,:,1) ( units: m^2 ) */
+(PID.TID 0011.0001)    45 @  3.731224710640178E+10              /* I =  1: 45 */
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) rA  =  /* rA (1,:,1,:) ( units: m^2 ) */
+(PID.TID 0011.0001)                 3.731224710640178E+10,      /* J =  1 */
+(PID.TID 0011.0001)                 3.615755086736951E+10,      /* J =  2 */
+(PID.TID 0011.0001)                 3.495880222224950E+10,      /* J =  3 */
+(PID.TID 0011.0001)                 3.371746166161213E+10,      /* J =  4 */
+(PID.TID 0011.0001)                 3.243504156771678E+10,      /* J =  5 */
+(PID.TID 0011.0001)                 3.111310437190661E+10,      /* J =  6 */
+(PID.TID 0011.0001)                 2.975326065102514E+10,      /* J =  7 */
+(PID.TID 0011.0001)                 2.835716716517938E+10,      /* J =  8 */
+(PID.TID 0011.0001)                 2.692652483922927E+10,      /* J =  9 */
+(PID.TID 0011.0001)                 2.546307669047573E+10,      /* J = 10 */
+(PID.TID 0011.0001)                 2.396860570506143E+10,      /* J = 11 */
+(PID.TID 0011.0001)                 2.244493266567603E+10,      /* J = 12 */
+(PID.TID 0011.0001)                 2.089391393321437E+10,      /* J = 13 */
+(PID.TID 0011.0001)                 1.931743918508593E+10,      /* J = 14 */
+(PID.TID 0011.0001)                 1.771742911293332E+10,      /* J = 15 */
+(PID.TID 0011.0001)                 1.609583308256802E+10,      /* J = 16 */
+(PID.TID 0011.0001)                 1.445462675896421E+10,      /* J = 17 */
+(PID.TID 0011.0001)                 1.279580969921927E+10,      /* J = 18 */
+(PID.TID 0011.0001)                 1.112140291639886E+10,      /* J = 19 */
+(PID.TID 0011.0001)                 9.433446417246069E+09       /* J = 20 */
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) rAw =  /* rAw(:,1,:,1) ( units: m^2 ) */
+(PID.TID 0011.0001)    45 @  3.731224710640178E+10              /* I =  1: 45 */
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) rAw =  /* rAw(1,:,1,:) ( units: m^2 ) */
+(PID.TID 0011.0001)                 3.731224710640178E+10,      /* J =  1 */
+(PID.TID 0011.0001)                 3.615755086736951E+10,      /* J =  2 */
+(PID.TID 0011.0001)                 3.495880222224950E+10,      /* J =  3 */
+(PID.TID 0011.0001)                 3.371746166161213E+10,      /* J =  4 */
+(PID.TID 0011.0001)                 3.243504156771678E+10,      /* J =  5 */
+(PID.TID 0011.0001)                 3.111310437190661E+10,      /* J =  6 */
+(PID.TID 0011.0001)                 2.975326065102514E+10,      /* J =  7 */
+(PID.TID 0011.0001)                 2.835716716517938E+10,      /* J =  8 */
+(PID.TID 0011.0001)                 2.692652483922927E+10,      /* J =  9 */
+(PID.TID 0011.0001)                 2.546307669047573E+10,      /* J = 10 */
+(PID.TID 0011.0001)                 2.396860570506143E+10,      /* J = 11 */
+(PID.TID 0011.0001)                 2.244493266567603E+10,      /* J = 12 */
+(PID.TID 0011.0001)                 2.089391393321437E+10,      /* J = 13 */
+(PID.TID 0011.0001)                 1.931743918508593E+10,      /* J = 14 */
+(PID.TID 0011.0001)                 1.771742911293332E+10,      /* J = 15 */
+(PID.TID 0011.0001)                 1.609583308256802E+10,      /* J = 16 */
+(PID.TID 0011.0001)                 1.445462675896421E+10,      /* J = 17 */
+(PID.TID 0011.0001)                 1.279580969921927E+10,      /* J = 18 */
+(PID.TID 0011.0001)                 1.112140291639886E+10,      /* J = 19 */
+(PID.TID 0011.0001)                 9.433446417246069E+09       /* J = 20 */
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) rAs =  /* rAs(:,1,:,1) ( units: m^2 ) */
+(PID.TID 0011.0001)    45 @  3.787263379869147E+10              /* I =  1: 45 */
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) rAs =  /* rAs(1,:,1,:) ( units: m^2 ) */
+(PID.TID 0011.0001)                 3.787263379869147E+10,      /* J =  1 */
+(PID.TID 0011.0001)                 3.674049474219141E+10,      /* J =  2 */
+(PID.TID 0011.0001)                 3.556359305228742E+10,      /* J =  3 */
+(PID.TID 0011.0001)                 3.434336260240092E+10,      /* J =  4 */
+(PID.TID 0011.0001)                 3.308129005537275E+10,      /* J =  5 */
+(PID.TID 0011.0001)                 3.177891305219414E+10,      /* J =  6 */
+(PID.TID 0011.0001)                 3.043781833862772E+10,      /* J =  7 */
+(PID.TID 0011.0001)                 2.905963983200232E+10,      /* J =  8 */
+(PID.TID 0011.0001)                 2.764605663053588E+10,      /* J =  9 */
+(PID.TID 0011.0001)                 2.619879096761374E+10,      /* J = 10 */
+(PID.TID 0011.0001)                 2.471960611351173E+10,      /* J = 11 */
+(PID.TID 0011.0001)                 2.321030422712415E+10,      /* J = 12 */
+(PID.TID 0011.0001)                 2.167272416030906E+10,      /* J = 13 */
+(PID.TID 0011.0001)                 2.010873921753181E+10,      /* J = 14 */
+(PID.TID 0011.0001)                 1.852025487353160E+10,      /* J = 15 */
+(PID.TID 0011.0001)                 1.690920645179472E+10,      /* J = 16 */
+(PID.TID 0011.0001)                 1.527755676666008E+10,      /* J = 17 */
+(PID.TID 0011.0001)                 1.362729373193239E+10,      /* J = 18 */
+(PID.TID 0011.0001)                 1.196042793891585E+10,      /* J = 19 */
+(PID.TID 0011.0001)                 1.027899020681856E+10       /* J = 20 */
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) globalArea = /* Integrated horizontal Area (m^2) */
+(PID.TID 0011.0001)                 3.421462522228776E+14
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) the_run_name = /* Name of this simulation */
+(PID.TID 0011.0001)               'global_oce_latlon'
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) // =======================================================
+(PID.TID 0011.0001) // End of Model config. summary
+(PID.TID 0011.0001) // =======================================================
+(PID.TID 0011.0001) 
+(PID.TID 0011.0001) == Packages configuration : Check & print summary ==
+(PID.TID 0011.0001) 
+(PID.TID 0011.0001) KPP_CHECK: #define ALLOW_KPP
+(PID.TID 0011.0001)  kpp_freq = /* frequency of KPP calculation */
+(PID.TID 0011.0001)                 9.000000000000000E+02
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) KPP_ghatUseTotalDiffus= /* non-local term fct of total diffus */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) KPPuseDoubleDiff = /* include double diffusive contrib */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) LimitHblStable = /* limits depth of hbl if stable cond.*/
+(PID.TID 0011.0001)                   T
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001)  minKPPhbl = /* minimum KPPhbl value [m] */
+(PID.TID 0011.0001)                 5.010000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001)  epsln     = /* constant [-] */
+(PID.TID 0011.0001)                 9.999999999999999E-21
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001)  phepsi    = /* constant [-] */
+(PID.TID 0011.0001)                 1.000000000000000E-10
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001)  epsilon   = /* constant [-] */
+(PID.TID 0011.0001)                 1.000000000000000E-01
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001)  vonk      = /* Von Karmans constant [-] */
+(PID.TID 0011.0001)                 4.000000000000000E-01
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001)  dB_dz     = /* maximum N^2 in mixed layer [s^-2] */
+(PID.TID 0011.0001)                 5.200000000000000E-05
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001)  conc1     = /* scalar constant [-] */
+(PID.TID 0011.0001)                 5.000000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001)  conam     = /* scalar constant [-] */
+(PID.TID 0011.0001)                 1.257000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001)  concm     = /* scalar constant [-] */
+(PID.TID 0011.0001)                 8.380000000000001E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001)  conc2     = /* scalar constant [-] */
+(PID.TID 0011.0001)                 1.600000000000000E+01
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001)  conas     = /* scalar constant [-] */
+(PID.TID 0011.0001)                -2.886000000000000E+01
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001)  concs     = /* scalar constant [-] */
+(PID.TID 0011.0001)                 9.895999999999999E+01
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001)  conc3     = /* scalar constant [-] */
+(PID.TID 0011.0001)                 1.600000000000000E+01
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001)  zetam     = /* scalar constant [-] */
+(PID.TID 0011.0001)                -2.000000000000000E-01
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001)  zetas     = /* scalar constant [-] */
+(PID.TID 0011.0001)                -1.000000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001)  Ricr      = /* critical bulk Richardson Number [-] */
+(PID.TID 0011.0001)                 3.000000000000000E-01
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001)  cekman    = /* coeff for Ekman depth [-] */
+(PID.TID 0011.0001)                 7.000000000000000E-01
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001)  cmonob    = /* coeff for Monin-Obukhov depth [-] */
+(PID.TID 0011.0001)                 1.000000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001)  concv     = /* buoyancy freq ratio [-] */
+(PID.TID 0011.0001)                 1.800000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001)  hbf       = /* solar radiation depth ratio [-] */
+(PID.TID 0011.0001)                 1.000000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001)  zmin      = /* minimum for zehat in table [m3/s3] */
+(PID.TID 0011.0001)                -4.000000000000000E-07
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001)  zmax      = /* maximum for zehat in table [m3/s3] */
+(PID.TID 0011.0001)                 0.000000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001)  umin      = /* minimum for ustar in table [m/s] */
+(PID.TID 0011.0001)                 0.000000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001)  umax      = /* maximum for ustar in table [m/s] */
+(PID.TID 0011.0001)                 4.000000000000000E-02
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) num_v_smooth_Ri = /* number of vertical smoothing */
+(PID.TID 0011.0001)                       0
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001)  Riinfty   = /* shear instability Ri number limit [-] */
+(PID.TID 0011.0001)                 7.000000000000000E-01
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001)  BVSQcon   = /* Brunt-Vaisala squared (=N^2) [s^-2] */
+(PID.TID 0011.0001)                -2.000000000000000E-05
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001)  difm0     = /* max viscosity from shear instab. [m2/s] */
+(PID.TID 0011.0001)                 5.000000000000000E-03
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001)  difs0     = /* max diffusiv. from shear instab. [m2/s] */
+(PID.TID 0011.0001)                 5.000000000000000E-03
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001)  dift0     = /* max diffusiv. from shear instab. [m2/s] */
+(PID.TID 0011.0001)                 5.000000000000000E-03
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001)  difmcon   = /* convective viscosity [m2/s] */
+(PID.TID 0011.0001)                 1.000000000000000E-01
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001)  difscon   = /* convective diffusiv. [m2/s] */
+(PID.TID 0011.0001)                 1.000000000000000E-01
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001)  diftcon   = /* convective diffusiv. [m2/s] */
+(PID.TID 0011.0001)                 1.000000000000000E-01
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001)  Rrho0     = /* double diffusion density ratio [-] */
+(PID.TID 0011.0001)                 1.900000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001)  dsfmax    = /* max diffusiv. for salt fingering [m2/s] */
+(PID.TID 0011.0001)                 1.000000000000000E-02
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001)  cstar     = /* coeff for non-locak transport [-] */
+(PID.TID 0011.0001)                 1.000000000000000E+01
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) KPPwriteState = /* write KPP fields to file */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001)  kpp_dumpFreq = /* dump freq of KPP output */
+(PID.TID 0011.0001)                 0.000000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001)  kpp_taveFreq = /* time-averaging freq of KPP output */
+(PID.TID 0011.0001)                 0.000000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) 
+(PID.TID 0011.0001) GMREDI_CHECK: #define GMREDI
+(PID.TID 0011.0001) GM_AdvForm =     /* if FALSE => use SkewFlux Form */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) GM_InMomAsStress = /* if TRUE => apply as Eddy Stress */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) GM_AdvSeparate = /* Calc Bolus & Euler Adv. separately */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) GM_ExtraDiag =   /* Tensor Extra Diag (line 1&2) non 0 */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) GM_isopycK =    /* Background Isopyc. Diffusivity [m^2/s] */
+(PID.TID 0011.0001)                 1.000000000000000E+03
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) GM_skewflx*K =  /* Background GM_SkewFlx Diffusivity [m^2/s] */
+(PID.TID 0011.0001)                 1.000000000000000E+03
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) GM_advec*K =    /* Backg. GM-Advec(=Bolus) Diffusivity [m^2/s]*/
+(PID.TID 0011.0001)                 0.000000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) GM_Kmin_horiz = /* Minimum Horizontal Diffusivity [m^2/s] */
+(PID.TID 0011.0001)                 5.000000000000000E+01
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) GM_Visbeck_alpha = /* Visbeck alpha coeff. [-] */
+(PID.TID 0011.0001)                 0.000000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) GM_Small_Number =  /* epsilon used in slope calc */
+(PID.TID 0011.0001)                 9.999999999999999E-21
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) GM_slopeSqCutoff = /* Slope^2 cut-off value */
+(PID.TID 0011.0001)                 1.000000000000000E+48
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) GM_taper_scheme =  /* Type of Tapering/Clipping scheme */
+(PID.TID 0011.0001)               'gkw91                                   '
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) GM_maxSlope =  /* Maximum Slope (Tapering/Clipping) */
+(PID.TID 0011.0001)                 1.000000000000000E-02
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) GM_facTrL2dz = /* Minimum Trans.Layer Thick. (factor of dz) */
+(PID.TID 0011.0001)                 1.000000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) GM_facTrL2ML = /* Max.Trans.Layer Thick. (factor of MxL Depth)*/
+(PID.TID 0011.0001)                 5.000000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) GM_maxTransLay = /* Maximum Transition Layer Thickness [m] */
+(PID.TID 0011.0001)                 5.000000000000000E+02
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) GM_UseBVP = /* if TRUE => use bvp a la Ferrari et al. (2010) */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) GM_BVP_ModeNumber = /* Vertical mode number for BVP wave speed */
+(PID.TID 0011.0001)                       1
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) GM_BVP_cMin = /* Minimum wave speed for BVP [m/s] */
+(PID.TID 0011.0001)                 1.000000000000000E-01
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) GM_useSubMeso = /* if TRUE => use Sub-Meso param. (B.Fox-Kemper) */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) subMeso_Ceff = /* efficiency coeff. of Mixed-Layer Eddies [-] */
+(PID.TID 0011.0001)                 7.000000000000001E-02
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) subMeso_invTau = /* inverse of Sub-Meso mixing time-scale [/s] */
+(PID.TID 0011.0001)                 2.000000000000000E-06
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) subMeso_LfMin = /* minimum length-scale "Lf" [m] */
+(PID.TID 0011.0001)                 1.000000000000000E+03
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) subMeso_Lmax = /* maximum grid-scale length [m] */
+(PID.TID 0011.0001)                 1.100000000000000E+05
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) GM_useLeithQG = /* if TRUE => add QG Leith viscosity to GMRedi tensor */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) EXF_CHECK: #define ALLOW_EXF
+(PID.TID 0011.0001) PTRACERS_CHECK: #define ALLOW_PTRACERS
+(PID.TID 0011.0001) // ===================================
+(PID.TID 0011.0001) // PTRACERS parameters
+(PID.TID 0011.0001) // ===================================
+(PID.TID 0011.0001) PTRACERS_numInUse = /* number of tracers */
+(PID.TID 0011.0001)                       1
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) PTRACERS_Iter0 = /* timestep number when tracers are initialized */
+(PID.TID 0011.0001)                       0
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) PTRACERS_startAllTrc =/* all tracers start @ startTime */
+(PID.TID 0011.0001)                   T
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) PTRACERS_doAB_onGpTr =/* apply AB on Tendencies (rather than on Tracers) */
+(PID.TID 0011.0001)                   T
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) PTRACERS_addSrelax2EmP =/* add Salt relaxation to EmP */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) PTRACERS_dTLev =   /* Ptracer timestep ( s ) */
+(PID.TID 0011.0001)    40 @  9.000000000000000E+02              /* K =  1: 40 */
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) PTRACERS_monitorFreq = /* Frequency^-1 for monitor output (s) */
+(PID.TID 0011.0001)                 9.000000000000000E+03
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) PTRACERS_dumpFreq = /* Frequency^-1 for snapshot output (s) */
+(PID.TID 0011.0001)                 0.000000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) PTRACERS_taveFreq = /* Frequency^-1 for time-Aver. output (s) */
+(PID.TID 0011.0001)                 0.000000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) PTRACERS_useRecords = /* all tracers in 1 file */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) PTRACERS_timeave_mnc = /* use MNC for Tave output */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) PTRACERS_snapshot_mnc = /* use MNC for snapshot output */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) PTRACERS_pickup_write_mnc = /* use MNC for writing pickups */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) PTRACERS_pickup_read_mnc = /* use MNC for reading pickups */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001)  -----------------------------------
+(PID.TID 0011.0001)  tracer number :    1
+(PID.TID 0011.0001) PTRACERS_names = /* Tracer short name */
+(PID.TID 0011.0001)               'Pollutant'
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) PTRACERS_long_names = /* Tracer long name */
+(PID.TID 0011.0001)               'Ocean Pollutant [mol/m^3]'
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) PTRACERS_ioLabel = /* tracer IO Label */
+(PID.TID 0011.0001)               '01'
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) PTRACERS_advScheme = /* Advection Scheme */
+(PID.TID 0011.0001)                      77
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) PTRACERS_SOM_Advection = /* tracer uses SOM advection scheme */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) PTRACERS_ImplVertAdv = /* implicit vert. advection flag */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) PTRACERS_MultiDimAdv = /* tracer uses Multi-Dim advection */
+(PID.TID 0011.0001)                   T
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) PTRACERS_AdamsBashGtr = /* apply AB on tracer tendency */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) PTRACERS_AdamsBash_Tr = /* apply AB on passive tracer */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) PTRACERS_diffKh = /* Laplacian Diffusivity */
+(PID.TID 0011.0001)                 1.000000000000000E+03
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) PTRACERS_diffK4 = /* Biharmonic Diffusivity */
+(PID.TID 0011.0001)                 0.000000000000000E+00
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) PTRACERS_diffKrNr = /* Vertical Diffusivity */
+(PID.TID 0011.0001)    40 @  3.000000000000000E-05              /* K =  1: 40 */
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) PTRACERS_useGMRedi = /* apply GM-Redi */
+(PID.TID 0011.0001)                   T
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) PTRACERS_useDWNSLP = /* apply DOWN-SLOPE Flow */
+(PID.TID 0011.0001)                   F
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) PTRACERS_useKPP = /* apply KPP scheme */
+(PID.TID 0011.0001)                   T
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) PTRACERS_ref = /* Reference vertical profile */
+(PID.TID 0011.0001)    40 @  0.000000000000000E+00              /* K =  1: 40 */
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001) PTRACERS_EvPrRn =/* tracer conc. in Evap. & Rain */
+(PID.TID 0011.0001)                 1.234567000000000E+05
+(PID.TID 0011.0001)     ;
+(PID.TID 0011.0001)  -----------------------------------
+(PID.TID 0011.0001) GCHEM_CHECK  --> Starts to check GCHEM set-up
+(PID.TID 0011.0001) GCHEM_CHECK  <-- Ends Normally
+(PID.TID 0011.0001) 
+(PID.TID 0011.0001) GAD_CHECK: #define ALLOW_GENERIC_ADVDIFF
+(PID.TID 0011.0001) // =======================================================
+(PID.TID 0011.0001) // Check Model config. (CONFIG_CHECK):
+(PID.TID 0011.0001) // CONFIG_CHECK : Normal End
+(PID.TID 0011.0001) // =======================================================
+(PID.TID 0011.0001) 
+(PID.TID 0011.0001) Start initial hydrostatic pressure computation
+(PID.TID 0011.0001) Pressure is predetermined for buoyancyRelation OCEANIC
+(PID.TID 0011.0001) 
+(PID.TID 0011.0001)  write diagnostics summary to file ioUnit:      6
+Iter.Nb:         0 ; Time(s):  0.0000000000000E+00
+------------------------------------------------------------------------
+2D/3D diagnostics: Number of lists:     4
+------------------------------------------------------------------------
+listId=    1 ; file name: output/surf
+ nFlds, nActive,       freq     &     phase        , nLev               
+    1  |    1  |    -86400.000000         0.000000 |   1
+ levels:   1
+ diag# | name   |   ipt  |  iMate | kLev|   count |   mate.C|           
+    23 |ETAN    |      1 |      0 |   1 |       0 |
+------------------------------------------------------------------------
+listId=    2 ; file name: output/state
+ nFlds, nActive,       freq     &     phase        , nLev               
+    4  |    4  |    -86400.000000         0.000000 |  40
+ levels:   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25
+ levels:  26  27  28  29  30  31  32  33  34  35  36  37  38  39  40
+ diag# | name   |   ipt  |  iMate | kLev|   count |   mate.C|           
+    30 |UVEL    |      2 |     42 |  40 |       0 |       0 |
+    31 |VVEL    |     42 |      2 |  40 |       0 |       0 |
+    26 |THETA   |     82 |      0 |  40 |       0 |
+    27 |SALT    |    122 |      0 |  40 |       0 |
+------------------------------------------------------------------------
+listId=    3 ; file name: output/pollutant_tendency
+ nFlds, nActive,       freq     &     phase        , nLev               
+    3  |    3  |    -86400.000000         0.000000 |  40
+ levels:   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25
+ levels:  26  27  28  29  30  31  32  33  34  35  36  37  38  39  40
+ diag# | name   |   ipt  |  iMate | kLev|   count |   mate.C|           
+   271 |POLLUT_S|    162 |      0 |  40 |       0 |
+   272 |POLLUT_K|    202 |      0 |  40 |       0 |
+   273 |POLLUT_T|    242 |      0 |  40 |       0 |
+------------------------------------------------------------------------
+listId=    4 ; file name: output/pollutant_state
+ nFlds, nActive,       freq     &     phase        , nLev               
+    2  |    2  |    -86400.000000         0.000000 |  40
+ levels:   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25
+ levels:  26  27  28  29  30  31  32  33  34  35  36  37  38  39  40
+ diag# | name   |   ipt  |  iMate | kLev|   count |   mate.C|           
+   255 |TRAC01  |    282 |      0 |  40 |       0 |
+   275 |POLLUT_M|    322 |      0 |  40 |       0 |
+------------------------------------------------------------------------
+Global & Regional Statistics diagnostics: Number of lists:     0
+------------------------------------------------------------------------
+(PID.TID 0011.0001) // =======================================================
+(PID.TID 0011.0001) // Model current state
+(PID.TID 0011.0001) // =======================================================
+(PID.TID 0011.0001) 
+(PID.TID 0011.0001) EXF_SET_FLD: field "uwind", it=         0, loading rec=     1
+(PID.TID 0011.0001) EXF_SET_FLD:   from file: "NCEP/u10Interp.bin"
+(PID.TID 0011.0001) EXF_SET_FLD: field "uwind", it=         0, loading rec=     2
+(PID.TID 0011.0001) EXF_SET_FLD:   from file: "NCEP/u10Interp.bin"
+(PID.TID 0011.0001) EXF_SET_FLD: field "vwind", it=         0, loading rec=     1
+(PID.TID 0011.0001) EXF_SET_FLD:   from file: "NCEP/v10Interp.bin"
+(PID.TID 0011.0001) EXF_SET_FLD: field "vwind", it=         0, loading rec=     2
+(PID.TID 0011.0001) EXF_SET_FLD:   from file: "NCEP/v10Interp.bin"
+(PID.TID 0011.0001) EXF_SET_FLD: field "atemp", it=         0, loading rec=     1
+(PID.TID 0011.0001) EXF_SET_FLD:   from file: "NCEP/T2mInterp.bin"
+(PID.TID 0011.0001) EXF_SET_FLD: field "atemp", it=         0, loading rec=     2
+(PID.TID 0011.0001) EXF_SET_FLD:   from file: "NCEP/T2mInterp.bin"
+(PID.TID 0011.0001) EXF_SET_FLD: field "aqh", it=         0, loading rec=     1
+(PID.TID 0011.0001) EXF_SET_FLD:   from file: "NCEP/sh2Interp.bin"
+(PID.TID 0011.0001) EXF_SET_FLD: field "aqh", it=         0, loading rec=     2
+(PID.TID 0011.0001) EXF_SET_FLD:   from file: "NCEP/sh2Interp.bin"
+(PID.TID 0011.0001) EXF_SET_FLD: field "precip", it=         0, loading rec=     1
+(PID.TID 0011.0001) EXF_SET_FLD:   from file: "NCEP/prtInterp.bin"
+(PID.TID 0011.0001) EXF_SET_FLD: field "precip", it=         0, loading rec=     2
+(PID.TID 0011.0001) EXF_SET_FLD:   from file: "NCEP/prtInterp.bin"
+(PID.TID 0011.0001) EXF_SET_FLD: field "swdown", it=         0, loading rec=     1
+(PID.TID 0011.0001) EXF_SET_FLD:   from file: "NCEP/dswInterp.bin"
+(PID.TID 0011.0001) EXF_SET_FLD: field "swdown", it=         0, loading rec=     2
+(PID.TID 0011.0001) EXF_SET_FLD:   from file: "NCEP/dswInterp.bin"
+(PID.TID 0011.0001) EXF_SET_FLD: field "lwdown", it=         0, loading rec=     1
+(PID.TID 0011.0001) EXF_SET_FLD:   from file: "NCEP/dlwInterp.bin"
+(PID.TID 0011.0001) EXF_SET_FLD: field "lwdown", it=         0, loading rec=     2
+(PID.TID 0011.0001) EXF_SET_FLD:   from file: "NCEP/dlwInterp.bin"
+(PID.TID 0011.0001) SOLVE_FOR_PRESSURE: putPmEinXvector =    F
+ cg2d: Sum(rhs),rhsMax =  -3.05542928293927E-02  1.19777515284253E+01
+ Computing Diagnostic #     23  ETAN         Counter:       1   Parms: SM      M1      
+ Computing Diagnostic #     30  UVEL         Counter:       1   Parms: UUR     MR      
+           Vector  Mate for  UVEL         Diagnostic #     31  VVEL     exists 
+ Computing Diagnostic #     31  VVEL         Counter:       1   Parms: VVR     MR      
+           Vector  Mate for  VVEL         Diagnostic #     30  UVEL     exists 
+ Computing Diagnostic #     26  THETA        Counter:       1   Parms: SMR     MR      
+ Computing Diagnostic #     27  SALT         Counter:       1   Parms: SMR     MR      
+ Computing Diagnostic #    271  POLLUT_S     Counter:       1   Parms: SMRP    MR      
+ Computing Diagnostic #    272  POLLUT_K     Counter:       1   Parms: SMRP    MR      
+ Computing Diagnostic #    273  POLLUT_T     Counter:       1   Parms: SMRP    MR      
+ Computing Diagnostic #    255  TRAC01       Counter:       1   Parms: SMR     MR      
+ Computing Diagnostic #    275  POLLUT_M     Counter:       1   Parms: SMRP    MR      
+ cg2d: Sum(rhs),rhsMax =  -1.10783684229209E-01  6.60618922329815E+00
+ cg2d: Sum(rhs),rhsMax =  -2.07895478649221E-01  5.27982460211006E+00
+ cg2d: Sum(rhs),rhsMax =  -2.74728568469231E-01  5.32660259858261E+00
+ cg2d: Sum(rhs),rhsMax =  -3.28308374847083E-01  5.57106538702242E+00
+ cg2d: Sum(rhs),rhsMax =  -3.63894649413661E-01  6.03097171836846E+00
+ cg2d: Sum(rhs),rhsMax =  -3.96662218358847E-01  6.45437905332859E+00
+ cg2d: Sum(rhs),rhsMax =  -4.36173520201601E-01  6.70775424930941E+00
+ cg2d: Sum(rhs),rhsMax =  -4.84239519482296E-01  6.79673182921399E+00
+ cg2d: Sum(rhs),rhsMax =  -5.39171572846726E-01  6.78209787972121E+00
+(PID.TID 0011.0001)      cg2d_init_res =   1.38790636541647E+00
+(PID.TID 0011.0001)      cg2d_iters(min,last) =      -1      37
+(PID.TID 0011.0001)      cg2d_last_res =   4.76321608233792E-14
+ cg2d: Sum(rhs),rhsMax =  -5.98393918288391E-01  6.72157697841933E+00
+ cg2d: Sum(rhs),rhsMax =  -6.59684238468095E-01  6.65099568992875E+00
+ cg2d: Sum(rhs),rhsMax =  -7.21679454401677E-01  6.58591984829596E+00
+ cg2d: Sum(rhs),rhsMax =  -7.83949272991645E-01  6.52881238087115E+00
+ cg2d: Sum(rhs),rhsMax =  -8.46838373334428E-01  6.47532976613775E+00
+ cg2d: Sum(rhs),rhsMax =  -9.11250170702001E-01  6.41845637477251E+00
+ cg2d: Sum(rhs),rhsMax =  -9.78429767288489E-01  6.35103528033736E+00
+ cg2d: Sum(rhs),rhsMax =  -1.04975633041766E+00  6.26738395030999E+00
+ cg2d: Sum(rhs),rhsMax =  -1.12655110268928E+00  6.16427565415510E+00
+ cg2d: Sum(rhs),rhsMax =  -1.20991977414774E+00  6.04128937664920E+00
+(PID.TID 0011.0001)      cg2d_init_res =   1.14268332546677E+00
+(PID.TID 0011.0001)      cg2d_iters(min,last) =      -1      36
+(PID.TID 0011.0001)      cg2d_last_res =   6.13954644190869E-14
+ cg2d: Sum(rhs),rhsMax =  -1.30064827588880E+00  5.90054091242834E+00
+ cg2d: Sum(rhs),rhsMax =  -1.39916087757811E+00  5.74596449348703E+00
+ cg2d: Sum(rhs),rhsMax =  -1.50552179944533E+00  5.58243227579592E+00
+ cg2d: Sum(rhs),rhsMax =  -1.58656590215897E+00  5.52725858744583E+00
+ cg2d: Sum(rhs),rhsMax =  -1.64474468711663E+00  5.55355823289073E+00
+ cg2d: Sum(rhs),rhsMax =  -1.72165588653465E+00  5.51733623344937E+00
+ cg2d: Sum(rhs),rhsMax =  -1.76821456725627E+00  5.57831643887132E+00
+ cg2d: Sum(rhs),rhsMax =  -1.83602064891632E+00  5.57090736417983E+00
+ cg2d: Sum(rhs),rhsMax =  -1.92816007335976E+00  5.49377337511704E+00
+ cg2d: Sum(rhs),rhsMax =  -2.04712487600864E+00  5.35257011915755E+00
+(PID.TID 0011.0001)      cg2d_init_res =   1.12350919841763E+00
+(PID.TID 0011.0001)      cg2d_iters(min,last) =      -1      36
+(PID.TID 0011.0001)      cg2d_last_res =   6.85610470431299E-14
+ cg2d: Sum(rhs),rhsMax =  -2.14555244358431E+00  5.27687639136906E+00
+ cg2d: Sum(rhs),rhsMax =  -2.12994821153090E+00  5.48660590435936E+00
+ cg2d: Sum(rhs),rhsMax =  -2.11497250976310E+00  5.69770465749171E+00
+ cg2d: Sum(rhs),rhsMax =  -2.11630657619511E+00  5.86622045208000E+00
+ cg2d: Sum(rhs),rhsMax =  -2.13456681738888E+00  5.98664267530052E+00
+ cg2d: Sum(rhs),rhsMax =  -2.17082148975230E+00  6.05438407162985E+00
+ cg2d: Sum(rhs),rhsMax =  -2.22671208292246E+00  6.06590227507128E+00
+ cg2d: Sum(rhs),rhsMax =  -2.30461011247017E+00  6.01879768529958E+00
+ cg2d: Sum(rhs),rhsMax =  -2.40784042483787E+00  5.91188723555347E+00
+ cg2d: Sum(rhs),rhsMax =  -2.54100434012628E+00  5.74525324098641E+00
+(PID.TID 0011.0001)      cg2d_init_res =   1.00702371834215E+00
+(PID.TID 0011.0001)      cg2d_iters(min,last) =      -1      35
+(PID.TID 0011.0001)      cg2d_last_res =   7.16789560073155E-14
+ cg2d: Sum(rhs),rhsMax =  -2.71046373766170E+00  5.52026622066931E+00
+ cg2d: Sum(rhs),rhsMax =  -2.85762795953275E+00  5.36325655637623E+00
+ cg2d: Sum(rhs),rhsMax =  -2.89843455639313E+00  5.41321240024903E+00
+ cg2d: Sum(rhs),rhsMax =  -2.94400983796925E+00  5.45291336299601E+00
+ cg2d: Sum(rhs),rhsMax =  -2.99473409990172E+00  5.48194348197687E+00
+ cg2d: Sum(rhs),rhsMax =  -3.03213837012613E+00  5.53419225377205E+00
+ cg2d: Sum(rhs),rhsMax =  -3.05114134314229E+00  5.61883335276344E+00
+ cg2d: Sum(rhs),rhsMax =  -3.07557392491795E+00  5.69234200415183E+00
+ cg2d: Sum(rhs),rhsMax =  -3.10506183492708E+00  5.75528816903421E+00
+ cg2d: Sum(rhs),rhsMax =  -3.13904577105882E+00  5.80870074354846E+00
+(PID.TID 0011.0001)      cg2d_init_res =   8.62935741022969E-01
+(PID.TID 0011.0001)      cg2d_iters(min,last) =      -1      36
+(PID.TID 0011.0001)      cg2d_last_res =   5.03149787998159E-14
+ cg2d: Sum(rhs),rhsMax =  -3.17685318016953E+00  5.85389827355275E+00
+ cg2d: Sum(rhs),rhsMax =  -3.21776489028858E+00  5.89232688261470E+00
+ cg2d: Sum(rhs),rhsMax =  -3.26107244958061E+00  5.92541820807244E+00
+ cg2d: Sum(rhs),rhsMax =  -3.30612930316005E+00  5.95447593578616E+00
+ cg2d: Sum(rhs),rhsMax =  -3.35238566693195E+00  5.98059526964082E+00
+ cg2d: Sum(rhs),rhsMax =  -3.39941867415276E+00  6.00461588697363E+00
+ cg2d: Sum(rhs),rhsMax =  -3.44694285472080E+00  6.02710594494311E+00
+ cg2d: Sum(rhs),rhsMax =  -3.49481178070180E+00  6.04837264375191E+00
+ cg2d: Sum(rhs),rhsMax =  -3.54300537504081E+00  6.06849367905115E+00
+ cg2d: Sum(rhs),rhsMax =  -3.59160964317994E+00  6.08736347928172E+00
+(PID.TID 0011.0001)      cg2d_init_res =   7.79282979001594E-01
+(PID.TID 0011.0001)      cg2d_iters(min,last) =      -1      34
+(PID.TID 0011.0001)      cg2d_last_res =   6.80703439286634E-14
+ cg2d: Sum(rhs),rhsMax =  -3.64078970915517E+00  6.10474823294851E+00
+ cg2d: Sum(rhs),rhsMax =  -3.69075913185846E+00  6.12034419425670E+00
+ cg2d: Sum(rhs),rhsMax =  -3.74174935634684E+00  6.13383446238897E+00
+ cg2d: Sum(rhs),rhsMax =  -3.79397730450411E+00  6.14494027683931E+00
+ cg2d: Sum(rhs),rhsMax =  -3.84762114756333E+00  6.15346381702781E+00
+ cg2d: Sum(rhs),rhsMax =  -3.90279577536121E+00  6.15932045666194E+00
+ cg2d: Sum(rhs),rhsMax =  -3.95953611608208E+00  6.16255940358651E+00
+ cg2d: Sum(rhs),rhsMax =  -4.01778666475316E+00  6.16337258571358E+00
+ cg2d: Sum(rhs),rhsMax =  -4.07739645764498E+00  6.16209248494665E+00
+ cg2d: Sum(rhs),rhsMax =  -4.13811675624906E+00  6.15918031603893E+00
+(PID.TID 0011.0001)      cg2d_init_res =   6.30964724478152E-01
+(PID.TID 0011.0001)      cg2d_iters(min,last) =      -1      35
+(PID.TID 0011.0001)      cg2d_last_res =   6.56945782037777E-14
+ cg2d: Sum(rhs),rhsMax =  -4.19960742845796E+00  6.15520644902738E+00
+ cg2d: Sum(rhs),rhsMax =  -4.26144810273398E+00  6.15082526401534E+00
+ cg2d: Sum(rhs),rhsMax =  -4.32315248957502E+00  6.14674669563148E+00
+ cg2d: Sum(rhs),rhsMax =  -4.38418545896633E+00  6.14370657722735E+00
+ cg2d: Sum(rhs),rhsMax =  -4.44398568413692E+00  6.14243758580690E+00
+ cg2d: Sum(rhs),rhsMax =  -4.50198486798597E+00  6.14364218337071E+00
+ cg2d: Sum(rhs),rhsMax =  -4.55763379157122E+00  6.14796850575052E+00
+ cg2d: Sum(rhs),rhsMax =  -4.61042285003909E+00  6.15598972988078E+00
+ cg2d: Sum(rhs),rhsMax =  -4.65990475875271E+00  6.16818703783695E+00
+ cg2d: Sum(rhs),rhsMax =  -4.70571304969332E+00  6.18493601517414E+00
+(PID.TID 0011.0001)      cg2d_init_res =   5.90849443981895E-01
+(PID.TID 0011.0001)      cg2d_iters(min,last) =      -1      35
+(PID.TID 0011.0001)      cg2d_last_res =   4.80357762112536E-14
+ cg2d: Sum(rhs),rhsMax =  -4.74757797603134E+00  6.20649622588073E+00
+ cg2d: Sum(rhs),rhsMax =  -4.78533872778880E+00  6.23300386174233E+00
+ cg2d: Sum(rhs),rhsMax =  -4.81895281010644E+00  6.26446550546390E+00
+ cg2d: Sum(rhs),rhsMax =  -4.84849992404521E+00  6.30075556283187E+00
+ cg2d: Sum(rhs),rhsMax =  -4.87418114392516E+00  6.34161529293245E+00
+ cg2d: Sum(rhs),rhsMax =  -4.89631537837082E+00  6.38665335079535E+00
+ cg2d: Sum(rhs),rhsMax =  -4.91533203510497E+00  6.43534856588261E+00
+ cg2d: Sum(rhs),rhsMax =  -4.93175982326770E+00  6.48705544145029E+00
+ cg2d: Sum(rhs),rhsMax =  -4.94621309564599E+00  6.54101258527785E+00
+ cg2d: Sum(rhs),rhsMax =  -4.95937642009302E+00  6.59635433112514E+00
+(PID.TID 0011.0001)      cg2d_init_res =   5.26739875047676E-01
+(PID.TID 0011.0001)      cg2d_iters(min,last) =      -1      35
+(PID.TID 0011.0001)      cg2d_last_res =   3.56697346445198E-14
+ cg2d: Sum(rhs),rhsMax =  -4.97198736225661E+00  6.65212581672836E+00
+ cg2d: Sum(rhs),rhsMax =  -4.98481967965184E+00  6.70730165175841E+00
+ cg2d: Sum(rhs),rhsMax =  -4.99866467082833E+00  6.76080809972393E+00
+ cg2d: Sum(rhs),rhsMax =  -5.01431605951876E+00  6.81154845017901E+00
+ cg2d: Sum(rhs),rhsMax =  -5.03255324052530E+00  6.85843100132935E+00
+ cg2d: Sum(rhs),rhsMax =  -5.05412902980944E+00  6.90039883369755E+00
+ cg2d: Sum(rhs),rhsMax =  -5.07975392226978E+00  6.93646035387094E+00
+ Computing Diagnostic #     23  ETAN         Counter:       1   Parms: SM      M1      
+ Computing Diagnostic #     30  UVEL         Counter:       1   Parms: UUR     MR      
+           Vector  Mate for  UVEL         Diagnostic #     31  VVEL     exists 
+ Computing Diagnostic #     31  VVEL         Counter:       1   Parms: VVR     MR      
+           Vector  Mate for  VVEL         Diagnostic #     30  UVEL     exists 
+ Computing Diagnostic #     26  THETA        Counter:       1   Parms: SMR     MR      
+ Computing Diagnostic #     27  SALT         Counter:       1   Parms: SMR     MR      
+ Computing Diagnostic #    271  POLLUT_S     Counter:       1   Parms: SMRP    MR      
+ Computing Diagnostic #    272  POLLUT_K     Counter:       1   Parms: SMRP    MR      
+ Computing Diagnostic #    273  POLLUT_T     Counter:       1   Parms: SMRP    MR      
+ Computing Diagnostic #    255  TRAC01       Counter:       1   Parms: SMR     MR      
+ Computing Diagnostic #    275  POLLUT_M     Counter:       1   Parms: SMRP    MR      
+ cg2d: Sum(rhs),rhsMax =  -5.11008752633987E+00  6.96571944108775E+00
+ cg2d: Sum(rhs),rhsMax =  -5.14572785189965E+00  6.98740395062761E+00
+ cg2d: Sum(rhs),rhsMax =  -5.18720256663388E+00  7.00089132521041E+00
+(PID.TID 0011.0001)      cg2d_init_res =   4.70137459924839E-01
+(PID.TID 0011.0001)      cg2d_iters(min,last) =      -1      34
+(PID.TID 0011.0001)      cg2d_last_res =   9.36511367948890E-14
+ cg2d: Sum(rhs),rhsMax =  -5.23496104186400E+00  7.00573014028711E+00
+ cg2d: Sum(rhs),rhsMax =  -5.28936649494251E+00  7.00165655755864E+00
+ cg2d: Sum(rhs),rhsMax =  -5.35068921575342E+00  6.98860487639102E+00
+ cg2d: Sum(rhs),rhsMax =  -5.41909880367563E+00  6.96671164299009E+00
+ cg2d: Sum(rhs),rhsMax =  -5.49465757996002E+00  6.93631308052079E+00
+ cg2d: Sum(rhs),rhsMax =  -5.57731386364529E+00  6.89793591462692E+00
+ cg2d: Sum(rhs),rhsMax =  -5.66689533796166E+00  6.85228196595751E+00
+ cg2d: Sum(rhs),rhsMax =  -5.76310376335609E+00  6.80020715092603E+00
+ cg2d: Sum(rhs),rhsMax =  -5.86551103118392E+00  6.74269576222697E+00
+ cg2d: Sum(rhs),rhsMax =  -5.97355860150837E+00  6.68083108158434E+00
+(PID.TID 0011.0001)      cg2d_init_res =   4.12344452578318E-01
+(PID.TID 0011.0001)      cg2d_iters(min,last) =      -1      35
+(PID.TID 0011.0001)      cg2d_last_res =   4.06945694774865E-14
+ cg2d: Sum(rhs),rhsMax =  -6.08655948607420E+00  6.61576349865449E+00
+ cg2d: Sum(rhs),rhsMax =  -6.20370503913303E+00  6.54867736746823E+00
+ cg2d: Sum(rhs),rhsMax =  -6.32407692990942E+00  6.48075782655863E+00
+ cg2d: Sum(rhs),rhsMax =  -6.44666483580917E+00  6.41315874887517E+00
+ cg2d: Sum(rhs),rhsMax =  -6.57038980590830E+00  6.34697288096607E+00
+ cg2d: Sum(rhs),rhsMax =  -6.69413294500215E+00  6.28320508638235E+00
+ cg2d: Sum(rhs),rhsMax =  -6.81677092681748E+00  6.22274943578642E+00
+ cg2d: Sum(rhs),rhsMax =  -6.93721320700242E+00  6.16637069872959E+00
+ cg2d: Sum(rhs),rhsMax =  -7.05444054778105E+00  6.11469060181414E+00
+ cg2d: Sum(rhs),rhsMax =  -7.16754380531940E+00  6.06817903309923E+00
+(PID.TID 0011.0001)      cg2d_init_res =   4.40900017193364E-01
+(PID.TID 0011.0001)      cg2d_iters(min,last) =      -1      35
+(PID.TID 0011.0001)      cg2d_last_res =   4.42501717522312E-14
+ cg2d: Sum(rhs),rhsMax =  -7.27575691064671E+00  6.02715019857704E+00
+ cg2d: Sum(rhs),rhsMax =  -7.37848585275223E+00  5.99176357568454E+00
+ cg2d: Sum(rhs),rhsMax =  -7.47532851712275E+00  5.96202936567070E+00
+ cg2d: Sum(rhs),rhsMax =  -7.56608543161560E+00  5.93781802444203E+00
+ cg2d: Sum(rhs),rhsMax =  -7.65075843494594E+00  5.91887335285009E+00
+ cg2d: Sum(rhs),rhsMax =  -7.72954305123279E+00  5.90482855175544E+00
+ cg2d: Sum(rhs),rhsMax =  -7.80280769491000E+00  5.89522459638132E+00
+ cg2d: Sum(rhs),rhsMax =  -7.87106955841550E+00  5.88953025343230E+00
+ cg2d: Sum(rhs),rhsMax =  -7.93496285629768E+00  5.88716305357904E+00
+ cg2d: Sum(rhs),rhsMax =  -7.99520571782423E+00  5.88751054297513E+00
+(PID.TID 0011.0001)      cg2d_init_res =   3.96091546322218E-01
+(PID.TID 0011.0001)      cg2d_iters(min,last) =      -1      35
+(PID.TID 0011.0001)      cg2d_last_res =   6.03830155636239E-14
+ cg2d: Sum(rhs),rhsMax =  -8.05256489743525E+00  5.88995116666651E+00
+ cg2d: Sum(rhs),rhsMax =  -8.10782293296589E+00  5.89387417994578E+00
+ cg2d: Sum(rhs),rhsMax =  -8.16174680646463E+00  5.89869803983567E+00
+ cg2d: Sum(rhs),rhsMax =  -8.21506160879105E+00  5.90388679903990E+00
+ cg2d: Sum(rhs),rhsMax =  -8.26842461884073E+00  5.90896410671548E+00
+ cg2d: Sum(rhs),rhsMax =  -8.32240922023351E+00  5.91352451119044E+00
+ cg2d: Sum(rhs),rhsMax =  -8.37748980337754E+00  5.91724185588583E+00
+ cg2d: Sum(rhs),rhsMax =  -8.43403176206569E+00  5.91987465993883E+00
+ cg2d: Sum(rhs),rhsMax =  -8.49228559434633E+00  5.92126847582876E+00
+ cg2d: Sum(rhs),rhsMax =  -8.55238499252187E+00  5.92135531387674E+00
+(PID.TID 0011.0001)      cg2d_init_res =   4.14490268256233E-01
+(PID.TID 0011.0001)      cg2d_iters(min,last) =      -1      34
+(PID.TID 0011.0001)      cg2d_last_res =   8.11404104610395E-14
+ cg2d: Sum(rhs),rhsMax =  -8.61434744700271E+00  5.92015031379623E+00
+ cg2d: Sum(rhs),rhsMax =  -8.67807906254158E+00  5.91774592383043E+00
+ cg2d: Sum(rhs),rhsMax =  -8.74338158110665E+00  5.91430391590119E+00
+ cg2d: Sum(rhs),rhsMax =  -8.80996228095331E+00  5.91004561938341E+00
+ cg2d: Sum(rhs),rhsMax =  -8.87744626310632E+00  5.90524079462620E+00
+ cg2d: Sum(rhs),rhsMax =  -8.94539016773585E+00  5.90019558970031E+00
+ cg2d: Sum(rhs),rhsMax =  -9.01329860087392E+00  5.89524002930126E+00
+ cg2d: Sum(rhs),rhsMax =  -9.08064206629848E+00  5.89071547336599E+00
+ cg2d: Sum(rhs),rhsMax =  -9.14687596012182E+00  5.88696244445499E+00
+ cg2d: Sum(rhs),rhsMax =  -9.21145752235350E+00  5.88430922024083E+00
+(PID.TID 0011.0001)      cg2d_init_res =   4.25701153205870E-01
+(PID.TID 0011.0001)      cg2d_iters(min,last) =      -1      34
+(PID.TID 0011.0001)      cg2d_last_res =   6.99019572876841E-14
+ cg2d: Sum(rhs),rhsMax =  -9.27386617707337E+00  5.88306152619916E+00
+ cg2d: Sum(rhs),rhsMax =  -9.33362148132312E+00  5.88349355478334E+00
+ cg2d: Sum(rhs),rhsMax =  -9.39029699846816E+00  5.88584047656216E+00
+ cg2d: Sum(rhs),rhsMax =  -9.44353612852488E+00  5.89029258446040E+00
+ cg2d: Sum(rhs),rhsMax =  -9.49306218474489E+00  5.89699115874444E+00
+ cg2d: Sum(rhs),rhsMax =  -9.53868650945108E+00  5.90602605279623E+00
+ cg2d: Sum(rhs),rhsMax =  -9.58031181064206E+00  5.91743491872439E+00
+ cg2d: Sum(rhs),rhsMax =  -9.61793341228248E+00  5.93120393904373E+00
+ cg2d: Sum(rhs),rhsMax =  -9.65163700907634E+00  5.94726989826064E+00
+ cg2d: Sum(rhs),rhsMax =  -9.68159305369240E+00  5.96552340383518E+00
+(PID.TID 0011.0001)      cg2d_init_res =   3.54760143118845E-01
+(PID.TID 0011.0001)      cg2d_iters(min,last) =      -1      34
+(PID.TID 0011.0001)      cg2d_last_res =   9.38225604655768E-14
+ cg2d: Sum(rhs),rhsMax =  -9.70804863315217E+00  5.98581304485837E+00
+ cg2d: Sum(rhs),rhsMax =  -9.73131789987855E+00  6.00795026312606E+00
+ cg2d: Sum(rhs),rhsMax =  -9.75177041613100E+00  6.03171470797035E+00
+ cg2d: Sum(rhs),rhsMax =  -9.76982062939373E+00  6.05685985532785E+00
+ cg2d: Sum(rhs),rhsMax =  -9.78591550719065E+00  6.08311869052376E+00
+ cg2d: Sum(rhs),rhsMax =  -9.80052376505785E+00  6.11020928016412E+00
+ cg2d: Sum(rhs),rhsMax =  -9.81412529326201E+00  6.13784008721986E+00
+ cg2d: Sum(rhs),rhsMax =  -9.82720222217107E+00  6.16571491382717E+00
+ cg2d: Sum(rhs),rhsMax =  -9.84023097472645E+00  6.19353738779455E+00
+ cg2d: Sum(rhs),rhsMax =  -9.85367595828784E+00  6.22101494139502E+00
+(PID.TID 0011.0001)      cg2d_init_res =   3.48143167365828E-01
+(PID.TID 0011.0001)      cg2d_iters(min,last) =      -1      34
+(PID.TID 0011.0001)      cg2d_last_res =   9.46049650978916E-14
+ cg2d: Sum(rhs),rhsMax =  -9.86798452050236E+00  6.24786226249174E+00
+ cg2d: Sum(rhs),rhsMax =  -9.88358337926367E+00  6.27380422702236E+00
+ cg2d: Sum(rhs),rhsMax =  -9.90087594330431E+00  6.29857834605059E+00
+ cg2d: Sum(rhs),rhsMax =  -9.92024083861556E+00  6.32193677938083E+00
+ cg2d: Sum(rhs),rhsMax =  -9.94203106449594E+00  6.34364798040664E+00
+ cg2d: Sum(rhs),rhsMax =  -9.96657370935316E+00  6.36349804387155E+00
+ cg2d: Sum(rhs),rhsMax =  -9.99417025627049E+00  6.38129182922370E+00
+ cg2d: Sum(rhs),rhsMax =  -1.00250967943864E+01  6.39685392865550E+00
+ cg2d: Sum(rhs),rhsMax =  -1.00596043259921E+01  6.41002954103139E+00
+ cg2d: Sum(rhs),rhsMax =  -1.00979192055071E+01  6.42068530192519E+00
+(PID.TID 0011.0001)      cg2d_init_res =   2.78232369666277E-01
+(PID.TID 0011.0001)      cg2d_iters(min,last) =      -1      34
+(PID.TID 0011.0001)      cg2d_last_res =   8.89139856660500E-14
+ cg2d: Sum(rhs),rhsMax =  -1.01402426791300E+01  6.42871010492850E+00
+ cg2d: Sum(rhs),rhsMax =  -1.01867510977201E+01  6.43401593467863E+00
+ cg2d: Sum(rhs),rhsMax =  -1.02375954550678E+01  6.43653871857895E+00
+ cg2d: Sum(rhs),rhsMax =  -1.02928989523859E+01  6.43623918790800E+00
+ cg2d: Sum(rhs),rhsMax =  -1.03527569471435E+01  6.43310371895604E+00
+ cg2d: Sum(rhs),rhsMax =  -1.04172347274492E+01  6.42714510702376E+00
+ cg2d: Sum(rhs),rhsMax =  -1.04863659353287E+01  6.41840321782033E+00
+ cg2d: Sum(rhs),rhsMax =  -1.05601477858023E+01  6.40694546053646E+00
+ cg2d: Sum(rhs),rhsMax =  -1.06385409463453E+01  6.39286702816872E+00
+ cg2d: Sum(rhs),rhsMax =  -1.07214658828107E+01  6.37629084844883E+00
+(PID.TID 0011.0001)      cg2d_init_res =   2.82961088163500E-01
+(PID.TID 0011.0001)      cg2d_iters(min,last) =      -1      34
+(PID.TID 0011.0001)      cg2d_last_res =   9.85286258509147E-14
+ cg2d: Sum(rhs),rhsMax =  -1.08088002932285E+01  6.35736719820387E+00
+ cg2d: Sum(rhs),rhsMax =  -1.09003766373279E+01  6.33627291793501E+00
+ cg2d: Sum(rhs),rhsMax =  -1.09959796831767E+01  6.31321017695446E+00
+ Computing Diagnostic #     23  ETAN         Counter:       1   Parms: SM      M1      
+ Computing Diagnostic #     30  UVEL         Counter:       1   Parms: UUR     MR      
+           Vector  Mate for  UVEL         Diagnostic #     31  VVEL     exists 
+ Computing Diagnostic #     31  VVEL         Counter:       1   Parms: VVR     MR      
+           Vector  Mate for  VVEL         Diagnostic #     30  UVEL     exists 
+ Computing Diagnostic #     26  THETA        Counter:       1   Parms: SMR     MR      
+ Computing Diagnostic #     27  SALT         Counter:       1   Parms: SMR     MR      
+ Computing Diagnostic #    271  POLLUT_S     Counter:       1   Parms: SMRP    MR      
+ Computing Diagnostic #    272  POLLUT_K     Counter:       1   Parms: SMRP    MR      
+ Computing Diagnostic #    273  POLLUT_T     Counter:       1   Parms: SMRP    MR      
+ Computing Diagnostic #    255  TRAC01       Counter:       1   Parms: SMR     MR      
+ Computing Diagnostic #    275  POLLUT_M     Counter:       1   Parms: SMRP    MR      
+ cg2d: Sum(rhs),rhsMax =  -1.10953452557123E+01  6.28840478060809E+00
+ cg2d: Sum(rhs),rhsMax =  -1.11981586998077E+01  6.26210402466089E+00
+ cg2d: Sum(rhs),rhsMax =  -1.13040549438663E+01  6.23457409444110E+00
+ cg2d: Sum(rhs),rhsMax =  -1.14126193868579E+01  6.20609701812942E+00
+ cg2d: Sum(rhs),rhsMax =  -1.15233908830405E+01  6.17696721316687E+00
+ cg2d: Sum(rhs),rhsMax =  -1.16358612708832E+01  6.14748768844254E+00
+ cg2d: Sum(rhs),rhsMax =  -1.17494837825461E+01  6.11796597622357E+00
+(PID.TID 0011.0001)      cg2d_init_res =   3.19812358373481E-01
+(PID.TID 0011.0001)      cg2d_iters(min,last) =      -1      35
+(PID.TID 0011.0001)      cg2d_last_res =   4.63208762839899E-14
+ cg2d: Sum(rhs),rhsMax =  -1.18636777842205E+01  6.08870987489187E+00
+ cg2d: Sum(rhs),rhsMax =  -1.19778362472585E+01  6.06002309211971E+00
+ cg2d: Sum(rhs),rhsMax =  -1.20913344265449E+01  6.03220088464041E+00
+ cg2d: Sum(rhs),rhsMax =  -1.22035400990036E+01  6.00552579302755E+00
+ cg2d: Sum(rhs),rhsMax =  -1.23138241685066E+01  5.98026356800663E+00
+ cg2d: Sum(rhs),rhsMax =  -1.24215723778325E+01  5.95665937331884E+00
+ cg2d: Sum(rhs),rhsMax =  -1.25261974540189E+01  5.93493435791853E+00
+ cg2d: Sum(rhs),rhsMax =  -1.26271507584750E+01  5.91528268747749E+00
+ cg2d: Sum(rhs),rhsMax =  -1.27239337170322E+01  5.89786909027349E+00
+ cg2d: Sum(rhs),rhsMax =  -1.28161083561658E+01  5.88282694446726E+00
+(PID.TID 0011.0001)      cg2d_init_res =   2.70964314133911E-01
+(PID.TID 0011.0001)      cg2d_iters(min,last) =      -1      34
+(PID.TID 0011.0001)      cg2d_last_res =   7.19262218351216E-14
+ cg2d: Sum(rhs),rhsMax =  -1.29033061663786E+01  5.87025693527411E+00
+ cg2d: Sum(rhs),rhsMax =  -1.29852357556833E+01  5.86022631467169E+00
+ cg2d: Sum(rhs),rhsMax =  -1.30616881897046E+01  5.85276877828341E+00
+ cg2d: Sum(rhs),rhsMax =  -1.31325402958141E+01  5.84788494387836E+00
+ cg2d: Sum(rhs),rhsMax =  -1.31977552258908E+01  5.84554339116382E+00
+ cg2d: Sum(rhs),rhsMax =  -1.32573817746461E+01  5.84568221047116E+00
+ cg2d: Sum(rhs),rhsMax =  -1.33115500991624E+01  5.84821100308796E+00
+ cg2d: Sum(rhs),rhsMax =  -1.33604669207042E+01  5.85301327024855E+00
+ cg2d: Sum(rhs),rhsMax =  -1.34044080845541E+01  5.85994912135563E+00
+ cg2d: Sum(rhs),rhsMax =  -1.34437109906324E+01  5.86885822338275E+00
+(PID.TID 0011.0001)      cg2d_init_res =   2.52241755531297E-01
+(PID.TID 0011.0001)      cg2d_iters(min,last) =      -1      34
+(PID.TID 0011.0001)      cg2d_last_res =   7.78787101144011E-14
+ cg2d: Sum(rhs),rhsMax =  -1.34787640226267E+01  5.87956290480742E+00
+ cg2d: Sum(rhs),rhsMax =  -1.35099982274374E+01  5.89187133381704E+00
+ cg2d: Sum(rhs),rhsMax =  -1.35378768622375E+01  5.90558069650431E+00
+ cg2d: Sum(rhs),rhsMax =  -1.35628860692408E+01  5.92048030872563E+00
+ cg2d: Sum(rhs),rhsMax =  -1.35855256911973E+01  5.93635460254704E+00
+ cg2d: Sum(rhs),rhsMax =  -1.36063012454339E+01  5.95298593154975E+00
+ cg2d: Sum(rhs),rhsMax =  -1.36257157401328E+01  5.97015714428494E+00
+ cg2d: Sum(rhs),rhsMax =  -1.36442642094501E+01  5.98765388817316E+00
+ cg2d: Sum(rhs),rhsMax =  -1.36624277503522E+01  6.00526662171293E+00
+ cg2d: Sum(rhs),rhsMax =  -1.36806698009285E+01  6.02279233660185E+00
+(PID.TID 0011.0001)      cg2d_init_res =   2.53641651762307E-01
+(PID.TID 0011.0001)      cg2d_iters(min,last) =      -1      34
+(PID.TID 0011.0001)      cg2d_last_res =   8.14276425303062E-14
+ cg2d: Sum(rhs),rhsMax =  -1.36994332127023E+01  6.04003599882493E+00
+ cg2d: Sum(rhs),rhsMax =  -1.37191367784824E+01  6.05681172010520E+00
+ cg2d: Sum(rhs),rhsMax =  -1.37401751363438E+01  6.07294367325322E+00
+ cg2d: Sum(rhs),rhsMax =  -1.37629174000824E+01  6.08826677687083E+00
+ cg2d: Sum(rhs),rhsMax =  -1.37877074283681E+01  6.10262718192017E+00
+ cg2d: Sum(rhs),rhsMax =  -1.38148642853977E+01  6.11588259423749E+00
+ cg2d: Sum(rhs),rhsMax =  -1.38446819676822E+01  6.12790246791362E+00
+ cg2d: Sum(rhs),rhsMax =  -1.38774310876029E+01  6.13856810553293E+00
+ cg2d: Sum(rhs),rhsMax =  -1.39133598424017E+01  6.14777270107691E+00
+ cg2d: Sum(rhs),rhsMax =  -1.39526944865443E+01  6.15542135845325E+00
+(PID.TID 0011.0001)      cg2d_init_res =   2.04438042087380E-01
+(PID.TID 0011.0001)      cg2d_iters(min,last) =      -1      34
+(PID.TID 0011.0001)      cg2d_last_res =   4.48976682150288E-14
+ cg2d: Sum(rhs),rhsMax =  -1.39956406546718E+01  6.16143111250929E+00
+ cg2d: Sum(rhs),rhsMax =  -1.40423840470867E+01  6.16573097147390E+00
+ cg2d: Sum(rhs),rhsMax =  -1.40930900394136E+01  6.16826212999142E+00
+ cg2d: Sum(rhs),rhsMax =  -1.41479038251394E+01  6.16897799956011E+00
+ cg2d: Sum(rhs),rhsMax =  -1.42069517452288E+01  6.16784417033515E+00
+ cg2d: Sum(rhs),rhsMax =  -1.42703402701344E+01  6.16483857517704E+00
+ cg2d: Sum(rhs),rhsMax =  -1.43381553677312E+01  6.15995182075092E+00
+ cg2d: Sum(rhs),rhsMax =  -1.44104612976186E+01  6.15318750450841E+00
+ cg2d: Sum(rhs),rhsMax =  -1.44872995812620E+01  6.14456242589552E+00
+ cg2d: Sum(rhs),rhsMax =  -1.45686877878966E+01  6.13410670399747E+00
+(PID.TID 0011.0001)      cg2d_init_res =   1.85451654253485E-01
+(PID.TID 0011.0001)      cg2d_iters(min,last) =      -1      34
+(PID.TID 0011.0001)      cg2d_last_res =   5.99354241049315E-14
+ cg2d: Sum(rhs),rhsMax =  -1.46546181857071E+01  6.12186383191775E+00
+ cg2d: Sum(rhs),rhsMax =  -1.47450564052009E+01  6.10789066445810E+00
+ cg2d: Sum(rhs),rhsMax =  -1.48399395148298E+01  6.09225730686805E+00
+ cg2d: Sum(rhs),rhsMax =  -1.49391754305110E+01  6.07504686775783E+00
+ cg2d: Sum(rhs),rhsMax =  -1.50426409728111E+01  6.05635505144667E+00
+ cg2d: Sum(rhs),rhsMax =  -1.51501812795216E+01  6.03628957903796E+00
+ cg2d: Sum(rhs),rhsMax =  -1.52616088004283E+01  6.01496943665323E+00
+ cg2d: Sum(rhs),rhsMax =  -1.53767033171044E+01  5.99252395216956E+00
+ cg2d: Sum(rhs),rhsMax =  -1.54952117086570E+01  5.96909170403700E+00
+ cg2d: Sum(rhs),rhsMax =  -1.56168481701980E+01  5.94481927001222E+00
+(PID.TID 0011.0001)      cg2d_init_res =   2.18642626447633E-01
+(PID.TID 0011.0001)      cg2d_iters(min,last) =      -1      34
+(PID.TID 0011.0001)      cg2d_last_res =   8.09353370802672E-14
+ cg2d: Sum(rhs),rhsMax =  -1.57412955188772E+01  5.91985983074545E+00
+ cg2d: Sum(rhs),rhsMax =  -1.58682069783747E+01  5.89437164943739E+00
+ cg2d: Sum(rhs),rhsMax =  -1.59972080723027E+01  5.86851645229616E+00
+ cg2d: Sum(rhs),rhsMax =  -1.61278995542675E+01  5.84245773675496E+00
+ cg2d: Sum(rhs),rhsMax =  -1.62598606837500E+01  5.81635903768073E+00
+ cg2d: Sum(rhs),rhsMax =  -1.63926533223295E+01  5.79038218545561E+00
+ cg2d: Sum(rhs),rhsMax =  -1.65258260208062E+01  5.76468559081256E+00
+ cg2d: Sum(rhs),rhsMax =  -1.66589193368116E+01  5.73942258898338E+00
+ cg2d: Sum(rhs),rhsMax =  -1.67914708332289E+01  5.71473987251098E+00
+ cg2d: Sum(rhs),rhsMax =  -1.69230208784705E+01  5.69077603959243E+00
+(PID.TID 0011.0001)      cg2d_init_res =   2.13149692676581E-01
+(PID.TID 0011.0001)      cg2d_iters(min,last) =      -1      34
+(PID.TID 0011.0001)      cg2d_last_res =   5.51489118028637E-14
+ cg2d: Sum(rhs),rhsMax =  -1.70531181565711E+01  5.66766028320315E+00
+ cg2d: Sum(rhs),rhsMax =  -1.71813250104945E+01  5.64551124444975E+00
+ cg2d: Sum(rhs),rhsMax =  -1.73072232454524E+01  5.62443604870246E+00
+ cg2d: Sum(rhs),rhsMax =  -1.74304194202626E+01  5.60452953679851E+00
+ cg2d: Sum(rhs),rhsMax =  -1.75505496384058E+01  5.58587369846736E+00
+ cg2d: Sum(rhs),rhsMax =  -1.76672840525287E+01  5.56853731243723E+00
+ cg2d: Sum(rhs),rhsMax =  -1.77803301908963E+01  5.55257579465450E+00
+ cg2d: Sum(rhs),rhsMax =  -1.78894357555957E+01  5.53803124964747E+00
+ cg2d: Sum(rhs),rhsMax =  -1.79943914082207E+01  5.52493271245854E+00
+ cg2d: Sum(rhs),rhsMax =  -1.80950312095834E+01  5.51329656241834E+00
+(PID.TID 0011.0001)      cg2d_init_res =   1.63498964963661E-01
+(PID.TID 0011.0001)      cg2d_iters(min,last) =      -1      34
+(PID.TID 0011.0001)      cg2d_last_res =   5.31313764189494E-14
+ cg2d: Sum(rhs),rhsMax =  -1.81912331960332E+01  5.50312708904981E+00
+ cg2d: Sum(rhs),rhsMax =  -1.82829193063485E+01  5.49441719154666E+00
+ cg2d: Sum(rhs),rhsMax =  -1.83700541006214E+01  5.48714919208358E+00
+ cg2d: Sum(rhs),rhsMax =  -1.84526428221818E+01  5.48129574030757E+00
+ cg2d: Sum(rhs),rhsMax =  -1.85307289250812E+01  5.47682078463067E+00
+ cg2d: Sum(rhs),rhsMax =  -1.86043909988323E+01  5.47368058706163E+00
+ cg2d: Sum(rhs),rhsMax =  -1.86737396509030E+01  5.47182476084486E+00
+ cg2d: Sum(rhs),rhsMax =  -1.86839715577259E+01  5.48728600678795E+00
+(PID.TID 0011.0001) %CHECKPOINT       288 ckptA
+(PID.TID 0011.0001)   Seconds in section "ALL                    [THE_MODEL_MAIN]":
+(PID.TID 0011.0001)           User time:   31.538834884762764
+(PID.TID 0011.0001)         System time:   1.8589249793440104
+(PID.TID 0011.0001)     Wall clock time:   33.404456138610840
+(PID.TID 0011.0001)          No. starts:           1
+(PID.TID 0011.0001)           No. stops:           1
+(PID.TID 0011.0001)   Seconds in section "INITIALISE_FIXED       [THE_MODEL_MAIN]":
+(PID.TID 0011.0001)           User time:   7.4718996882438660E-002
+(PID.TID 0011.0001)         System time:   3.9559001103043556E-002
+(PID.TID 0011.0001)     Wall clock time:  0.11361503601074219
+(PID.TID 0011.0001)          No. starts:           1
+(PID.TID 0011.0001)           No. stops:           1
+(PID.TID 0011.0001)   Seconds in section "THE_MAIN_LOOP          [THE_MODEL_MAIN]":
+(PID.TID 0011.0001)           User time:   31.464100256562233
+(PID.TID 0011.0001)         System time:   1.8193609789013863
+(PID.TID 0011.0001)     Wall clock time:   33.290823936462402
+(PID.TID 0011.0001)          No. starts:           1
+(PID.TID 0011.0001)           No. stops:           1
+(PID.TID 0011.0001)   Seconds in section "INITIALISE_VARIA    [THE_MAIN_LOOP]":
+(PID.TID 0011.0001)           User time:   6.6461004316806793E-002
+(PID.TID 0011.0001)         System time:   7.3068000376224518E-002
+(PID.TID 0011.0001)     Wall clock time:  0.13630700111389160
+(PID.TID 0011.0001)          No. starts:           1
+(PID.TID 0011.0001)           No. stops:           1
+(PID.TID 0011.0001)   Seconds in section "MAIN LOOP           [THE_MAIN_LOOP]":
+(PID.TID 0011.0001)           User time:   31.397626534104347
+(PID.TID 0011.0001)         System time:   1.7462880313396454
+(PID.TID 0011.0001)     Wall clock time:   33.154501914978027
+(PID.TID 0011.0001)          No. starts:           1
+(PID.TID 0011.0001)           No. stops:           1
+(PID.TID 0011.0001)   Seconds in section "MAIN_DO_LOOP        [THE_MAIN_LOOP]":
+(PID.TID 0011.0001)           User time:   31.395984858274460
+(PID.TID 0011.0001)         System time:   1.7461628466844559
+(PID.TID 0011.0001)     Wall clock time:   33.152817249298096
+(PID.TID 0011.0001)          No. starts:         288
+(PID.TID 0011.0001)           No. stops:         288
+(PID.TID 0011.0001)   Seconds in section "FORWARD_STEP        [MAIN_DO_LOOP]":
+(PID.TID 0011.0001)           User time:   31.392804652452469
+(PID.TID 0011.0001)         System time:   1.7459222078323364
+(PID.TID 0011.0001)     Wall clock time:   33.149477720260620
+(PID.TID 0011.0001)          No. starts:         288
+(PID.TID 0011.0001)           No. stops:         288
+(PID.TID 0011.0001)   Seconds in section "DO_STATEVARS_DIAGS  [FORWARD_STEP]":
+(PID.TID 0011.0001)           User time:  0.31325139105319977
+(PID.TID 0011.0001)         System time:   2.3630097508430481E-002
+(PID.TID 0011.0001)     Wall clock time:  0.32843565940856934
+(PID.TID 0011.0001)          No. starts:         576
+(PID.TID 0011.0001)           No. stops:         576
+(PID.TID 0011.0001)   Seconds in section "LOAD_FIELDS_DRIVER  [FORWARD_STEP]":
+(PID.TID 0011.0001)           User time:  0.43785484135150909
+(PID.TID 0011.0001)         System time:   6.3278138637542725E-002
+(PID.TID 0011.0001)     Wall clock time:  0.48719620704650879
+(PID.TID 0011.0001)          No. starts:         288
+(PID.TID 0011.0001)           No. stops:         288
+(PID.TID 0011.0001)   Seconds in section "EXF_GETFORCING     [LOAD_FLDS_DRIVER]":
+(PID.TID 0011.0001)           User time:  0.42724053561687469
+(PID.TID 0011.0001)         System time:   6.2269762158393860E-002
+(PID.TID 0011.0001)     Wall clock time:  0.47637772560119629
+(PID.TID 0011.0001)          No. starts:         288
+(PID.TID 0011.0001)           No. stops:         288
+(PID.TID 0011.0001)   Seconds in section "EXTERNAL_FLDS_LOAD [LOAD_FLDS_DRIVER]":
+(PID.TID 0011.0001)           User time:   1.8847286701202393E-003
+(PID.TID 0011.0001)         System time:   1.9092857837677002E-004
+(PID.TID 0011.0001)     Wall clock time:   2.0308494567871094E-003
+(PID.TID 0011.0001)          No. starts:         288
+(PID.TID 0011.0001)           No. stops:         288
+(PID.TID 0011.0001)   Seconds in section "DO_ATMOSPHERIC_PHYS [FORWARD_STEP]":
+(PID.TID 0011.0001)           User time:   1.6397386789321899E-003
+(PID.TID 0011.0001)         System time:   1.8277764320373535E-004
+(PID.TID 0011.0001)     Wall clock time:   1.7976760864257812E-003
+(PID.TID 0011.0001)          No. starts:         288
+(PID.TID 0011.0001)           No. stops:         288
+(PID.TID 0011.0001)   Seconds in section "DO_OCEANIC_PHYS     [FORWARD_STEP]":
+(PID.TID 0011.0001)           User time:   5.8695015013217926
+(PID.TID 0011.0001)         System time:  0.25512674450874329
+(PID.TID 0011.0001)     Wall clock time:   6.8998966217041016
+(PID.TID 0011.0001)          No. starts:         288
+(PID.TID 0011.0001)           No. stops:         288
+(PID.TID 0011.0001)   Seconds in section "KPP_CALC [DO_OCEANIC_PHYS]":
+(PID.TID 0011.0001)           User time:   3.6861511617898941
+(PID.TID 0011.0001)         System time:   1.9378185272216797E-002
+(PID.TID 0011.0001)     Wall clock time:   4.5499503612518311
+(PID.TID 0011.0001)          No. starts:         288
+(PID.TID 0011.0001)           No. stops:         288
+(PID.TID 0011.0001)   Seconds in section "GCHEM_CALC_TENDENCY [FORWARD_STEP]":
+(PID.TID 0011.0001)           User time:  0.18375749886035919
+(PID.TID 0011.0001)         System time:   4.3630003929138184E-003
+(PID.TID 0011.0001)     Wall clock time:  0.18352127075195312
+(PID.TID 0011.0001)          No. starts:         288
+(PID.TID 0011.0001)           No. stops:         288
+(PID.TID 0011.0001)   Seconds in section "THERMODYNAMICS      [FORWARD_STEP]":
+(PID.TID 0011.0001)           User time:   10.603728160262108
+(PID.TID 0011.0001)         System time:  0.12067203223705292
+(PID.TID 0011.0001)     Wall clock time:   10.421247959136963
+(PID.TID 0011.0001)          No. starts:         288
+(PID.TID 0011.0001)           No. stops:         288
+(PID.TID 0011.0001)   Seconds in section "DYNAMICS            [FORWARD_STEP]":
+(PID.TID 0011.0001)           User time:   2.5999079793691635
+(PID.TID 0011.0001)         System time:   1.8258810043334961E-002
+(PID.TID 0011.0001)     Wall clock time:   2.5454497337341309
+(PID.TID 0011.0001)          No. starts:         288
+(PID.TID 0011.0001)           No. stops:         288
+(PID.TID 0011.0001)   Seconds in section "SOLVE_FOR_PRESSURE  [FORWARD_STEP]":
+(PID.TID 0011.0001)           User time:   10.014275863766670
+(PID.TID 0011.0001)         System time:   1.0262144654989243
+(PID.TID 0011.0001)     Wall clock time:   10.728186130523682
+(PID.TID 0011.0001)          No. starts:         288
+(PID.TID 0011.0001)           No. stops:         288
+(PID.TID 0011.0001)   Seconds in section "MOM_CORRECTION_STEP [FORWARD_STEP]":
+(PID.TID 0011.0001)           User time:  0.23103213310241699
+(PID.TID 0011.0001)         System time:   9.0614408254623413E-003
+(PID.TID 0011.0001)     Wall clock time:  0.23404693603515625
+(PID.TID 0011.0001)          No. starts:         288
+(PID.TID 0011.0001)           No. stops:         288
+(PID.TID 0011.0001)   Seconds in section "INTEGR_CONTINUITY   [FORWARD_STEP]":
+(PID.TID 0011.0001)           User time:  0.31811246275901794
+(PID.TID 0011.0001)         System time:   2.1026983857154846E-002
+(PID.TID 0011.0001)     Wall clock time:  0.33015489578247070
+(PID.TID 0011.0001)          No. starts:         288
+(PID.TID 0011.0001)           No. stops:         288
+(PID.TID 0011.0001)   Seconds in section "TRC_CORRECTION_STEP [FORWARD_STEP]":
+(PID.TID 0011.0001)           User time:   1.7091035842895508E-003
+(PID.TID 0011.0001)         System time:   1.0930001735687256E-004
+(PID.TID 0011.0001)     Wall clock time:   1.7387866973876953E-003
+(PID.TID 0011.0001)          No. starts:         288
+(PID.TID 0011.0001)           No. stops:         288
+(PID.TID 0011.0001)   Seconds in section "GCHEM_FORCING_SEP  [FORWARD_STEP]":
+(PID.TID 0011.0001)           User time:   1.6910135746002197E-003
+(PID.TID 0011.0001)         System time:   1.1180341243743896E-004
+(PID.TID 0011.0001)     Wall clock time:   1.7299652099609375E-003
+(PID.TID 0011.0001)          No. starts:         288
+(PID.TID 0011.0001)           No. stops:         288
+(PID.TID 0011.0001)   Seconds in section "BLOCKING_EXCHANGES  [FORWARD_STEP]":
+(PID.TID 0011.0001)           User time:  0.39205181598663330
+(PID.TID 0011.0001)         System time:   3.7649646401405334E-002
+(PID.TID 0011.0001)     Wall clock time:  0.41864848136901855
+(PID.TID 0011.0001)          No. starts:         288
+(PID.TID 0011.0001)           No. stops:         288
+(PID.TID 0011.0001)   Seconds in section "MONITOR             [FORWARD_STEP]":
+(PID.TID 0011.0001)           User time:  0.11926817893981934
+(PID.TID 0011.0001)         System time:   7.8229457139968872E-003
+(PID.TID 0011.0001)     Wall clock time:  0.12360000610351562
+(PID.TID 0011.0001)          No. starts:         288
+(PID.TID 0011.0001)           No. stops:         288
+(PID.TID 0011.0001)   Seconds in section "DO_THE_MODEL_IO     [FORWARD_STEP]":
+(PID.TID 0011.0001)           User time:  0.14649766683578491
+(PID.TID 0011.0001)         System time:   9.7771495580673218E-002
+(PID.TID 0011.0001)     Wall clock time:  0.23900961875915527
+(PID.TID 0011.0001)          No. starts:         288
+(PID.TID 0011.0001)           No. stops:         288
+(PID.TID 0011.0001)   Seconds in section "PTRACERS_RESET      [FORWARD_STEP]":
+(PID.TID 0011.0001)           User time:   1.8652975559234619E-003
+(PID.TID 0011.0001)         System time:   1.0806322097778320E-004
+(PID.TID 0011.0001)     Wall clock time:   1.9097328186035156E-003
+(PID.TID 0011.0001)          No. starts:         288
+(PID.TID 0011.0001)           No. stops:         288
+(PID.TID 0011.0001)   Seconds in section "DO_WRITE_PICKUP     [FORWARD_STEP]":
+(PID.TID 0011.0001)           User time:  0.11475417017936707
+(PID.TID 0011.0001)         System time:   5.7862013578414917E-002
+(PID.TID 0011.0001)     Wall clock time:  0.16855692863464355
+(PID.TID 0011.0001)          No. starts:         288
+(PID.TID 0011.0001)           No. stops:         288
+(PID.TID 0011.0001) // ======================================================
+(PID.TID 0011.0001) // Tile <-> Tile communication statistics
+(PID.TID 0011.0001) // ======================================================
+(PID.TID 0011.0001) // o Tile number: 000015
+(PID.TID 0011.0001) //         No. X exchanges =              0
+(PID.TID 0011.0001) //            Max. X spins =              0
+(PID.TID 0011.0001) //            Min. X spins =     1000000000
+(PID.TID 0011.0001) //          Total. X spins =              0
+(PID.TID 0011.0001) //            Avg. X spins =       0.00E+00
+(PID.TID 0011.0001) //         No. Y exchanges =              0
+(PID.TID 0011.0001) //            Max. Y spins =              0
+(PID.TID 0011.0001) //            Min. Y spins =     1000000000
+(PID.TID 0011.0001) //          Total. Y spins =              0
+(PID.TID 0011.0001) //            Avg. Y spins =       0.00E+00
+(PID.TID 0011.0001) // o Thread number: 000001
+(PID.TID 0011.0001) //            No. barriers =          80586
+(PID.TID 0011.0001) //      Max. barrier spins =              1
+(PID.TID 0011.0001) //      Min. barrier spins =              1
+(PID.TID 0011.0001) //     Total barrier spins =          80586
+(PID.TID 0011.0001) //      Avg. barrier spins =       1.00E+00
+PROGRAM MAIN: Execution ended Normally

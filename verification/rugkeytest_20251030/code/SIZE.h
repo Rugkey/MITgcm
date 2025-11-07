@@ -42,14 +42,14 @@ CEOP
       INTEGER Ny
       INTEGER Nr
       PARAMETER (
-     &           sNx =  30,
-     &           sNy =  16,
+     &           sNx =  45,
+     &           sNy =  20,
      &           OLx =   2,
      &           OLy =   2,
      &           nSx =   1,
      &           nSy =   1,
-     &           nPx =   6,
-     &           nPy =   5,
+     &           nPx =   4,
+     &           nPy =   4,
      &           Nx  = sNx*nSx*nPx,
      &           Ny  = sNy*nSy*nPy,
      &           Nr  =  40)
@@ -60,5 +60,5 @@ C                routine buffers.
       INTEGER MAX_OLX
       INTEGER MAX_OLY
       PARAMETER ( MAX_OLX = OLx,
-     &            MAX_OLY = OLy )
+     &           MAX_OLY = OLy )
 

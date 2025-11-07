@@ -61,24 +61,36 @@ C---+----1----+----2----+----3----+----4----+----5----+----6----+----7-|--+----|
      &                    SQUEEZE_RIGHT, myThid )
 
       IF (usePollutantDegradation) THEN
-        WRITE(msgBuf,'(A,1PE10.3)') '// pollutant_k0_deg (s-1): ',
-     &                               pollutant_k0_deg
-        CALL PRINT_MESSAGE( msgBuf, standardMessageUnit,
-     &                      SQUEEZE_RIGHT, myThid )
         WRITE(msgBuf,'(A,F8.3)') '// pollutant_Tc (degC): ',
      &                           pollutant_Tc
         CALL PRINT_MESSAGE( msgBuf, standardMessageUnit,
      &                      SQUEEZE_RIGHT, myThid )
-        WRITE(msgBuf,'(A,1PE10.3)') '// pollutant_k1_deg_20 (s-1): ',
-     &                               pollutant_k1_deg_20
+        WRITE(msgBuf,'(A,1PE10.3)') '// pollutant_k_dark_20 (s-1): ',
+     &                               pollutant_k_dark_20
         CALL PRINT_MESSAGE( msgBuf, standardMessageUnit,
      &                      SQUEEZE_RIGHT, myThid )
-        WRITE(msgBuf,'(A,F8.3)') '// pollutant_kt_deg: ',
-     &                           pollutant_kt_deg
+        WRITE(msgBuf,'(A,F8.3)') '// pollutant_Q10_dark: ',
+     &                           pollutant_Q10_dark
         CALL PRINT_MESSAGE( msgBuf, standardMessageUnit,
      &                      SQUEEZE_RIGHT, myThid )
-        WRITE(msgBuf,'(A,F8.3)') '// pollutant_fr_deg: ',
-     &                           pollutant_fr_deg
+        WRITE(msgBuf,'(A,1PE10.3)') '// pollutant_k_bio_20 (s-1): ',
+     &                               pollutant_k_bio_20
+        CALL PRINT_MESSAGE( msgBuf, standardMessageUnit,
+     &                      SQUEEZE_RIGHT, myThid )
+        WRITE(msgBuf,'(A,F8.3)') '// pollutant_Q10_bio: ',
+     &                           pollutant_Q10_bio
+        CALL PRINT_MESSAGE( msgBuf, standardMessageUnit,
+     &                      SQUEEZE_RIGHT, myThid )
+        WRITE(msgBuf,'(A,1PE10.3)') '// pollutant_k_OH (s-1): ',
+     &                               pollutant_k_OH
+        CALL PRINT_MESSAGE( msgBuf, standardMessageUnit,
+     &                      SQUEEZE_RIGHT, myThid )
+        WRITE(msgBuf,'(A,1PE10.3)') '// pollutant_k_photo (s-1): ',
+     &                               pollutant_k_photo
+        CALL PRINT_MESSAGE( msgBuf, standardMessageUnit,
+     &                      SQUEEZE_RIGHT, myThid )
+        WRITE(msgBuf,'(A,F8.3)') '// pollutant_light_atten (m-1): ',
+     &                           pollutant_light_atten
         CALL PRINT_MESSAGE( msgBuf, standardMessageUnit,
      &                      SQUEEZE_RIGHT, myThid )
       ENDIF

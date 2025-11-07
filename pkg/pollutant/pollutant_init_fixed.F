@@ -20,7 +20,6 @@ C     === Global variables ===
 #include "EEPARAMS.h"
 #include "PARAMS.h"
 #include "POLLUTANT.h"
-#include "POLLUTANT_LOAD.h"
 #include "PTRACERS_SIZE.h"
 #include "PTRACERS_PARAMS.h"
 
@@ -55,8 +54,8 @@ C     Initialize pollutant fields to zero (all threads)
         DO j = 1-OLy, sNy+OLy
          DO i = 1-OLx, sNx+OLx
           pollutant_flux(i,j,bi,bj) = 0. _d 0
-          pollutantFlux0(i,j,bi,bj) = 0. _d 0
-          pollutantFlux1(i,j,bi,bj) = 0. _d 0
+          pollutant_flux0(i,j,bi,bj) = 0. _d 0
+          pollutant_flux1(i,j,bi,bj) = 0. _d 0
          ENDDO
         ENDDO
         pollutant_ldRec(bi,bj) = 0
@@ -69,9 +68,6 @@ C     Initialize time-averaging arrays
        DO bi = myBxLo(myThid), myBxHi(myThid)
         CALL TIMEAVE_RESET(sourceAve,   Nr,  bi, bj, myThid)
         CALL TIMEAVE_RESET(sinkAve,     Nr,  bi, bj, myThid)
-        CALL TIMEAVE_RESET(decayAve,    Nr,  bi, bj, myThid)
-        CALL TIMEAVE_RESET(settlingAve, Nr,  bi, bj, myThid)
-        CALL TIMEAVE_RESET(bioUptakeAve,Nr,  bi, bj, myThid)
         POLLUTANT_timeAve(bi,bj) = 0. _d 0
        ENDDO
       ENDDO
