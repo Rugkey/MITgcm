@@ -1,1 +1,0 @@
-../../../pkg/gchem/gchem_add_tendency.F

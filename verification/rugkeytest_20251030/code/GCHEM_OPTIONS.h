@@ -1,1 +1,0 @@
-../../../pkg/gchem/GCHEM_OPTIONS.h

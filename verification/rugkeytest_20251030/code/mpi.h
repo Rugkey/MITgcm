@@ -1,1 +1,0 @@
-/home/rugkey/mpich-install/include/mpi.h
