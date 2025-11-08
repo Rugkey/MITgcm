@@ -40,8 +40,8 @@
 # Time stepping parameters
  &PARM03
  nIter0=       0,
- nTimeSteps = 288, 
-# nTimeSteps = 2880,
+ nTimeSteps = 672, 
+# nTimeSteps = 70080,
 # nTimeSteps = 1401600,
 # 100 years of integration will yield a reasonable flow field
 # startTime =          0.,
@@ -52,7 +52,7 @@
  deltaTClock = 900.,
  deltaTfreesurf= 900.,
  abEps = 0.1,
- pChkptFreq= 1728000.,
+ pChkptFreq= 0.,
  dumpFreq=   0.,
  taveFreq=   0.,
  dumpInitAndLast=.TRUE.,

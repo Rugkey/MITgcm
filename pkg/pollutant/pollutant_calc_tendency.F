@@ -66,10 +66,14 @@ C         Use local variable for concentration, ensuring it's non-negative
 C--       1. Source term (emission flux at surface)
           sourceTerm = 0. _d 0
           IF ( k.EQ.1 ) THEN
-           denom = drF(1) * hFacC(i,j,1,bi,bj)
-           IF (denom .GT. 0. _d 0) THEN
-             sourceTerm = pollutant_flux(i,j,bi,bj) / denom
-           ENDIF
+            denom = drF(1) * hFacC(i,j,1,bi,bj)
+            IF ( pollutant_fluxIsCellTotal ) THEN
+C          Convert grid-total mol/s to surface flux [mol/(m^2*s)]
+                  denom = denom * rA(i,j,bi,bj)
+            ENDIF
+            IF (denom .GT. 0. _d 0) THEN
+                  sourceTerm = pollutant_flux(i,j,bi,bj) / denom
+            ENDIF
           ENDIF
 
 C--       2. Sink term (degradation)

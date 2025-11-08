@@ -77,7 +77,11 @@ C      zero work arrays for this tile (including overlap)
 C          1) Source term (only k=1) as volume-normalised rate
             sourceTerm = 0. _d 0
             IF ( k.EQ.1 ) THEN
-              denom = drF(1) * hFacC(i,j,1,bi,bj)
+                        denom = drF(1) * hFacC(i,j,1,bi,bj)
+                        IF ( pollutant_fluxIsCellTotal ) THEN
+C               Convert grid-total mol/s to mol/(m^3*s)
+                              denom = denom * rA(i,j,bi,bj)
+                        ENDIF
               IF (denom .GT. 0. _d 0) THEN
                 sourceTerm = pollutant_flux(i,j,bi,bj) / denom
               ENDIF

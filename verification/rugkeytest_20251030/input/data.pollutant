@@ -7,7 +7,7 @@
   pollutant_forcingPeriod   = 900.,
   pollutant_forcingCycle    = 900.,
 # if mol/s:.TRUE. . if mol/m2/s use .FALSE.
-  pollutant_fluxIsCellTotal = .FALSE.,
+  pollutant_fluxIsCellTotal = .TRUE.,
 
   usePollutantDegradation = .TRUE.,
   pollutant_Tc            = 4.0,
