@@ -73,6 +73,48 @@ CEOP
       CALL DIAGNOSTICS_ADDTOLIST( diagNum,
      I       diagName, diagCode, diagUnits, diagTitle, 0, myThid )
 
+      diagName  = 'POLSURF '
+      diagTitle = 'Surface Pollutant Concentration (mol/m3)'
+      diagUnits = 'mol/m3          '
+      diagCode  = 'SM      MR      '
+      CALL DIAGNOSTICS_ADDTOLIST( diagNum,
+     I       diagName, diagCode, diagUnits, diagTitle, 0, myThid )
+
+      diagName  = 'POLGMASS'
+      diagTitle = 'Global Pollutant Inventory (mol)'
+      diagUnits = 'mol             '
+      diagCode  = 'SM      MR      '
+      CALL DIAGNOSTICS_ADDTOLIST( diagNum,
+     I       diagName, diagCode, diagUnits, diagTitle, 0, myThid )
+
+      diagName  = 'POLGSRC '
+      diagTitle = 'Global Pollutant Source (mol/s)'
+      diagUnits = 'mol/s           '
+      diagCode  = 'SM      MR      '
+      CALL DIAGNOSTICS_ADDTOLIST( diagNum,
+     I       diagName, diagCode, diagUnits, diagTitle, 0, myThid )
+
+      diagName  = 'POLGSNK '
+      diagTitle = 'Global Pollutant Sink (mol/s)'
+      diagUnits = 'mol/s           '
+      diagCode  = 'SM      MR      '
+      CALL DIAGNOSTICS_ADDTOLIST( diagNum,
+     I       diagName, diagCode, diagUnits, diagTitle, 0, myThid )
+
+      diagName  = 'POLCSRC '
+      diagTitle = 'Cumulative Pollutant Source (mol)'
+      diagUnits = 'mol             '
+      diagCode  = 'SM      MR      '
+      CALL DIAGNOSTICS_ADDTOLIST( diagNum,
+     I       diagName, diagCode, diagUnits, diagTitle, 0, myThid )
+
+      diagName  = 'POLCSNK '
+      diagTitle = 'Cumulative Pollutant Sink (mol)'
+      diagUnits = 'mol             '
+      diagCode  = 'SM      MR      '
+      CALL DIAGNOSTICS_ADDTOLIST( diagNum,
+     I       diagName, diagCode, diagUnits, diagTitle, 0, myThid )
+
 #endif /* ALLOW_POLLUTANT */
 #endif /* ALLOW_DIAGNOSTICS */
 

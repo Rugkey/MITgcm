@@ -43,6 +43,12 @@ C---+----1----+----2----+----3----+----4----+----5----+----6----+----7-|--+----|
       CALL PRINT_MESSAGE(msgBuf, standardMessageUnit,
      I                    SQUEEZE_RIGHT, myThid )
 
+      pollutant_globalMass   = 0. _d 0
+      pollutant_globalSource = 0. _d 0
+      pollutant_globalSink   = 0. _d 0
+      pollutant_cumuSource   = 0. _d 0
+      pollutant_cumuSink     = 0. _d 0
+
       _END_MASTER(myThid)
 
 C--   Everyone else must wait for the parameters to be loaded

@@ -3,23 +3,29 @@
  &DIAGNOSTICS_LIST
   fields(1:1,1)  = 'ETAN    ',
    fileName(1) = 'output/surf',
-  frequency(1) = -86400.,
+  frequency(1) = -1576800.,
   timePhase(1) = 0,
 
   fields(1:4,2)  = 'UVEL    ','VVEL    ','THETA   ','SALT    ',
    fileName(2) = 'output/state',
-  frequency(2) = -86400.,
+  frequency(2) = -1576800.,
   timePhase(2) = 0,
 
-  fields(1:3,3)  = 'POLLUT_S','POLLUT_K','POLLUT_T',
-  fileName(3) = 'output/pollutant_tendency',
-  frequency(3) = -86400.,
+  fields(1:5,3)  = 'POLLUT_S','POLLUT_K','POLLUT_T','POLLUT_M','POLLUT_F',
+  fileName(3) = 'output/pollutant_fluxes',
+  frequency(3) = -1576800.,
   timePhase(3) = 0,
 
-  fields(1:2,4)  = 'TRAC01  ','POLLUT_M',
-  fileName(4) = 'output/pollutant_state',
-  frequency(4) = -86400.,
+  fields(1:4,4) = 'POLSURF ','POLGMASS','POLGSRC ','POLGSNK ',
+  fileName(4)   = 'output/pollutant_surface',
+  frequency(4)  = -1576800.,
   timePhase(4) = 0,
+
+  fields(1:3,5)  = 'POLCSRC ','POLCSNK ','TRAC01  ',
+  fileName(5) = 'output/pollutant_state',
+  frequency(5) = -1576800.,
+  timePhase(5) = 0,
+  
 
  &
 

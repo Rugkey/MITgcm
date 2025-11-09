@@ -189,20 +189,36 @@ $$ k_{tot} = k_{dark}(T) + k_{bio}(T) + k_{OH} + k_{photo}(z) $$
 
 ```
  &DIAGNOSTICS_LIST
-  fields(1:3,1) = 'POLLUT_S','POLLUT_K','POLLUT_T',
-  fileName(1)   = 'diags/pollutant_tendencies',
-  frequency(1)  = 86400.,
+  fields(1:5,1) = 'POLLUT_S','POLLUT_K','POLLUT_T',
+ &                'POLLUT_M','POLLUT_F',
+  fileName(1)    = 'output/pollutant_fluxes',
+  frequency(1)   = 86400.,
 
-  fields(1:1,2) = 'TRAC01',
-  fileName(2)   = 'diags/pollutant_state',
+  fields(1:4,2) = 'POLSURF','POLGMASS','POLGSRC',
+ &               'POLGSNK',
+  fileName(2)   = 'output/pollutant_surface',
   frequency(2)  = 86400.,
- / 
+
+  fields(1:3,3) = 'POLCSRC','POLCSNK','TRAC01',
+  fileName(3)   = 'output/pollutant_state',
+  frequency(3)  = 86400.,
+ /
 ```
 
-**可用的诊断变量:**
-- `POLLUT_S`: 源项 (`mol/m^3/s`)
-- `POLLUT_K`: 总汇项 (`mol/m^3/s`)
-- `POLLUT_T`: 净趋势 (源 - 汇) (`mol/m^3/s`)
-- `POLLUT_M`: 每个网格单元的污染物质量 (`mol`)
-- `POLLUT_F`: 2D表层通量 (`mol/m^2/s`)
-- `TRAC01`: 污染物浓度 (第一个示踪剂)。
+**诊断变量说明 (按功能分组):**
+- **局地趋势:**
+  - `POLLUT_S`：局部源项 (`mol/m^3/s`)，与 `POLLUT_K`、`POLLUT_T` 共同描述源汇平衡，不与全局诊断重复。
+  - `POLLUT_K`：局部总汇项 (`mol/m^3/s`)。
+  - `POLLUT_T`：局部净趋势 (= 源 − 汇, `mol/m^3/s`)。
+- **质量守恒:**
+  - `POLLUT_M`：单元质量 (`mol`)；体积加和可得总质量。
+  - `POLGMASS`：全局总质量 (`mol`)，在每个网格点填入同一标量值，方便通过标准后处理读取全局守恒量；与 `POLLUT_M` 功能互补而非重复。
+  - `POLGSRC` / `POLGSNK`：全局总源/总汇 (`mol/s`)，帮助检查模型整体平衡。
+  - `POLCSRC` / `POLCSNK`：自积分以来的累计源/汇 (`mol`)，用于验证全局质量预算的一致性。
+- **表层状态:**
+  - `POLLUT_F`：表层排放通量 (`mol/m^2/s`)。
+  - `POLSURF`：表层 (k=1) 浓度 (`mol/m^3`)，提供与排放通量直接对比的状态变量。
+- **示踪剂字段:**
+  - `TRAC01`：污染物浓度场 (`mol/m^3`)。
+
+> 提示：`POLGMASS`、`POLGSRC`、`POLGSNK`、`POLCSRC`、`POLCSNK` 以二维标量场的形式输出，这是 MITgcm 诊断基础设施的通用处理方式。它们与局地趋势诊断 (`POLLUT_S`、`POLLUT_K`、`POLLUT_T`) 或局地质量 (`POLLUT_M`) 不重复，而是提供全局守恒信息。通过比较 `POLGMASS` 与 `POLCSRC - POLCSNK` 的时间序列，可以快速检查数值守恒性。

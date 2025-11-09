@@ -77,7 +77,9 @@ C     pollutant_ldRec :: time-record currently loaded
       _RL pollutant_flux1(1-OLx:sNx+OLx,1-OLy:sNy+OLy,nSx,nSy)
 
 C--   COMMON /POLLUTANT_FIELDS/
-C     pollutant_flux    :: pollutant emission flux (mol/m^2/s)
+C     pollutant_flux    :: pollutant emission flux
+C                          mol/s per grid if pollutant_fluxIsCellTotal=T
+C                          mol/m^2/s if pollutant_fluxIsCellTotal=F
 C     pollutant_conc    :: pollutant concentration (mol/m^3)
 C     pollutant_mass    :: pollutant mass per grid cell (mol)
 
@@ -86,6 +88,33 @@ C     pollutant_mass    :: pollutant mass per grid cell (mol)
       _RS pollutant_flux(1-OLx:sNx+OLx,1-OLy:sNy+OLy,nSx,nSy)
       _RL pollutant_conc(1-OLx:sNx+OLx,1-OLy:sNy+OLy,Nr,nSx,nSy)
       _RL pollutant_mass(1-OLx:sNx+OLx,1-OLy:sNy+OLy,Nr,nSx,nSy)
+
+C--   COMMON /POLLUTANT_BUDGET/
+C     pollutant_globalMass   :: instantaneous global inventory [mol]
+C     pollutant_globalSource :: instantaneous global source  [mol/s]
+C     pollutant_globalSink   :: instantaneous global sink    [mol/s]
+C     pollutant_cumuSource   :: cumulative global source     [mol]
+C     pollutant_cumuSink     :: cumulative global sink       [mol]
+
+      COMMON /POLLUTANT_BUDGET/
+     &    pollutant_globalMass,
+     &    pollutant_globalSource,
+     &    pollutant_globalSink,
+     &    pollutant_cumuSource,
+     &    pollutant_cumuSink
+
+      _RL pollutant_globalMass
+      _RL pollutant_globalSource
+      _RL pollutant_globalSink
+      _RL pollutant_cumuSource
+      _RL pollutant_cumuSink
+
+C--   COMMON /POLLUTANT_BUDGET_CTRL/
+C     pollutant_budgetIter :: iteration counter used to reset accumulators
+      COMMON /POLLUTANT_BUDGET_CTRL/
+     &    pollutant_budgetIter
+
+       INTEGER pollutant_budgetIter
 
 #ifdef ALLOW_TIMEAVE
 C For time-averages output using TIMEAVE pkg:

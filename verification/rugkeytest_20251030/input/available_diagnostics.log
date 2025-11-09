@@ -1,4 +1,4 @@
- Total Nb of available Diagnostics: ndiagt=   275
+ Total Nb of available Diagnostics: ndiagt=   281
 ------------------------------------------------------------------------------------
   Num  |<-Name->|Levs|  mate |<- code ->|<--  Units   -->|<- Tile (max=80c)         
 ------------------------------------------------------------------------------------
@@ -283,6 +283,12 @@
    273 |POLLUT_T| 40 |       |SMRP    MR|mol/m3/sec      |Pollutant Total Tendency (mol/m3/s)
    274 |POLLUT_F| 40 |       |SM      MR|mol/m2/sec      |Pollutant Surface Flux (mol/m2/s)
    275 |POLLUT_M| 40 |       |SMRP    MR|mol             |Pollutant Mass per Grid Cell (mol)
+   276 |POLSURF | 40 |       |SM      MR|mol/m3          |Surface Pollutant Concentration (mol/m3)
+   277 |POLGMASS| 40 |       |SM      MR|mol             |Global Pollutant Inventory (mol)
+   278 |POLGSRC | 40 |       |SM      MR|mol/s           |Global Pollutant Source (mol/s)
+   279 |POLGSNK | 40 |       |SM      MR|mol/s           |Global Pollutant Sink (mol/s)
+   280 |POLCSRC | 40 |       |SM      MR|mol             |Cumulative Pollutant Source (mol)
+   281 |POLCSNK | 40 |       |SM      MR|mol             |Cumulative Pollutant Sink (mol)
 ------------------------------------------------------------------------------------
   Num  |<-Name->|Levs|  mate |<- code ->|<--  Units   -->|<- Tile (max=80c)         
 ------------------------------------------------------------------------------------

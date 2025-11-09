@@ -64,17 +64,18 @@ C         Use local variable for concentration, ensuring it's non-negative
           pTr_Pollutant_safe = MAX( 0. _d 0, pTr_Pollutant(i,j,k) )
 
 C--       1. Source term (emission flux at surface)
-          sourceTerm = 0. _d 0
-          IF ( k.EQ.1 ) THEN
-            denom = drF(1) * hFacC(i,j,1,bi,bj)
-            IF ( pollutant_fluxIsCellTotal ) THEN
-C          Convert grid-total mol/s to surface flux [mol/(m^2*s)]
+                              sourceTerm = 0. _d 0
+C         Convert flux to volumetric rate only in the surface layer
+            IF ( k.EQ.1 ) THEN
+                  denom = drF(1) * hFacC(i,j,1,bi,bj)
+                  IF ( pollutant_fluxIsCellTotal ) THEN
+C           Convert grid-total mol/s to surface flux [mol/(m^3*s)]
                   denom = denom * rA(i,j,bi,bj)
             ENDIF
             IF (denom .GT. 0. _d 0) THEN
                   sourceTerm = pollutant_flux(i,j,bi,bj) / denom
             ENDIF
-          ENDIF
+      ENDIF
 
 C--       2. Sink term (degradation)
           sinkTerm = 0. _d 0
@@ -86,20 +87,21 @@ C           Only calculate degradation if temperature is above critical temp
 
 C             a) Temperature-dependent dark and biological degradation (Q10)
               temp_factor_dark = pollutant_Q10_dark **
-     &                         ( (theta_arg(i,j,k) - 20.0 _d 0) / 10.0 _d 0 )
+     &             ( (theta_arg(i,j,k) - 20.0 _d 0) / 10.0 _d 0 )
               k_dark_T = pollutant_k_dark_20 * temp_factor_dark
 
               temp_factor_bio = pollutant_Q10_bio **
-     &                        ( (theta_arg(i,j,k) - 20.0 _d 0) / 10.0 _d 0 )
+     &             ( (theta_arg(i,j,k) - 20.0 _d 0) / 10.0 _d 0 )
               k_bio_T = pollutant_k_bio_20 * temp_factor_bio
 
 C             b) Depth-dependent direct photolysis (Beer-Lambert law)
               k_photo_z = 0. _d 0
 #ifdef ALLOW_EXF
-              IF ( pollutant_swdown(i,j,bi,bj) .GT. 0. _d 0 ) THEN
-                light_factor = EXP(-pollutant_light_atten * ABS(rC(k)))
-                k_photo_z = pollutant_k_photo * light_factor
-              ENDIF
+                  IF ( pollutant_swdown(i,j,bi,bj) .GT. 0. _d 0 ) THEN
+                        light_factor = EXP(-pollutant_light_atten
+     &             * ABS(rC(k)))
+                        k_photo_z = pollutant_k_photo * light_factor
+                  ENDIF
 #endif
 
 C             c) Sum all rates to get total degradation rate
@@ -113,7 +115,7 @@ C           Calculate total sink term
           ENDIF
 
 C--       3. Apply tendencies
-          gPollutant(i,j,k) = gPollutant(i,j,k)
+            gPollutant(i,j,k) = gPollutant(i,j,k)
      &                      + sourceTerm - sinkTerm
 
 C--       4. Final protection to prevent negative concentrations

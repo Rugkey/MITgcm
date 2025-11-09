@@ -132,3 +132,4 @@ Adjust analysis depth based on:
 - Keep open learning attitude and updated knowledge
 - Disable the output of emoji unless specifically requested
 - By default, all responses must be in Chinese.
+- 在编辑fortran编译代码时，要注意每行不能超过72个字符

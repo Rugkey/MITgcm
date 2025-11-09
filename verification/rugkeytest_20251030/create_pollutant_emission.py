@@ -119,7 +119,7 @@ def create_pollutant_emission_file(filename='pollutant_emission.bin',
         with open(filename, 'wb') as f:
             emission_data.tofile(f)
         print(f"✅ 排放文件 {filename} 创建完成")
-        print(f"   总排放量: {np.sum(emission_data):.2e} g/s, 非零网格数: {np.count_nonzero(emission_data)}")
+        print(f"   总排放量: {np.sum(emission_data):.2e} mol/s, 非零网格数: {np.count_nonzero(emission_data)}")
         print(f"   成功映射 {points_mapped} 个点，丢弃 {points_discarded} 个点。")
     except Exception as e:
         print(f"写入二进制文件时出错: {e}")
