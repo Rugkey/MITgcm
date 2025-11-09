@@ -66,6 +66,34 @@ CEOP
       CALL DIAGNOSTICS_ADDTOLIST( diagNum,
      I       diagName, diagCode, diagUnits, diagTitle, 0, myThid )
 
+      diagName  = 'POLFNET '
+      diagTitle = 'Net Surface Pollutant Flux (mol/m2/s)'
+      diagUnits = 'mol/m2/sec      '
+      diagCode  = 'SM      MR      '
+      CALL DIAGNOSTICS_ADDTOLIST( diagNum,
+     I       diagName, diagCode, diagUnits, diagTitle, 0, myThid )
+
+      diagName  = 'POLFVOL '
+      diagTitle = 'Pollutant Volatilization Flux (mol/m2/s)'
+      diagUnits = 'mol/m2/sec      '
+      diagCode  = 'SM      MR      '
+      CALL DIAGNOSTICS_ADDTOLIST( diagNum,
+     I       diagName, diagCode, diagUnits, diagTitle, 0, myThid )
+
+      diagName  = 'POLFDRY '
+      diagTitle = 'Pollutant Dry Deposition Flux (mol/m2/s)'
+      diagUnits = 'mol/m2/sec      '
+      diagCode  = 'SM      MR      '
+      CALL DIAGNOSTICS_ADDTOLIST( diagNum,
+     I       diagName, diagCode, diagUnits, diagTitle, 0, myThid )
+
+      diagName  = 'POLFWET '
+      diagTitle = 'Pollutant Wet Deposition Flux (mol/m2/s)'
+      diagUnits = 'mol/m2/sec      '
+      diagCode  = 'SM      MR      '
+      CALL DIAGNOSTICS_ADDTOLIST( diagNum,
+     I       diagName, diagCode, diagUnits, diagTitle, 0, myThid )
+
       diagName  = 'POLLUT_M'
       diagTitle = 'Pollutant Mass per Grid Cell (mol)'
       diagUnits = 'mol             '

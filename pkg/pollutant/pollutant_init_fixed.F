@@ -20,6 +20,7 @@ C     === Global variables ===
 #include "EEPARAMS.h"
 #include "PARAMS.h"
 #include "POLLUTANT.h"
+#include "POLLUTANT_FIELDS.h"
 #include "PTRACERS_SIZE.h"
 #include "PTRACERS_PARAMS.h"
 
@@ -62,6 +63,22 @@ C     Initialize pollutant fields to zero (all threads)
           pollutant_flux(i,j,bi,bj) = 0. _d 0
           pollutant_flux0(i,j,bi,bj) = 0. _d 0
           pollutant_flux1(i,j,bi,bj) = 0. _d 0
+              pollutant_atmConc(i,j,bi,bj) = 0. _d 0
+              pollutant_dryDepVel(i,j,bi,bj) = 0. _d 0
+              pollutant_wetDepConc(i,j,bi,bj) = 0. _d 0
+              pollutant_pistonVel(i,j,bi,bj) = 0. _d 0
+              pollutant_openFrac(i,j,bi,bj) = 0. _d 0
+              pollutant_precipRate(i,j,bi,bj) = 0. _d 0
+              pollutant_flux_vol(i,j,bi,bj) = 0. _d 0
+              pollutant_flux_dry(i,j,bi,bj) = 0. _d 0
+              pollutant_flux_wet(i,j,bi,bj) = 0. _d 0
+              pollutant_flux_net(i,j,bi,bj) = 0. _d 0
+              pollutant_atmConc0(i,j,bi,bj) = 0. _d 0
+              pollutant_atmConc1(i,j,bi,bj) = 0. _d 0
+              pollutant_dryDepVel0(i,j,bi,bj) = 0. _d 0
+              pollutant_dryDepVel1(i,j,bi,bj) = 0. _d 0
+              pollutant_wetDepConc0(i,j,bi,bj) = 0. _d 0
+              pollutant_wetDepConc1(i,j,bi,bj) = 0. _d 0
          ENDDO
         ENDDO
         pollutant_ldRec(bi,bj) = 0

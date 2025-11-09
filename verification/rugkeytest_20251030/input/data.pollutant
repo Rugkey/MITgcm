@@ -23,4 +23,30 @@
   pollutant_k_photo_d     = 0.1,
   pollutant_light_atten   = 0.15,
 
+# airseaexchange mode
+  usePollutantAirSeaExchange = .TRUE.,
+  pollutant_useDryDeposition = .TRUE.,
+  pollutant_useWetDeposition = .TRUE.,
+
+  pollutant_henryConst = 2.5,
+  pollutant_schmidtRef = 660.,
+  pollutant_schmidtExp = 0.5,
+  pollutant_schmidtA0  = 660.,
+  pollutant_schmidtA1  = 0.0,
+  pollutant_schmidtA2  = 0.0,
+  pollutant_schmidtA3  = 0.0,
+  pollutant_pistonCoeff = 0.31,
+  pollutant_minWind     = 0.5,
+  pollutant_defaultWind = 5.0,
+
+  pollutant_atmConcConst = 1.0e-8,
+  pollutant_dryDepVelConst = 1.0e-3,
+  pollutant_wetDepConcConst = 1.0e-8,
+# if use EXF, it won't work. it stands for rainfall speed.
+  pollutant_precipConst = 3.0e-8,
+
+  pollutant_atmConc_file    = ' ',
+  pollutant_dryDepVel_file  = ' ',
+  pollutant_wetDepConc_file = ' ',
+
  &

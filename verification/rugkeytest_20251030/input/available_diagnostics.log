@@ -1,4 +1,4 @@
- Total Nb of available Diagnostics: ndiagt=   281
+ Total Nb of available Diagnostics: ndiagt=   285
 ------------------------------------------------------------------------------------
   Num  |<-Name->|Levs|  mate |<- code ->|<--  Units   -->|<- Tile (max=80c)         
 ------------------------------------------------------------------------------------
@@ -282,13 +282,17 @@
    272 |POLLUT_K| 40 |       |SMRP    MR|mol/m3/sec      |Pollutant Sink Term (mol/m3/s)
    273 |POLLUT_T| 40 |       |SMRP    MR|mol/m3/sec      |Pollutant Total Tendency (mol/m3/s)
    274 |POLLUT_F| 40 |       |SM      MR|mol/m2/sec      |Pollutant Surface Flux (mol/m2/s)
-   275 |POLLUT_M| 40 |       |SMRP    MR|mol             |Pollutant Mass per Grid Cell (mol)
-   276 |POLSURF | 40 |       |SM      MR|mol/m3          |Surface Pollutant Concentration (mol/m3)
-   277 |POLGMASS| 40 |       |SM      MR|mol             |Global Pollutant Inventory (mol)
-   278 |POLGSRC | 40 |       |SM      MR|mol/s           |Global Pollutant Source (mol/s)
-   279 |POLGSNK | 40 |       |SM      MR|mol/s           |Global Pollutant Sink (mol/s)
-   280 |POLCSRC | 40 |       |SM      MR|mol             |Cumulative Pollutant Source (mol)
-   281 |POLCSNK | 40 |       |SM      MR|mol             |Cumulative Pollutant Sink (mol)
+   275 |POLFNET | 40 |       |SM      MR|mol/m2/sec      |Net Surface Pollutant Flux (mol/m2/s)
+   276 |POLFVOL | 40 |       |SM      MR|mol/m2/sec      |Pollutant Volatilization Flux (mol/m2/s)
+   277 |POLFDRY | 40 |       |SM      MR|mol/m2/sec      |Pollutant Dry Deposition Flux (mol/m2/s)
+   278 |POLFWET | 40 |       |SM      MR|mol/m2/sec      |Pollutant Wet Deposition Flux (mol/m2/s)
+   279 |POLLUT_M| 40 |       |SMRP    MR|mol             |Pollutant Mass per Grid Cell (mol)
+   280 |POLSURF | 40 |       |SM      MR|mol/m3          |Surface Pollutant Concentration (mol/m3)
+   281 |POLGMASS| 40 |       |SM      MR|mol             |Global Pollutant Inventory (mol)
+   282 |POLGSRC | 40 |       |SM      MR|mol/s           |Global Pollutant Source (mol/s)
+   283 |POLGSNK | 40 |       |SM      MR|mol/s           |Global Pollutant Sink (mol/s)
+   284 |POLCSRC | 40 |       |SM      MR|mol             |Cumulative Pollutant Source (mol)
+   285 |POLCSNK | 40 |       |SM      MR|mol             |Cumulative Pollutant Sink (mol)
 ------------------------------------------------------------------------------------
   Num  |<-Name->|Levs|  mate |<- code ->|<--  Units   -->|<- Tile (max=80c)         
 ------------------------------------------------------------------------------------

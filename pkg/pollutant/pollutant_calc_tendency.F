@@ -49,10 +49,22 @@ C     !LOCAL VARIABLES:
       _RL temp_factor_dark, temp_factor_bio
       _RL light_factor
       _RL pTr_Pollutant_safe
-      _RL denom
+      _RL denom, flux_emission, flux_vol, flux_dry
+      _RL flux_wet, flux_total, kw, Sc
+      _RL atmConc, openFrac, surfTemp, surfTemp2, precipRate
+      _RL dryVel, wetConc
 CEOP
 
 C     Calculate pollutant tendency terms
+      DO j = 1-OLy, sNy+OLy
+       DO i = 1-OLx, sNx+OLx
+        pollutant_flux_vol(i,j,bi,bj) = 0. _d 0
+        pollutant_flux_dry(i,j,bi,bj) = 0. _d 0
+        pollutant_flux_wet(i,j,bi,bj) = 0. _d 0
+        pollutant_flux_net(i,j,bi,bj) = pollutant_flux(i,j,bi,bj)
+       ENDDO
+      ENDDO
+
       DO j = jMin, jMax
        DO i = iMin, iMax
         DO k = 1, Nr
@@ -71,11 +83,50 @@ C         Convert flux to volumetric rate only in the surface layer
                   IF ( pollutant_fluxIsCellTotal ) THEN
 C           Convert grid-total mol/s to surface flux [mol/(m^3*s)]
                   denom = denom * rA(i,j,bi,bj)
+                  ENDIF
+                  flux_emission = pollutant_flux(i,j,bi,bj)
+                  flux_vol = 0. _d 0
+                  flux_dry = 0. _d 0
+                  flux_wet = 0. _d 0
+                  IF ( usePollutantAirSeaExchange ) THEN
+                        atmConc = pollutant_atmConc(i,j,bi,bj)
+                        openFrac = pollutant_openFrac(i,j,bi,bj)
+                        dryVel = pollutant_dryDepVel(i,j,bi,bj)
+                        wetConc = pollutant_wetDepConc(i,j,bi,bj)
+                        precipRate = pollutant_precipRate(i,j,bi,bj)
+                        surfTemp = theta_arg(i,j,k)
+                        Sc = pollutant_schmidtA0
+                        Sc = Sc + pollutant_schmidtA1*surfTemp
+                        surfTemp2 = surfTemp*surfTemp
+                        Sc = Sc + pollutant_schmidtA2*surfTemp2
+                        Sc = Sc + pollutant_schmidtA3*surfTemp2*surfTemp
+                        Sc = MAX( 1.D-12, Sc )
+                        kw = openFrac * pollutant_pistonVel(i,j,bi,bj)
+                        IF ( kw .GT. 0. _d 0 .AND.
+     &                       pollutant_schmidtRef .GT. 0. _d 0 ) THEN
+                              kw = kw * ( pollutant_schmidtRef / Sc )
+     &                                 ** pollutant_schmidtExp
+                              flux_vol = kw
+     &                        * ( pollutant_henryConst*atmConc
+     &                        - pTr_Pollutant_safe )
+                        ENDIF
+                        IF ( pollutant_useDryDeposition ) THEN
+                              flux_dry = dryVel * atmConc
+                        ENDIF
+                        IF ( pollutant_useWetDeposition ) THEN
+                              flux_wet = precipRate * wetConc
+                        ENDIF
+                  ENDIF
+                  flux_total = flux_emission + flux_dry + flux_wet
+     &                          + flux_vol
+                  pollutant_flux_vol(i,j,bi,bj) = flux_vol
+                  pollutant_flux_dry(i,j,bi,bj) = flux_dry
+                  pollutant_flux_wet(i,j,bi,bj) = flux_wet
+                  pollutant_flux_net(i,j,bi,bj) = flux_total
+                  IF (denom .GT. 0. _d 0) THEN
+                        sourceTerm = flux_total / denom
+                  ENDIF
             ENDIF
-            IF (denom .GT. 0. _d 0) THEN
-                  sourceTerm = pollutant_flux(i,j,bi,bj) / denom
-            ENDIF
-      ENDIF
 
 C--       2. Sink term (degradation)
           sinkTerm = 0. _d 0

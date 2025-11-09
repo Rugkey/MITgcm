@@ -185,6 +185,14 @@ C      Fill block diagnostics for this tile
 C       2-D surface flux
         CALL DIAGNOSTICS_FILL(pollutant_flux,'POLLUT_F',
      &                        0,1,1,bi,bj,myThid)
+        CALL DIAGNOSTICS_FILL(pollutant_flux_net,'POLFNET ',
+     &                        0,1,1,bi,bj,myThid)
+        CALL DIAGNOSTICS_FILL(pollutant_flux_vol,'POLFVOL ',
+     &                        0,1,1,bi,bj,myThid)
+        CALL DIAGNOSTICS_FILL(pollutant_flux_dry,'POLFDRY ',
+     &                        0,1,1,bi,bj,myThid)
+        CALL DIAGNOSTICS_FILL(pollutant_flux_wet,'POLFWET ',
+     &                        0,1,1,bi,bj,myThid)
         CALL DIAGNOSTICS_FILL(  surfDiag,'POLSURF ',
      &                        0,1,1,bi,bj,myThid)
        ENDDO

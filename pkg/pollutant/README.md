@@ -143,23 +143,77 @@ $$ k_{tot} = k_{dark}(T) + k_{bio}(T) + k_{OH} + k_{photo}(z) $$
 
   pollutant_k_photo_d     = 0.1,
   pollutant_light_atten   = 0.15,
+
+# --- 气-海交换与沉降 ---
+  usePollutantAirSeaExchange = .FALSE.,
+  pollutant_henryConst       = 0.0,
+  pollutant_schmidtRef       = 660.0,
+  pollutant_schmidtExp       = 0.5,
+  pollutant_schmidtA0        = 660.0,
+  pollutant_schmidtA1        = 0.0,
+  pollutant_schmidtA2        = 0.0,
+  pollutant_schmidtA3        = 0.0,
+  pollutant_pistonCoeff      = 0.31,
+  pollutant_minWind          = 0.5,
+  pollutant_defaultWind      = 5.0,
+  pollutant_atmConcConst     = 0.0,
+  pollutant_atmConc_file     = ' ',
+  pollutant_precipConst      = 0.0,
+  pollutant_useDryDeposition = .FALSE.,
+  pollutant_dryDepVelConst   = 0.0,
+  pollutant_dryDepVel_file   = ' ',
+  pollutant_useWetDeposition = .FALSE.,
+  pollutant_wetDepConcConst  = 0.0,
+  pollutant_wetDepConc_file  = ' ',
  & 
 ```
 
 **参数说明:**
-- `pollutant_emission_file`: 包含2D表层排放通量数据的二进制文件路径。
-- `pollutant_forcingPeriod`: 强迫场数据的时间间隔 (秒)。
-- `pollutant_forcingCycle`: 强迫场数据的循环周期 (秒)。
-- `pollutant_fluxIsCellTotal`: 定义排放通量的单位。`.TRUE.` 表示 `mol/s` (每个网格的总量)，`.FALSE.` 表示 `mol/m^2/s` (通量密度)。
-- `usePollutantDegradation`: 是否启用降解过程的总开关。
-- `pollutant_Tc`: 临界温度 (`degC`)。只有当水温高于此值时，降解才会发生。
-- `pollutant_k_dark_20_d`: 20°C下的暗化学降解速率 (单位: `d^-1`)。
-- `pollutant_Q10_dark`: 暗化学降解的Q10温度系数。
-- `pollutant_k_bio_20_d`: 20°C下的生物降解速率 (单位: `d^-1`)。
-- `pollutant_Q10_bio`: 生物降解的Q10温度系数。
-- `pollutant_k_OH_d`: 间接光解速率 (单位: `d^-1`)。
-- `pollutant_k_photo_d`: 海表直接光解速率 (单位: `d^-1`)。
-- `pollutant_light_atten`: 水的光衰减系数 (单位: `m^-1`)。
+
+##### 3.2.1 污染物参数速查
+
+| 参数 | 默认值 | 含义 | 使用建议 |
+| --- | --- | --- | --- |
+| `pollutant_emission_file` | `'pollutant_emission.bin'` | 表层排放场 (mol/s 或 mol/m²/s) | 必填；支持时间序列。 |
+| `pollutant_forcingPeriod` / `pollutant_forcingCycle` | `externForcingPeriod/externForcingCycle` | 排放与气-海交换场的插值周期/循环 | 若强迫为逐日/逐年数据需显式设置。 |
+| `pollutant_fluxIsCellTotal` | `.FALSE.` | 说明排放单位是网格总量还是面通量 | River 口总排污常用 `.TRUE.`。 |
+| `usePollutantDegradation` | `.FALSE.` | 总开关 | 关闭时后续降解参数被忽略。 |
+| `pollutant_Tc` | `-100.` | 启动降解的临界温度 (°C) | 设为常温以下以全域激活；设为 0~5°C 表示寒冷水体抑制降解。 |
+| `pollutant_k_dark_20_d` / `pollutant_k_bio_20_d` | `0.` | 20°C 下的暗化学 / 生物降解速率 (d⁻¹) | 可依据实验半衰期 `k = ln(2)/t₁/₂` 估算。 |
+| `pollutant_Q10_dark` / `pollutant_Q10_bio` | `2.` | 温度每升高 10°C 的增益因子 | 有机物降解常取 2~3。 |
+| `pollutant_k_OH_d` | `0.` | 间接光解 (d⁻¹) | 若缺省，可维持 0。 |
+| `pollutant_k_photo_d` | `0.` | 海表直射光解 (d⁻¹) | 配合 `pollutant_light_atten` 做指数衰减。 |
+| `pollutant_light_atten` | `0.` | 光衰减系数 (m⁻¹) | 清澈海水 0.04~0.08；近岸浑浊水体更大。 |
+
+##### 3.2.2 气-海交换与沉降参数
+
+| 参数 | 默认值 | 含义 | 典型范围 |
+| --- | --- | --- | --- |
+| `usePollutantAirSeaExchange` | `.FALSE.` | 打开风速控制的气-海交换与沉降 | 开启后，以下参数生效。 |
+| `pollutant_henryConst` | `0.` | 亨利常数 (mol/m³ 水 / mol/m³ 空气) | BPA 量级 1~10；数值越大越易溶于水。 |
+| `pollutant_schmidtRef` | `660.` | 参考施密特数 | 保持 660 以兼容 Wanninkhof 经验式。 |
+| `pollutant_schmidtExp` | `0.5` | 施密特缩放指数 | Wanninkhof(1992) 建议 0.5。 |
+| `pollutant_schmidtA0~A3` | `660.,0,0,0` | 施密特数随温度 (°C) 的多项式系数 | 若无资料仅设 A0。 |
+| `pollutant_pistonCoeff` | `0.31` | 活塞速度系数 (kw = coeff * u10² / 3.6e5) | 0.27~0.39 范围常见。 |
+| `pollutant_minWind` | `0.5` m/s | 风速下限 | 防止 kw 因风速为零而消失。 |
+| `pollutant_defaultWind` | `5.0` m/s | 未启用 EXF 时的备用风速 | 使用 EXF 时不会被访问。 |
+| `pollutant_atmConcConst` / `pollutant_atmConc_file` | `0.` / `' '` | 大气浓度 (mol/m³) 常数或文件 | 若提供文件则随时间插值。 |
+| `pollutant_useDryDeposition` | `.FALSE.` | 干沉降开关 | |
+| `pollutant_dryDepVelConst` / `pollutant_dryDepVel_file` | `0.` / `' '` | 干沉降速度 (m/s) | 典型值 10⁻⁴~10⁻²。 |
+| `pollutant_useWetDeposition` | `.FALSE.` | 湿沉降开关 | |
+| `pollutant_wetDepConcConst` / `pollutant_wetDepConc_file` | `0.` / `' '` | 雨水浓度 (mol/m³) | 可按降水化验值设定。 |
+| `pollutant_precipConst` | `0.` | 当未提供 EXF `precip` 时的降水速率 (m/s) | 3×10⁻⁸ ≈ 2.6 mm/day。 |
+
+较常用的常数初值示例（适用于尚无观测的测试实验）：
+
+```
+pollutant_atmConcConst   = 1.0e-8   ! mol/m^3，对应数 ng/m^3 的大气浓度
+pollutant_dryDepVelConst = 1.0e-3   ! m/s，约 0.1 cm/s 的干沉降速度
+pollutant_wetDepConcConst= 1.0e-8   ! mol/m^3，雨水中污染物浓度
+pollutant_precipConst    = 3.0e-8   ! m/s，约 2.6 mm/day 的降水
+```
+
+若提供 `pollutant_atmConc_file`、`pollutant_dryDepVel_file` 或 `pollutant_wetDepConc_file`，其时间插值与 `pollutant_emission_file` 共用 `pollutant_forcingPeriod`/`pollutant_forcingCycle` 设置。文件应采用 MITgcm 标准的二进制 XY 场 (可选时间序列)；留空字符串时将退回到对应的常数参数。
 
 #### `data.exf`
 
@@ -189,8 +243,9 @@ $$ k_{tot} = k_{dark}(T) + k_{bio}(T) + k_{OH} + k_{photo}(z) $$
 
 ```
  &DIAGNOSTICS_LIST
-  fields(1:5,1) = 'POLLUT_S','POLLUT_K','POLLUT_T',
- &                'POLLUT_M','POLLUT_F',
+  fields(1:9,1) = 'POLLUT_S','POLLUT_K','POLLUT_T',
+ &                'POLLUT_M','POLLUT_F','POLFNET ',
+ &                'POLFVOL ','POLFDRY ','POLFWET ',
   fileName(1)    = 'output/pollutant_fluxes',
   frequency(1)   = 86400.,
 
@@ -213,12 +268,49 @@ $$ k_{tot} = k_{dark}(T) + k_{bio}(T) + k_{OH} + k_{photo}(z) $$
 - **质量守恒:**
   - `POLLUT_M`：单元质量 (`mol`)；体积加和可得总质量。
   - `POLGMASS`：全局总质量 (`mol`)，在每个网格点填入同一标量值，方便通过标准后处理读取全局守恒量；与 `POLLUT_M` 功能互补而非重复。
-  - `POLGSRC` / `POLGSNK`：全局总源/总汇 (`mol/s`)，帮助检查模型整体平衡。
+  - `POLGSRC` / `POLGSNK`：全局当前时刻总源/总汇 (`mol/s`)，帮助检查模型整体平衡。
   - `POLCSRC` / `POLCSNK`：自积分以来的累计源/汇 (`mol`)，用于验证全局质量预算的一致性。
 - **表层状态:**
   - `POLLUT_F`：表层排放通量 (`mol/m^2/s`)。
+  - `POLFNET`：表层净通量（排放 + 挥发 + 干/湿沉降）。
+  - `POLFVOL`：挥发（气化）通量，正值表示入海。
+  - `POLFDRY`：干沉降通量。
+  - `POLFWET`：湿沉降通量。
   - `POLSURF`：表层 (k=1) 浓度 (`mol/m^3`)，提供与排放通量直接对比的状态变量。
 - **示踪剂字段:**
   - `TRAC01`：污染物浓度场 (`mol/m^3`)。
 
 > 提示：`POLGMASS`、`POLGSRC`、`POLGSNK`、`POLCSRC`、`POLCSNK` 以二维标量场的形式输出，这是 MITgcm 诊断基础设施的通用处理方式。它们与局地趋势诊断 (`POLLUT_S`、`POLLUT_K`、`POLLUT_T`) 或局地质量 (`POLLUT_M`) 不重复，而是提供全局守恒信息。通过比较 `POLGMASS` 与 `POLCSRC - POLCSNK` 的时间序列，可以快速检查数值守恒性。
+
+> 气-海交换提示：挥发项使用 `F_vol = k_w (C_eq - C_w)`，其中 `k_w` 源于风速驱动的活塞速度并按施密特数缩放，`C_eq = pollutant_henryConst * C_air`。干沉降 (`F_dry = v_d * C_air`) 与湿沉降 (`F_wet = P * C_rain`) 默认为向海洋的正通量，可借助 `POLFDRY`、`POLFWET` 独立审查其量级。
+
+### 3.5. 气-海交换与沉降功能实现原理
+
+- **数据读取 (`pollutant_fields_load.F`)**：
+  - 新增大气浓度、干沉降速度、湿沉降雨水浓度的两种通道：若指定文件名，则按 `pollutant_forcingPeriod/Cycle` 与排放场一同线性插值；否则回退到常数参数。
+  - 如果启用 EXF，自动复用 `wspeed`、`precip`、`swdown` 等场；未启用时则使用 `pollutant_defaultWind`、`pollutant_precipConst`。
+  - 计算活塞速度 `kw = coeff * u10^2 / 3.6e5`（乘以开水面分数并施密特数缩放），并缓存到 `pollutant_pistonVel`。
+
+- **趋势计算 (`pollutant_calc_tendency.F`)**：
+  - 在 `k=1` 表层层，将排放、挥发、干沉降、湿沉降通量求和，转换为体积源项写入 `gPollutant`。
+  - 亨利常数、施密特多项式和 `pollutant_schmidtExp` 控制温度依赖的挥发强度；干/湿沉降分别使用沉降速度与降水乘以大气/雨水浓度。
+  - 新的诊断数组 `pollutant_flux_[vol|dry|wet|net]` 记录各分量，便于守恒检查。
+
+- **诊断输出 (`pollutant_diags.F`)**：
+  - 在原有的 `POLLUT_F` 基础上，新增 `POLFNET`、`POLFVOL`、`POLFDRY`、`POLFWET` 四个二维诊断。
+  - `POLFNET` 与 `POLLUT_T`、`POLGSRC`/`POLGSNK` 联合分析，可验证挥发与沉降对总体预算的贡献。
+
+### 3.6. 使用步骤建议
+
+1. **选择模式**：在 `data.pollutant` 中将 `usePollutantAirSeaExchange` 设为 `.TRUE.`，按需求启用 `pollutant_useDryDeposition`、`pollutant_useWetDeposition`。
+2. **提供输入**：
+   - 若有时空变化的大气/沉降数据，准备与排放场一致尺寸的二进制文件，并填写对应的 `*_file` 名称；
+   - 否则将文件名留空，并在 `pollutant_atmConcConst`、`pollutant_dryDepVelConst`、`pollutant_wetDepConcConst`、`pollutant_precipConst` 中填写常数。
+3. **风速与降水来源**：确保 `useEXF = .TRUE.` 并在 `data.exf` 中提供 `wspeed` 和 `precip`；如果暂不使用 EXF，可依赖 `pollutant_defaultWind` 与 `pollutant_precipConst` 常数驱动。
+4. **诊断配置**：在 `data.diagnostics` 中加入 `POLFNET`、`POLFVOL`、`POLFDRY`、`POLFWET`，便于分别检查各通量分量。
+5. **结果分析**：
+   - 使用 `POLFNET` 与 `POLLUT_M`、`POLGMASS` 比对确认整体守恒；
+   - `POLFVOL`、`POLFDRY`、`POLFWET` 可用于制作空间分布图，诊断挥发与沉降热区；
+   - 若结合生态模型（例如 MaxEnt），可将 `POLSURF`、`POLFNET`/`POLFDRY` 转换为栖息地风险指标。
+
+完成上述配置后，重新编译并执行实验，便可在任意污染物示踪剂上启用气-海交换与干湿沉降模拟。
