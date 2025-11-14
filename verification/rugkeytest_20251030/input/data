@@ -4,8 +4,6 @@
 #
 # Continuous equation parameters
  &PARM01
- tRef = 40*20.,
- sRef = 40*35.,
  viscAr=1.E-3,
  viscAh=2.E5,
  diffKhT=0.,
@@ -41,9 +39,9 @@
  &PARM03
  nIter0=       0,
 # 8 days of integration will yield a reasonable flow field
- nTimeSteps = 768, 
+# nTimeSteps = 768, 
 # 5years of integration will yield a reasonable flow field
-# nTimeSteps = 175200,
+ nTimeSteps = 175200,
 # nTimeSteps = 1401600,
  deltaTmom = 900.,
  tauCD =     321428.,
